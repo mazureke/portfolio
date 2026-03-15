@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emilie Mazurek — Senior Product Designer</title>
+  <meta name="description" content="Senior Product Designer based in Edmonton, AB. I design intuitive products backed by research and proven by results.">
+  <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 64px;
+    }
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 20px;
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 17px;
+      line-height: 1.75;
+      opacity: 0.6;
+      max-width: 400px;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1.5px solid var(--dark);
+      padding-bottom: 3px;
+      transition: gap 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+    }
+    .hero-cta:hover { gap: 14px; opacity: 0.6; }
+    .hero-cta:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 2px; }
+    .hero-photo-wrap { position: relative; }
+    .hero-photo {
+      aspect-ratio: 4/5;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--off-white);
+      position: relative;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(99,71,232,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .stat-pill {
+      position: absolute;
+      background: white;
+      border-radius: 14px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .stat-pill-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; line-height: 1; margin-bottom: 2px; }
+    .stat-pill-label { font-size: 11px; opacity: 0.45; }
+    .stat-pill-1 { bottom: -14px; left: -14px; }
+    .stat-pill-2 { top: -14px; right: -14px; }
+    .section-work { padding: 80px 0 120px; }
+    .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+    .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -0.03em; }
+    .section-count { font-size: 13px; opacity: 0.35; }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo { aspect-ratio: 1/1; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+        <div>
+          <p class="hero-eyebrow">Senior Product Designer</p>
+          <h1 class="hero-name" id="hero-heading">emilie<br>mazurek</h1>
+          <p class="hero-desc">I design products people actually want to use — backed by research, built with intention, and proven by results.</p>
+          <a href="#work" class="hero-cta">View my work <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-photo-wrap">
+          <div class="hero-photo">
+            <img src="brand_assets/images/DSC03735.jpg" alt="Emilie Mazurek mid-swing, laughing">
+          </div>
+          <div class="stat-pill stat-pill-1">
+            <p class="stat-pill-val" style="color:var(--coral)">11×</p>
+            <p class="stat-pill-label">faster tagging</p>
+          </div>
+          <div class="stat-pill stat-pill-2">
+            <p class="stat-pill-val" style="color:var(--periwinkle)">80%</p>
+            <p class="stat-pill-label">less time</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-work" id="work" aria-labelledby="work-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="work-heading">Selected Work</h2>
+          <p class="section-count">4 case studies</p>
+        </div>
+        <div class="work-grid">
+
+          <a href="max-retail.html" class="work-card card-purple" aria-label="Max Retail case study">
+            <div class="work-card-top">
+              <div>
+                <p class="work-card-tag">B2B SaaS · 2024–2025</p>
+                <h3 class="work-card-company">Max Retail</h3>
+              </div>
+              <span class="work-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div>
+              <p class="work-card-metric">1,400</p>
+              <p class="work-card-metric-sub">monthly active users, up from 632</p>
+              <p class="work-card-desc">Led design across 3 product teams as sole designer — helping grow from Series A to B</p>
+            </div>
+          </a>
+
+          <a href="veerum.html" class="work-card card-periwinkle" aria-label="VEERUM case study">
+            <div class="work-card-top">
+              <div>
+                <p class="work-card-tag">B2B SaaS · 2023–2024</p>
+                <h3 class="work-card-company">VEERUM</h3>
+              </div>
+              <span class="work-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div>
+              <p class="work-card-metric">11×</p>
+              <p class="work-card-metric-sub">faster asset tagging</p>
+              <p class="work-card-desc">Built a design practice from scratch, introducing user research to a data-heavy industrial product</p>
+            </div>
+          </a>
+
+          <a href="barstool.html" class="work-card card-coral" aria-label="Barstool Sports Store case study">
+            <div class="work-card-top">
+              <div>
+                <p class="work-card-tag">E-Commerce B2C · 2022–2023</p>
+                <h3 class="work-card-company">Barstool Sports Store</h3>
+              </div>
+              <span class="work-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div>
+              <p class="work-card-metric">+11.5%</p>
+              <p class="work-card-metric-sub">conversion rate lift</p>
+              <p class="work-card-desc">Redesigned navigation and filtering for a catalog of 3,700+ products</p>
+            </div>
+          </a>
+
+          <a href="proposify.html" class="work-card card-mint" aria-label="Proposify case study">
+            <div class="work-card-top">
+              <div>
+                <p class="work-card-tag">B2B SaaS · 2021–2022</p>
+                <h3 class="work-card-company">Proposify</h3>
+              </div>
+              <span class="work-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div>
+              <p class="work-card-metric">80%</p>
+              <p class="work-card-metric-sub">faster document flow completion</p>
+              <p class="work-card-desc">Sole product designer, streamlining a complex document-sharing experience</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <img src="brand_assets/Emilie Black@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          <p class="footer-tagline">Edmonton, AB · howdy@dandydesign.ca</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="about.html">About</a>
+          <a href="community.html">Community</a>
+          <a href="links.html">Links</a>
+          <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="mailto:howdy@dandydesign.ca">Email</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

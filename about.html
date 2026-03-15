@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Emilie Mazurek</title>
+  <meta name="description" content="Senior Product Designer with a background in biochemistry. Based in Edmonton, AB.">
+  <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .about-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 100px;
+    }
+    /* Explicit placement for clean layout */
+    .tile-photo      { grid-area: 1 / 1 / 3 / 2; }
+    .tile-bio        { grid-area: 1 / 2 / 2 / 4; }
+    .tile-champ      { grid-area: 2 / 2 / 3 / 3; }
+    .tile-biochem    { grid-area: 2 / 3 / 3 / 4; }
+    .tile-k2         { grid-area: 3 / 1 / 4 / 2; }
+    .tile-interviews { grid-area: 3 / 2 / 4 / 3; }
+    .tile-countries  { grid-area: 3 / 3 / 4 / 4; }
+    .tile-cheeto     { grid-area: 4 / 1 / 5 / 2; }
+    .tile-sax        { grid-area: 4 / 2 / 5 / 4; }
+
+    .bento-tile {
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    .tile-photo {
+      background: var(--off-white);
+      padding: 0;
+      min-height: 380px;
+    }
+    .tile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: var(--radius-lg);
+    }
+    .tile-big-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .tile-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .tile-sub {
+      font-size: 13px;
+      line-height: 1.5;
+      opacity: 0.6;
+    }
+    .tile-emoji {
+      font-size: 32px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .tile-bio-text {
+      font-size: 15px;
+      line-height: 1.75;
+      opacity: 0.7;
+    }
+    .tile-sax-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    @media (max-width: 768px) {
+      .about-bento {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .tile-photo, .tile-bio, .tile-champ, .tile-biochem,
+      .tile-k2, .tile-interviews, .tile-countries,
+      .tile-cheeto, .tile-sax {
+        grid-area: auto;
+      }
+      .tile-bio, .tile-sax { grid-column: span 2; }
+      .tile-photo { min-height: 260px; }
+    }
+    @media (max-width: 480px) {
+      .about-bento { grid-template-columns: 1fr; }
+      .tile-bio, .tile-sax { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <p class="eyebrow" style="margin-bottom:16px">About me</p>
+        <h1 class="page-title">The short<br>version.</h1>
+        <p class="page-lead">Scientist-turned-designer. Perpetually curious. Probably thinking about user flows right now.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="about-bento" role="list" aria-label="About Emilie">
+
+        <!-- Photo -->
+        <div class="bento-tile tile-photo" role="listitem">
+          <img src="brand_assets/images/DSC03735.jpg" alt="Emilie Mazurek mid-swing, laughing">
+        </div>
+
+        <!-- Bio -->
+        <div class="bento-tile tile-bio card-light" role="listitem">
+          <p class="tile-bio-text">I'm a senior UX designer with a background in biochemistry — which means I'm equally comfortable reading a research paper and shipping a design system. After years in labs, I discovered UX design and never looked back. I landed my first role in under 3 months and made senior in just over a year.</p>
+          <p class="tile-bio-text" style="margin-top:12px">Now I design products that solve real problems, mentor designers who are just starting out, and occasionally beat people in trivia about obscure marching band history.</p>
+        </div>
+
+        <!-- World Champ -->
+        <div class="bento-tile tile-champ" style="background:var(--coral);color:white" role="listitem">
+          <div class="tile-emoji">🏆</div>
+          <div class="tile-label">2× World Marching Band Champion</div>
+          <div class="tile-sub">Calgary Stampede Showband</div>
+        </div>
+
+        <!-- Biochemist -->
+        <div class="bento-tile tile-biochem card-light" role="listitem">
+          <div class="tile-emoji">🧪</div>
+          <div class="tile-label">B.Sc. Biochemistry</div>
+          <div class="tile-sub">University of Calgary</div>
+        </div>
+
+        <!-- K2 -->
+        <div class="bento-tile tile-k2" style="background:var(--dark);color:white" role="listitem">
+          <div class="tile-emoji">⛰️</div>
+          <div class="tile-label">K2 Base Camp</div>
+          <div class="tile-sub">3-week expedition</div>
+        </div>
+
+        <!-- Interviews -->
+        <div class="bento-tile tile-interviews" style="background:var(--periwinkle);color:white" role="listitem">
+          <div class="tile-big-num">100+</div>
+          <div class="tile-sub">user interviews conducted</div>
+        </div>
+
+        <!-- Countries -->
+        <div class="bento-tile tile-countries" style="background:var(--mint);color:var(--dark)" role="listitem">
+          <div class="tile-big-num">23</div>
+          <div class="tile-sub">countries and counting ✈️</div>
+        </div>
+
+        <!-- Cheeto -->
+        <div class="bento-tile tile-cheeto" style="background:var(--pink);color:var(--dark)" role="listitem">
+          <div class="tile-emoji">🦜</div>
+          <div class="tile-label">Cheeto</div>
+          <div class="tile-sub">Has a parrot. Very opinionated.</div>
+        </div>
+
+        <!-- Sax -->
+        <div class="bento-tile tile-sax" style="background:var(--purple);color:white" role="listitem">
+          <div style="display:flex;align-items:center;justify-content:space-between;height:100%;gap:24px">
+            <div>
+              <div class="tile-emoji">🎷</div>
+              <div class="tile-label" style="font-size:20px;margin-bottom:8px">Saxophone player</div>
+              <div class="tile-sub" style="opacity:0.7">Played competitively at the world level. Now mostly for Cheeto.</div>
+            </div>
+            <div style="flex-shrink:0;opacity:0.15;font-family:'Syne',sans-serif;font-weight:800;font-size:80px;line-height:1;letter-spacing:-0.04em">♩</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <img src="brand_assets/Emilie Black@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          <p class="footer-tagline">Edmonton, AB · howdy@dandydesign.ca</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="about.html">About</a>
+          <a href="community.html">Community</a>
+          <a href="links.html">Links</a>
+          <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="mailto:howdy@dandydesign.ca">Email</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

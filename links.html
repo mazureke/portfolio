@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links — Emilie Mazurek</title>
+  <meta name="description" content="All of Emilie Mazurek's links in one place.">
+  <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .links-page {
+      min-height: 100vh;
+      padding: 120px 0 80px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .links-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .links-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .links-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      flex-shrink: 0;
+    }
+    .links-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .links-title { font-size: 14px; opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="links-page">
+    <div class="links-inner">
+
+      <div class="links-header">
+        <img src="brand_assets/images/DSC03735.jpg" alt="Emilie Mazurek" class="links-avatar">
+        <div>
+          <p class="links-name">emilie mazurek</p>
+          <p class="links-title">Senior Product Designer &amp; mentor to 100s of designers</p>
+        </div>
+      </div>
+
+      <div class="links-bento">
+
+        <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener" class="link-tile card-dark">
+          <div class="link-tile-icon">💼</div>
+          <div>
+            <div class="link-tile-label">LinkedIn</div>
+            <div class="link-tile-sub">75,000+ design enthusiasts</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+        <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener" class="link-tile card-coral">
+          <div class="link-tile-icon">▶️</div>
+          <div>
+            <div class="link-tile-label">YouTube</div>
+            <div class="link-tile-sub">Subscribe to my channel</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+        <a href="https://emiliemazurek.gumroad.com" target="_blank" rel="noopener" class="link-tile card-mint">
+          <div class="link-tile-icon">🎁</div>
+          <div>
+            <div class="link-tile-label">Free Resources</div>
+            <div class="link-tile-sub">Digital products &amp; UX tools</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+        <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="link-tile card-purple">
+          <div class="link-tile-icon">☕</div>
+          <div>
+            <div class="link-tile-label">Book a chat</div>
+            <div class="link-tile-sub">Coffee chats, critiques &amp; mentoring</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+        <a href="https://medium.com/@emiliemazurek" target="_blank" rel="noopener" class="link-tile card-light">
+          <div class="link-tile-icon">✍️</div>
+          <div>
+            <div class="link-tile-label">Medium</div>
+            <div class="link-tile-sub">Articles on UX careers &amp; design</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+        <a href="index.html" class="link-tile card-periwinkle">
+          <div class="link-tile-icon">🎨</div>
+          <div>
+            <div class="link-tile-label">Portfolio</div>
+            <div class="link-tile-sub">Case studies &amp; design work</div>
+          </div>
+          <div class="link-tile-arrow">↗</div>
+        </a>
+
+      </div>
+
+      <p style="font-size:13px;opacity:0.35;margin-top:40px;text-align:center">howdy@dandydesign.ca</p>
+
+    </div>
+  </main>
+
+  <script src="nav.js"></script>
+</body>
+</html>

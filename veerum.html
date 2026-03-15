@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VEERUM — Emilie Mazurek</title>
+  <meta name="description" content="How I made asset tagging 11× faster by building a design practice from scratch at VEERUM.">
+  <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cs-hero-tint { background: color-mix(in srgb, var(--periwinkle) 6%, white); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html#work" aria-current="page">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="cs-hero cs-hero-tint">
+      <div class="container">
+        <a href="index.html#work" class="cs-back">← All work</a>
+        <p class="cs-tag">B2B SaaS · Lead UX Designer · 12 Weeks · 2023–2024</p>
+        <h1 class="cs-title">VEERUM</h1>
+        <p class="cs-lead">How I built a design practice from scratch and made industrial asset tagging 11× faster — without a single line of new infrastructure.</p>
+
+        <div class="cs-overview">
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Role</p>
+            <p class="cs-overview-value">Lead UX Designer (sole designer)</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Timeline</p>
+            <p class="cs-overview-value">May 2023 – May 2024</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Industry</p>
+            <p class="cs-overview-value">B2B SaaS · Industrial</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Key outcome</p>
+            <p class="cs-overview-value">11× faster asset tagging</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:80px">
+      <div class="cs-content">
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Background</h2>
+          <div class="cs-body">
+            <p>VEERUM visualizes and unifies engineering, geospatial, planning, scheduling, and operational data for industrial companies. I joined as their first and only designer, tasked with building their design practice from scratch — introducing user research and modern processes to embed user-centered thinking into the product for the first time.</p>
+            <p>Over my time there, I conducted 100+ user interviews and usability tests, built a scalable design system, and reduced design-to-code turnaround time by 30%. The linear objects project was one of the most impactful things I shipped.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">The problem</h2>
+          <div class="cs-body">
+            <p>Users needed to tag linear assets — think pipes, circuits, and electrical runs across large industrial facilities. The existing tool forced them to place individual volumetric cubes one by one along the full length of an asset. For a complex circuit, this meant placing dozens of cubes sequentially, each requiring manual positioning and naming.</p>
+            <p>This had two major consequences:</p>
+            <ul>
+              <li><strong>Efficiency:</strong> The process was so slow that clients were outsourcing tagging to offshore contractors — people who had never visited the actual sites.</li>
+              <li><strong>Accuracy:</strong> Contractors working from photos and floor plans made frequent errors, and the asset library became cluttered with meaningless intermediate objects.</li>
+            </ul>
+          </div>
+
+          <div class="cs-quote">
+            <p>"Take Sulfur Plant 1, which took me three months to get done. If they could do that in a week we would do the whole plant."</p>
+            <cite>— Client interview participant</cite>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Research & discovery</h2>
+          <div class="cs-body">
+            <p>I ran deep-dive interviews with field engineers, asset managers, and on-site contractors to understand the full workflow — from site survey to final asset library. The key insight: users weren't struggling with the concept of tagging, they were struggling with the tool's rigid, cube-by-cube model.</p>
+            <p>I mapped three potential solutions:</p>
+            <ul>
+              <li><strong>Click points along a line</strong> — extend bounding boxes without creating new objects. Familiar, but too finicky for long runs.</li>
+              <li><strong>Pen tool / multi-point mode</strong> — click along shapes, drop points at curves. Quick but would "float" above assets rather than wrap them precisely.</li>
+              <li><strong>AI asset detection</strong> — automatic detection via a single click. Fast and accurate in theory, but the R&D team had already found it infeasible.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">The solution</h2>
+          <div class="cs-body">
+            <p>During research, I discovered VEERUM already had a measurement tool with nearly all the required functionality — users could create linked point chains by clicking along assets. The platform had this capability sitting unused.</p>
+            <p>The solution: combine the existing chain measurement behavior with object customization (naming, coloring, saving to the asset library). This meant:</p>
+            <ul>
+              <li>No new infrastructure required</li>
+              <li>Users were already familiar with the measurement tool's interaction model</li>
+              <li>Minimal dev scope = fast time to value</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Testing & iterations</h2>
+          <div class="cs-body">
+            <p>I ran usability testing with 7 participants. All completed assigned tasks — but surfaced three friction points that shaped the final design:</p>
+          </div>
+
+          <div style="margin-top:20px">
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Change 01</p>
+              <h4>Extend after creation</h4>
+              <p>6 of 7 testers expected to continue extending a line after setting it down. The original design locked points after creation. We added double-click to re-enter extend mode.</p>
+            </div>
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Change 02</p>
+              <h4>Rotation instructions</h4>
+              <p>5 of 7 testers missed the pale yellow instruction card about click-and-drag rotation, and accidentally dropped pins instead. We replaced it with a high-visibility card and added an undo button for accidental placements.</p>
+            </div>
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Change 03</p>
+              <h4>Undo everywhere</h4>
+              <p>Added undo functionality throughout the entire flow, not just at the accidental pin step. Reduced anxiety and allowed more confident exploration.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Results</h2>
+          <div class="cs-metrics">
+            <div class="cs-metric-card">
+              <p class="cs-metric-num" style="color:var(--periwinkle)">11×</p>
+              <p class="cs-metric-desc">faster tagging vs. previous cube method</p>
+            </div>
+            <div class="cs-metric-card">
+              <p class="cs-metric-num">3 wks</p>
+              <p class="cs-metric-desc">to tag a full sulfur plant (down from 3 months)</p>
+            </div>
+            <div class="cs-metric-card">
+              <p class="cs-metric-num">−34%</p>
+              <p class="cs-metric-desc">user support requests after research-driven improvements</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="barstool.html" class="cs-next-bar card-coral" aria-label="Next case study: Barstool Sports Store">
+        <div>
+          <p class="cs-next-label">Next case study</p>
+          <p class="cs-next-title">Barstool Sports Store</p>
+        </div>
+        <span class="cs-next-arrow" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <img src="brand_assets/Emilie Black@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          <p class="footer-tagline">Edmonton, AB · howdy@dandydesign.ca</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="about.html">About</a>
+          <a href="community.html">Community</a>
+          <a href="links.html">Links</a>
+          <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="mailto:howdy@dandydesign.ca">Email</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
