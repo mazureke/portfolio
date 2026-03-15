@@ -36,8 +36,12 @@ All assets live in `brand_assets/`:
 - `--off-white: #F8F7F5`
 
 **Typography:**
-- Headings: Syne 800, `letter-spacing: -0.03em`, via Google Fonts
-- Body: DM Sans 400/500/600, `line-height: 1.75`
+- Font: ITC Avant Garde Gothic (self-hosted from `brand_assets/Typography/`)
+- Headings: `'ITC Avant Garde'`, weight 800 (Bold), `letter-spacing: -0.03em`
+- Subheadings/UI: weight 700 (Demi)
+- Body: weight 400/300 (Book), `line-height: 1.75`
+- Medium weight: 500 (Medium)
+- No Google Fonts — do not re-add the @import
 
 **Work card colors:**
 - Max Retail → `card-purple`
