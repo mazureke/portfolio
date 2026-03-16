@@ -187,6 +187,7 @@ body {
   transition: background 0.15s;
 }
 .nav-toggle:hover { background: var(--off-white); }
+.nav-toggle:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 3px; }
 .nav-toggle span { display: block; width: 20px; height: 1.5px; background: var(--dark); transition: transform 0.25s, opacity 0.2s; }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
