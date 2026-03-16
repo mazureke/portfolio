@@ -145,12 +145,22 @@
       background: linear-gradient(to right, transparent, rgba(0,0,0,0.09));
       backface-visibility: hidden;
     }
+    .di-page-flip.flipped {
+      transform: rotateY(-172deg);
+    }
     @keyframes page-flip {
       0%   { transform: rotateY(0deg); }
       100% { transform: rotateY(-172deg); }
     }
     .di-page-flip.flipping {
       animation: page-flip 0.55s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+    }
+    @keyframes page-unflip {
+      0%   { transform: rotateY(-172deg); }
+      100% { transform: rotateY(0deg); }
+    }
+    .di-page-flip.unflipping {
+      animation: page-unflip 0.55s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     }
     .di-sketchbook-binding {
       position: absolute;
@@ -529,7 +539,7 @@
         <img class="desk-item di-monstera" src="desk_elements/monstera.png" alt="" aria-hidden="true">
 
         <!-- ══ SKETCHBOOK — static, left-of-center overlapping text bottom ══ -->
-        <div class="desk-item di-sketchbook" style="top:42%;left:calc(12% - 40px);transform:rotate(-6deg)">
+        <div class="desk-item di-sketchbook" style="top:42%;left:calc(12% - 104px);transform:rotate(-6deg)">
           <div class="di-sketchbook-binding">
             <div class="di-sketchbook-coil"></div>
             <div class="di-sketchbook-coil"></div>
@@ -1242,17 +1252,34 @@
       /* ── Sketchbook page flip on mouseenter ── */
       var sketchbookEl = surface.querySelector('.di-sketchbook');
       var pageFlipEls = sketchbookEl ? Array.from(sketchbookEl.querySelectorAll('.di-page-flip')) : [];
-      var flippedCount = 0;
-      if (sketchbookEl && pageFlipEls.length) {
+      var flipStep = 0; // 0-2: forward, 3-5: backward
+      var n = pageFlipEls.length;
+      if (sketchbookEl && n) {
         sketchbookEl.addEventListener('mouseenter', function () {
-          if (flippedCount >= pageFlipEls.length) return;
-          var page = pageFlipEls[flippedCount];
-          page.style.zIndex = 99;
-          page.classList.add('flipping');
-          page.addEventListener('animationend', function () {
-            page.style.zIndex = 0;
-          }, { once: true });
-          flippedCount++;
+          if (flipStep >= n * 2) return;
+          if (flipStep < n) {
+            // forward flip
+            var page = pageFlipEls[flipStep];
+            page.style.zIndex = 99;
+            page.classList.add('flipping');
+            page.addEventListener('animationend', function () {
+              page.classList.remove('flipping');
+              page.classList.add('flipped');
+              page.style.zIndex = 0;
+            }, { once: true });
+          } else {
+            // backward flip — reverse order
+            var idx = n - 1 - (flipStep - n);
+            var page = pageFlipEls[idx];
+            page.style.zIndex = 99;
+            page.classList.remove('flipped');
+            page.classList.add('unflipping');
+            page.addEventListener('animationend', function () {
+              page.classList.remove('unflipping');
+              page.style.zIndex = 9 - idx;
+            }, { once: true });
+          }
+          flipStep++;
         });
       }
 
