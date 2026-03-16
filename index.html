@@ -1686,48 +1686,36 @@
           var nw = note.offsetWidth, nh = note.offsetHeight;
           var ncx = nx + nw / 2, ncy = ny + nh / 2;
 
-          // Tail always exits left or right of the text note.
-          // Choose the side closest to the polaroid.
-          var dx = pcx - ncx; // positive → polaroid is to the right
-          var dy = pcy - ncy;
-          var tailX, tailY, headX, headY, sign;
+          // Side: note to the right of polaroid → use RIGHT side for both endpoints.
+          //       note to the left → use LEFT side for both.
+          // Both head and tail on the same side means the C-curve bows outward
+          // and can never cross through the polaroid.
+          var useRight = ncx >= pcx;
+          var sign = useRight ? 1 : -1;
 
-          if (dx >= 0) {
-            // Polaroid is to the right → tail exits right edge
-            tailX = nx + nw + 4;
-            tailY = ncy;
-            headX = pcx - aabbHW - 6;
-            headY = pcy + dy * 0.2;
-            sign = 1;
-          } else {
-            // Polaroid is to the left → tail exits left edge
-            tailX = nx - 4;
-            tailY = ncy;
-            headX = pcx + aabbHW + 6;
-            headY = pcy + dy * 0.2;
-            sign = -1;
-          }
+          // Tail: left or right edge of note at its vertical centre
+          var tailX = useRight ? nx + nw + 4 : nx - 4;
+          var tailY = ncy;
 
-          // Enforce minimum 32px straight-line distance
+          // Head: same-side edge of polaroid AABB at its vertical centre
+          var headX = useRight ? pcx + aabbHW + 6 : pcx - aabbHW - 6;
+          var headY = pcy;
+
+          // Enforce minimum 32px straight-line distance (push head further out)
           var dist = Math.sqrt((headX - tailX) * (headX - tailX) + (headY - tailY) * (headY - tailY));
           if (dist < 32) {
-            var scale = 32 / dist;
-            headX = tailX + (headX - tailX) * scale;
-            headY = tailY + (headY - tailY) * scale;
+            headX += sign * (32 - dist);
           }
 
-          // Cubic bezier — curl: tail exits horizontally, then swoops to the polaroid
-          var span = Math.abs(headX - tailX);
-          var curl = Math.max(20, span * 0.4);
-          var vertDiff = headY - tailY;
-
-          // CP1: extend from tail in exit direction, arc slightly against the vertical
+          // Cubic bezier — C-shape: both CPs pushed outward on sign side.
+          // Tail and head lean slightly toward each other vertically so the
+          // curve has a gentle hook rather than a flat bow.
+          var vertSpan = headY - tailY; // negative when polaroid is above note
+          var curl = Math.max(22, Math.abs(vertSpan) * 0.5);
           var cp1x = tailX + sign * curl;
-          var cp1y = tailY - (vertDiff >= 0 ? 14 : -14);
-
-          // CP2: approach head from behind, still pulling from the arc
-          var cp2x = headX - sign * curl * 0.45;
-          var cp2y = headY - Math.abs(vertDiff) * 0.25 - 6;
+          var cp1y = tailY + vertSpan * 0.15;
+          var cp2x = headX + sign * curl;
+          var cp2y = headY - vertSpan * 0.15;
 
           var d = 'M ' + tailX.toFixed(1) + ',' + tailY.toFixed(1) +
                   ' C ' + cp1x.toFixed(1) + ',' + cp1y.toFixed(1) +
