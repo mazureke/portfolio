@@ -1113,8 +1113,8 @@
           var hr = hero.getBoundingClientRect();
           var mr = matchaLockEl.getBoundingClientRect();
           var sr = coralStickyEl.getBoundingClientRect();
-          // Use bounding rect right edge + 12px so sticky clears the glass entirely
-          coralStickyEl.style.left = (mr.right - hr.left + 12) + 'px';
+          // 85% of element width estimates the visual right edge of the glass (PNG has ~15% transparent padding on right)
+          coralStickyEl.style.left = (mr.left + mr.width * 0.85 - hr.left + 12) + 'px';
           coralStickyEl.style.top  = (mr.top - hr.top + mr.height * 0.35 - sr.height / 2) + 'px';
         }
         pinCoralSticky();
