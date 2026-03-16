@@ -280,11 +280,11 @@
       display: block;
       pointer-events: none;
       -webkit-user-drag: none;
-      transition: opacity 0.12s;
+      transition: opacity 0.25s;
     }
-    .di-hubba-open  { opacity: 0; }
-    .di-hubba:hover .di-hubba-open   { opacity: 1; }
-    .di-hubba:hover .di-hubba-closed { opacity: 0; }
+    .di-hubba-open             { opacity: 0; }
+    .di-hubba.is-open .di-hubba-open   { opacity: 1; }
+    .di-hubba.is-open .di-hubba-closed { opacity: 0; }
 
     /* ── Lip balm ── */
     .di-lipbalm {
@@ -1305,6 +1305,13 @@
           requestAnimationFrame(monTick);
         }
         monTick();
+      }
+
+      /* ── Hubba Bubba open/close ── */
+      var hubbaEl = surface.querySelector('.di-hubba');
+      if (hubbaEl) {
+        hubbaEl.addEventListener('mouseenter', function () { hubbaEl.classList.add('is-open'); });
+        hubbaEl.addEventListener('mouseleave', function () { hubbaEl.classList.remove('is-open'); });
       }
 
       /* ── Sketchbook page flip on mouseenter ── */
