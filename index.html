@@ -650,99 +650,67 @@
 
           <!-- Page 2: 3 polaroids -->
           <div class="di-page-flip" style="z-index:8">
-            <div class="nb-polaroid" style="top:8%;left:7%;transform:rotate(-9deg)">
+            <div class="nb-polaroid" data-nb-id="k2" style="top:8%;left:7%;transform:rotate(-9deg)">
               <img src="desk_elements/about_images/K2.jpg" alt="K2 base camp">
               <p class="di-photo-cap">K2 base camp, 2023</p>
             </div>
-            <div class="nb-polaroid" style="top:6%;left:53%;transform:rotate(7deg)">
+            <div class="nb-polaroid" data-nb-id="cheeto" style="top:6%;left:53%;transform:rotate(7deg)">
               <img src="desk_elements/about_images/Cheeto.jpeg" alt="Cheeto the parrot">
               <p class="di-photo-cap">Cheeto being judgy</p>
             </div>
-            <div class="nb-polaroid" style="top:52%;left:22%;transform:rotate(-5deg)">
+            <div class="nb-polaroid" data-nb-id="research" style="top:52%;left:22%;transform:rotate(-5deg)">
               <img src="desk_elements/about_images/reserach-paper.jpeg" alt="research paper">
               <p class="di-photo-cap">biochem days, circa 2017</p>
             </div>
-            <!--
-              Polaroid border box: 106px wide (94+6+6 pad), 124px tall (6+77+8+11+22).
-              Transform-origin = center = (left%×305 + 53, top%×445 + 62).
-              Arrow: tail 8px from note edge, head 8px from polaroid bottom-center.
-              · K2   (7%,8%,−9°): bottom-center ≈ (84,159). head (84,167), tail (84,187). note top 44%=196, left 10%=31.
-              · Cheeto (53%,6%,+7°): bottom-center ≈ (207,150). head (207,158), tail (207,178). note top 42%=187, left 51%=156.
-              · Research (22%,52%,−5°): right-center ≈ (173,289). head (181,289), tail (206,289). note top 62%=276, left 70%=214.
-            -->
             <!-- K2 note: directly below K2 polaroid -->
-            <p class="nb-note" style="top:44%;left:10%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
+            <p class="nb-note" data-nb-pol="k2" style="top:44%;left:10%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
             <!-- Cheeto note: directly below Cheeto polaroid -->
-            <p class="nb-note" style="top:42%;left:51%;transform:rotate(4deg)">sun conure. owns me.</p>
+            <p class="nb-note" data-nb-pol="cheeto" style="top:42%;left:51%;transform:rotate(4deg)">sun conure. owns me.</p>
             <!-- Research note: directly right of Research polaroid -->
-            <p class="nb-note" style="top:62%;left:70%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
-            <!-- curved pen arrows (viewBox matches 305×445 content area) -->
-            <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
+            <p class="nb-note" data-nb-pol="research" style="top:62%;left:70%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
+            <!-- arrows drawn by drawNbArrows() -->
+            <svg class="nb-arrow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
               <defs>
                 <marker id="pen-arr-p2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
                   <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 </marker>
               </defs>
-              <!-- K2: tail (84,187) → head (84,167), 20px arrow -->
-              <path d="M 84,187 C 81,179 82,173 84,167" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
-              <!-- Cheeto: tail (207,178) → head (207,158), 20px arrow -->
-              <path d="M 207,178 C 210,170 210,164 207,158" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
-              <!-- Research: tail (206,289) → head (181,289), 25px horizontal arrow -->
-              <path d="M 206,289 C 199,287 191,287 181,289" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
             </svg>
           </div>
 
           <!-- Page 3: 4 polaroids -->
           <div class="di-page-flip" style="z-index:7">
-            <div class="nb-polaroid" style="top:6%;left:5%;transform:rotate(-8deg)">
+            <div class="nb-polaroid" data-nb-id="mb" style="top:6%;left:5%;transform:rotate(-8deg)">
               <img src="desk_elements/about_images/Marching-band.jpeg" alt="Calgary Stampede Showband">
               <p class="di-photo-cap">Stampede showband</p>
             </div>
-            <div class="nb-polaroid" style="top:4%;left:52%;transform:rotate(6deg)">
+            <div class="nb-polaroid" data-nb-id="ic" style="top:4%;left:52%;transform:rotate(6deg)">
               <img src="desk_elements/about_images/ice-cream.jpeg" alt="ice cream workshop">
               <p class="di-photo-cap">ice cream workshop</p>
             </div>
-            <div class="nb-polaroid" style="top:50%;left:8%;transform:rotate(4deg)">
+            <div class="nb-polaroid" data-nb-id="painting" style="top:50%;left:8%;transform:rotate(4deg)">
               <img src="desk_elements/about_images/painting.jpeg" alt="Drammarbuie Grandma painting">
               <p class="di-photo-cap">Drammarbuie Grandma</p>
             </div>
-            <div class="nb-polaroid" style="top:48%;left:53%;transform:rotate(-7deg)">
+            <div class="nb-polaroid" data-nb-id="marrakech" style="top:48%;left:53%;transform:rotate(-7deg)">
               <img src="desk_elements/about_images/travel.jpeg" alt="Marrakech travel photo">
               <p class="di-photo-cap">Marrakech, 2019</p>
             </div>
-            <!--
-              Polaroid border box: 106px wide (94+6+6 pad), 124px tall (6+77+8+11+22).
-              Transform-origin = center = (left%×305 + 53, top%×445 + 62).
-              Arrow: tail 8px from note edge, head 8px from polaroid bottom-center.
-              Inter-row gap is only ~69px so top-row arrows are kept at 12px.
-              · MB   (5%,6%,−8°):  bottom-center ≈ (77,150). head (77,158), tail (77,170). note top 40%=178, left 8%=24.
-              · IC   (52%,4%,+6°): bottom-center ≈ (205,141). head (205,149), tail (205,161). note top 38%=169, left 50%=153.
-              · Painting (8%,50%,+4°): bottom-center ≈ (73,346). head (73,354), tail (73,374). note top 86%=383, left 7%=21.
-              · Marrakech (53%,48%,−7°): bottom-center ≈ (222,337). head (222,345), tail (222,365). note top 84%=374, left 55%=168.
-            -->
             <!-- MB note: directly below MB polaroid -->
-            <p class="nb-note" style="top:40%;left:8%;transform:rotate(3deg)">2× world champ! Calgary Stampede Showband.</p>
+            <p class="nb-note" data-nb-pol="mb" style="top:40%;left:8%;transform:rotate(3deg)">2× world champ! Calgary Stampede Showband.</p>
             <!-- IC note: directly below IC polaroid -->
-            <p class="nb-note" style="top:38%;left:50%;transform:rotate(-4deg)">yes, there's a workshop for this.</p>
+            <p class="nb-note" data-nb-pol="ic" style="top:38%;left:50%;transform:rotate(-4deg)">yes, there's a workshop for this.</p>
             <!-- Painting note: directly below Painting polaroid -->
-            <p class="nb-note" style="top:86%;left:7%;transform:rotate(-3deg)">oil on canvas. grandma hated it.</p>
+            <p class="nb-note" data-nb-pol="painting" style="top:86%;left:7%;transform:rotate(-3deg)">oil on canvas. grandma hated it.</p>
             <!-- Marrakech note: directly below Marrakech polaroid -->
-            <p class="nb-note" style="top:84%;left:55%;transform:rotate(4deg)">23 countries + counting.</p>
-            <!-- curved pen arrows (viewBox matches 305×445 content area) -->
-            <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
+            <p class="nb-note" data-nb-pol="marrakech" style="top:84%;left:55%;transform:rotate(4deg)">23 countries + counting.</p>
+            <!-- arrows drawn by drawNbArrows() -->
+            <svg class="nb-arrow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
               <defs>
                 <marker id="pen-arr-p3" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
                   <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 </marker>
               </defs>
-              <!-- MB: tail (77,170) → head (77,158), 12px arrow -->
-              <path d="M 77,170 C 74,166 75,162 77,158" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- IC: tail (205,161) → head (205,149), 12px arrow -->
-              <path d="M 205,161 C 202,157 203,153 205,149" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- Painting: tail (73,374) → head (73,354), 20px arrow -->
-              <path d="M 73,374 C 70,366 71,360 73,354" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- Marrakech: tail (222,365) → head (222,345), 20px arrow -->
-              <path d="M 222,365 C 219,357 220,351 222,345" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
             </svg>
           </div>
 
@@ -1692,6 +1660,102 @@
       }
 
     })();
+
+    // ── Notebook arrows: drawn from actual rendered dimensions ──────────────
+    // Measures each polaroid's offsetLeft/offsetTop/offsetWidth/offsetHeight,
+    // parses its CSS rotation, computes the axis-aligned bounding box of the
+    // rotated rectangle, and places arrowhead 8px outside that envelope and
+    // arrow tail 8px outside the note's nearest edge.
+    function drawNbArrows() {
+      document.querySelectorAll('.nb-arrow-svg').forEach(function (svg) {
+        var page = svg.parentElement;
+        // Remove any previously drawn arrows (keep <defs>)
+        svg.querySelectorAll('path.nb-arr').forEach(function (p) { p.remove(); });
+        var markerId = (svg.querySelector('marker') || {}).id || '';
+
+        page.querySelectorAll('.nb-note[data-nb-pol]').forEach(function (note) {
+          var pol = page.querySelector('[data-nb-id="' + note.dataset.nbPol + '"]');
+          if (!pol) return;
+
+          // Polaroid layout box (before CSS visual transform)
+          var hw = pol.offsetWidth / 2, hh = pol.offsetHeight / 2;
+          var pcx = pol.offsetLeft + hw, pcy = pol.offsetTop + hh;
+
+          // Parse rotation angle (deg → rad)
+          var m = (pol.getAttribute('style') || '').match(/rotate\((-?[\d.]+)deg\)/);
+          var rad = m ? parseFloat(m[1]) * Math.PI / 180 : 0;
+          var sinA = Math.sin(rad), cosA = Math.cos(rad);
+
+          // Axis-aligned half-extents of the rotated polaroid
+          var aabbHW = Math.abs(hw * cosA) + Math.abs(hh * sinA);
+          var aabbHH = Math.abs(hw * sinA) + Math.abs(hh * cosA);
+
+          // Note layout box
+          var nx = note.offsetLeft, ny = note.offsetTop;
+          var nw = note.offsetWidth, nh = note.offsetHeight;
+          var ncx = nx + nw / 2, ncy = ny + nh / 2;
+
+          // Determine which side the note is on relative to the polaroid center
+          var dx = ncx - pcx, dy = ncy - pcy;
+          var headX, headY, tailX, tailY;
+
+          if (Math.abs(dy) >= Math.abs(dx)) {
+            // Primarily above/below
+            if (dy > 0) {
+              // Note is BELOW → arrow points up
+              // Bottom-center of rotated polaroid: (pcx - hh*sinA, pcy + hh*cosA)
+              var bcx = pcx - hh * sinA;
+              headY = pcy + aabbHH + 8;   // 8px below lowest extent
+              headX = bcx;
+              tailY = ny - 8;              // 8px above note top
+              tailX = bcx;
+            } else {
+              // Note is ABOVE → arrow points down
+              var tcx = pcx + hh * sinA;
+              headY = pcy - aabbHH - 8;
+              headX = tcx;
+              tailY = ny + nh + 8;
+              tailX = tcx;
+            }
+          } else {
+            // Primarily left/right
+            if (dx > 0) {
+              // Note is to the RIGHT → arrow points left
+              headX = pcx + aabbHW + 8;   // 8px right of rightmost extent
+              headY = ncy;
+              tailX = nx - 8;              // 8px left of note left edge
+              tailY = ncy;
+            } else {
+              // Note is to the LEFT → arrow points right
+              headX = pcx - aabbHW - 8;
+              headY = ncy;
+              tailX = nx + nw + 8;
+              tailY = ncy;
+            }
+          }
+
+          // Slight curve so it looks hand-drawn
+          var midX = (tailX + headX) / 2 + (tailX === headX ? 3 : 0);
+          var midY = (tailY + headY) / 2 + (tailY === headY ? 3 : 0);
+          var d = 'M ' + tailX.toFixed(1) + ',' + tailY.toFixed(1) +
+                  ' Q ' + midX.toFixed(1) + ',' + midY.toFixed(1) +
+                  ' ' + headX.toFixed(1) + ',' + headY.toFixed(1);
+
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', d);
+          path.setAttribute('stroke', '#2244bb');
+          path.setAttribute('stroke-width', '1.2');
+          path.setAttribute('fill', 'none');
+          path.setAttribute('stroke-linecap', 'round');
+          if (markerId) path.setAttribute('marker-end', 'url(#' + markerId + ')');
+          path.classList.add('nb-arr');
+          svg.appendChild(path);
+        });
+      });
+    }
+
+    window.addEventListener('load', drawNbArrows);
+
   </script>
 </body>
 </html>
