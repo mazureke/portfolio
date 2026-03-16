@@ -86,36 +86,71 @@
       -webkit-font-smoothing: antialiased;
     }
     .desk-item.draggable {
-      pointer-events: auto;
-      cursor: grab;
-    }
-    .desk-item.draggable:active { cursor: grabbing; }
-    .desk-item.is-dragging {
-      z-index: 200 !important;
-      transition: none !important;
+      pointer-events: none;
     }
 
     /* ── Monstera (static, top-right corner) ── */
     .di-monstera {
-      top: -10px;
-      right: -10px;
-      width: 500px;
-      height: 420px;
-      z-index: 1;
+      top: -84px;
+      right: -220px;
+      transform: rotate(-33deg);
+      z-index: 30;
       pointer-events: none;
-      overflow: visible;
+      -webkit-user-drag: none;
+      display: block;
+      max-width: 1512px;
     }
 
     /* ── Sketchbook (static) ── */
     .di-sketchbook {
       width: 296px;
-      height: 212px;
+      height: 424px;
       background: #faf7f0;
       border-radius: 3px;
       box-shadow: 3px 6px 28px rgba(0,0,0,0.20), 0 1px 4px rgba(0,0,0,0.08);
       z-index: 6;
-      pointer-events: none;
+      pointer-events: auto;
       overflow: visible;
+      perspective: 700px;
+      cursor: default;
+    }
+    /* Page that sits on top and flips away on hover */
+    .di-page-flip {
+      position: absolute;
+      inset: 8px;
+      border-radius: 2px;
+      background: #faf7f0;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transform: rotateY(0deg);
+      transition: transform 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      z-index: 9;
+      pointer-events: none;
+    }
+    /* Dot grid on the front face */
+    .di-page-flip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #c4bdb4 0.9px, transparent 0.9px);
+      background-size: 10px 10px;
+      backface-visibility: hidden;
+    }
+    /* Fold shadow at the right edge while turning */
+    .di-page-flip::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 10px; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(0,0,0,0.09));
+      backface-visibility: hidden;
+    }
+    @keyframes page-flip {
+      0%   { transform: rotateY(0deg); }
+      100% { transform: rotateY(-172deg); }
+    }
+    .di-page-flip.flipping {
+      animation: page-flip 0.55s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     }
     .di-sketchbook-binding {
       position: absolute;
@@ -146,13 +181,41 @@
     .di-sticky {
       width: 112px;
       height: 112px;
+      border-radius: 2px;
+      z-index: 12;
+    }
+    .di-sticky-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
       padding: 11px 13px;
       border-radius: 2px;
-      box-shadow: 2px 5px 18px rgba(0,0,0,0.16), 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      z-index: 12;
+      box-shadow: 2px 5px 18px rgba(0,0,0,0.16), 0 1px 4px rgba(0,0,0,0.08);
+      transform-origin: top center;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+    }
+    /* Peeled corner — reveals desk surface beneath */
+    .di-sticky-inner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(225deg, #f2ede4 50%, rgba(0,0,0,0.10) 50%);
+      transition: width 0.28s ease, height 0.28s ease;
+    }
+    a.di-sticky:hover .di-sticky-inner {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 3px 14px 30px rgba(0,0,0,0.26), 0 2px 6px rgba(0,0,0,0.10);
+    }
+    a.di-sticky:hover .di-sticky-inner::after {
+      width: 34px;
+      height: 34px;
     }
     .di-sticky-text {
       font-size: 11px;
@@ -160,30 +223,31 @@
       line-height: 1.4;
       font-style: italic;
     }
-    .di-sticky-coral    { background: #e8584a; color: #fff; }
-    .di-sticky-teal     { background: #5bbfaa; color: #fff; }
-    .di-sticky-lavender { background: #c5b8f0; color: #3a2a70; }
-    .di-sticky-yellow   { background: #f5df6a; color: #5a4400; }
+    .di-sticky-coral    .di-sticky-inner { background: #E8584A; color: #fff; }
+    .di-sticky-teal     .di-sticky-inner { background: #6B77C8; color: #fff; }
+    .di-sticky-lavender .di-sticky-inner { background: #6347E8; color: #fff; }
+    .di-sticky-yellow   .di-sticky-inner { background: #7DD4B0; color: #1A1A1A; }
+    a.di-sticky {
+      pointer-events: auto;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    a.di-sticky:focus-visible .di-sticky-inner { outline: 2px solid #fff; outline-offset: 3px; }
 
     /* ── AirPods case ── */
     .di-airpods {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 36% 30%, #ffc0e8 0%, #f07db5 52%, #c8549a 100%);
-      box-shadow: 0 5px 20px rgba(240,125,181,0.50), inset 0 3px 8px rgba(255,255,255,0.50), inset 0 -4px 10px rgba(180,50,110,0.30);
+      width: 120px;
+      height: 120px;
       z-index: 10;
     }
-    .di-airpods::after {
-      content: '';
-      position: absolute;
-      top: 19%;
-      left: 24%;
-      width: 26%;
-      height: 16%;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.60);
-      transform: rotate(-28deg);
+    .di-airpods img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
 
     /* ── Lip balm ── */
@@ -224,32 +288,6 @@
       box-shadow: 1px 2px 8px rgba(0,0,0,0.18);
     }
 
-    /* ── Scrunchie ── */
-    .di-scrunchie {
-      width: 66px;
-      height: 66px;
-      border-radius: 50%;
-      z-index: 10;
-    }
-    .di-scrunchie::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 15px solid #90af88;
-      box-shadow: inset 0 3px 9px rgba(0,0,0,0.22), 0 3px 10px rgba(0,0,0,0.16), inset 0 -2px 6px rgba(255,255,255,0.18);
-    }
-    .di-scrunchie::after {
-      content: '';
-      position: absolute;
-      top: 12px;
-      left: 22px;
-      width: 22px;
-      height: 16px;
-      background: rgba(145,180,140,0.65);
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.14);
-    }
 
     /* ── Rainbow pens ── */
     .di-pen {
@@ -392,71 +430,17 @@
 
     /* ── Matcha mug + stain (static) ── */
     .di-matcha-group {
-      position: relative;
-      width: 100px;
-      height: 126px;
+      width: 240px;
+      height: 180px;
       z-index: 6;
+    }
+    .di-matcha-group img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
       pointer-events: none;
-    }
-    .di-matcha-stain {
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 86px;
-      height: 68px;
-      border-radius: 50%;
-      border: 5px solid rgba(100,155,65,0.22);
-      background: radial-gradient(ellipse, rgba(115,172,70,0.10) 0%, transparent 68%);
-    }
-    .di-matcha-stain::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      right: -8px;
-      width: 20px;
-      height: 14px;
-      border-radius: 50%;
-      background: rgba(100,155,65,0.14);
-      transform: rotate(22deg);
-    }
-    .di-matcha-mug {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 72px;
-      height: 86px;
-      border-radius: 7px 7px 12px 12px;
-      background: linear-gradient(180deg,
-        rgba(255,255,255,0.92) 0%,
-        rgba(245,252,242,0.55) 14%,
-        rgba(72,172,55,0.88) 18%,
-        rgba(50,148,35,0.93) 100%
-      );
-      border: 2px solid rgba(255,255,255,0.75);
-      box-shadow: 2px 7px 22px rgba(0,0,0,0.16), inset 3px 0 10px rgba(255,255,255,0.30), inset -2px 0 5px rgba(0,0,0,0.07);
-    }
-    .di-matcha-mug::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 9px;
-      width: 13px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.32);
-    }
-    .di-matcha-handle {
-      position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 26px;
-      border-radius: 0 10px 10px 0;
-      border: 3px solid rgba(200,225,195,0.65);
-      border-left: none;
+      -webkit-user-drag: none;
     }
 
     /* Desk hint */
@@ -541,169 +525,11 @@
       <!-- Desk surface — aria-hidden, all decorative -->
       <div class="desk-surface" id="deskSurface" aria-hidden="true">
 
-        <!-- ══ MONSTERA — static, top-right corner, plant base off-screen ══ -->
-        <!--
-          Leaf anatomy: base (petiole) at local (0,0), tip at local (260,0).
-          Lobes extend in ±y. fill-rule="evenodd" creates transparent fenestration holes.
-          Each leaf is rotated from plant center at SVG (475, 20) so only the
-          inner portions drape onto the visible desk area.
-          Angles: 138° (down-left, large), 162° (mostly left), 115° (mostly down), 200° (lobes peek from top corner)
-        -->
-        <svg class="desk-item di-monstera" viewBox="0 0 500 420" overflow="visible" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <!-- Subtle gradient along leaf midrib for depth -->
-            <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#1c4d2c"/>
-              <stop offset="45%" stop-color="#2b6840"/>
-              <stop offset="100%" stop-color="#225835"/>
-            </linearGradient>
-            <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#1a4828"/>
-              <stop offset="45%" stop-color="#276038"/>
-              <stop offset="100%" stop-color="#1e5230"/>
-            </linearGradient>
-            <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#1e5230"/>
-              <stop offset="45%" stop-color="#2e6e44"/>
-              <stop offset="100%" stop-color="#246038"/>
-            </linearGradient>
-            <linearGradient id="lg4" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#183e22"/>
-              <stop offset="45%" stop-color="#245432"/>
-              <stop offset="100%" stop-color="#1c4a28"/>
-            </linearGradient>
-          </defs>
-
-          <!--
-            Shared leaf outline path (used via transform on each <g>):
-            Outer path + 2 fenestration holes via evenodd.
-            Midrib at y=0. Side A lobes at −y, Side B lobes at +y.
-            Lobe 1 (near base) peaks: A(62,−58) B(68,62)
-            Lobe 2 peaks: A(142,−78) B(138,82)
-            Lobe 3 peaks: A(212,−78) B(200,80)
-            Sinuses: A side at x≈88,163,230 and B side symmetrically
-            Fenestrations: A side at (145,−36) and (210,−32)
-          -->
-
-          <!-- LEAF 1 — large, sweeps down-left from corner (138°) -->
-          <g transform="translate(475,20) rotate(138)">
-            <path fill-rule="evenodd" fill="url(#lg1)" d="
-              M 0,0
-              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
-              C 89,-38 93,-22 97,-14
-              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
-              C 165,-50 167,-28 171,-18
-              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
-              C 233,-44 237,-24 241,-15
-              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
-              C 260,3 257,9 253,17
-              C 247,27 239,23 233,19
-              C 226,46 213,78 198,80 C 186,82 176,70 171,22
-              C 164,50 150,82 135,82 C 121,80 113,66 107,20
-              C 99,42 85,64 67,63 C 53,62 43,50 37,27
-              C 26,17 14,9 6,4
-              Z
-              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
-                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
-              M 224,-30 C 224,-40 217,-44 210,-44 C 203,-44 196,-40 196,-30
-                        C 196,-20 203,-16 210,-16 C 217,-16 224,-20 224,-30 Z
-            "/>
-            <!-- Midrib -->
-            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3d8a58" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.7"/>
-            <!-- Side A veins -->
-            <line x1="44" y1="-3" x2="68" y2="-50" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-            <line x1="180" y1="-5" x2="210" y2="-66" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-            <!-- Side B veins -->
-            <line x1="44" y1="3" x2="66" y2="54" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-            <line x1="110" y1="5" x2="136" y2="70" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-            <line x1="180" y1="5" x2="200" y2="68" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
-          </g>
-
-          <!-- LEAF 2 — medium, extends mostly left (162°) -->
-          <g transform="translate(475,20) rotate(162)">
-            <path fill-rule="evenodd" fill="url(#lg2)" d="
-              M 0,0
-              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
-              C 89,-38 93,-22 97,-14
-              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
-              C 165,-50 167,-28 171,-18
-              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
-              C 233,-44 237,-24 241,-15
-              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
-              C 260,3 257,9 253,17
-              C 247,27 239,23 233,19
-              C 226,46 213,78 198,80 C 186,82 176,70 171,22
-              C 164,50 150,82 135,82 C 121,80 113,66 107,20
-              C 99,42 85,64 67,63 C 53,62 43,50 37,27
-              C 26,17 14,9 6,4
-              Z
-              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
-                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
-              M 224,-30 C 224,-40 217,-44 210,-44 C 203,-44 196,-40 196,-30
-                        C 196,-20 203,-16 210,-16 C 217,-16 224,-20 224,-30 Z
-            "/>
-            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3a8254" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.65"/>
-            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
-            <line x1="180" y1="-5" x2="210" y2="-66" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
-            <line x1="110" y1="5" x2="136" y2="70" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
-            <line x1="180" y1="5" x2="200" y2="68" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
-          </g>
-
-          <!-- LEAF 3 — extends mostly downward (115°) — rightmost visible leaf -->
-          <g transform="translate(475,20) rotate(115)">
-            <path fill-rule="evenodd" fill="url(#lg3)" d="
-              M 0,0
-              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
-              C 89,-38 93,-22 97,-14
-              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
-              C 165,-50 167,-28 171,-18
-              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
-              C 233,-44 237,-24 241,-15
-              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
-              C 260,3 257,9 253,17
-              C 247,27 239,23 233,19
-              C 226,46 213,78 198,80 C 186,82 176,70 171,22
-              C 164,50 150,82 135,82 C 121,80 113,66 107,20
-              C 99,42 85,64 67,63 C 53,62 43,50 37,27
-              C 26,17 14,9 6,4
-              Z
-              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
-                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
-            "/>
-            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3d8a58" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.60"/>
-            <line x1="44" y1="-3" x2="68" y2="-50" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
-            <line x1="44" y1="3" x2="66" y2="54" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
-            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
-          </g>
-
-          <!-- LEAF 4 — 200°: tip goes off the top, only inner lobes peek from corner -->
-          <g transform="translate(475,20) rotate(200)">
-            <path fill-rule="evenodd" fill="url(#lg4)" d="
-              M 0,0
-              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
-              C 89,-38 93,-22 97,-14
-              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
-              C 165,-50 167,-28 171,-18
-              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
-              C 233,-44 237,-24 241,-15
-              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
-              C 260,3 257,9 253,17
-              C 247,27 239,23 233,19
-              C 226,46 213,78 198,80 C 186,82 176,70 171,22
-              C 164,50 150,82 135,82 C 121,80 113,66 107,20
-              C 99,42 85,64 67,63 C 53,62 43,50 37,27
-              C 26,17 14,9 6,4
-              Z
-              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
-                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
-            "/>
-            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3a7a50" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
-          </g>
-        </svg>
+        <!-- ══ MONSTERA — static, top-right corner ══ -->
+        <img class="desk-item di-monstera" src="desk_elements/monstera.png" alt="" aria-hidden="true">
 
         <!-- ══ SKETCHBOOK — static, left-of-center overlapping text bottom ══ -->
-        <div class="desk-item di-sketchbook" style="top:42%;left:12%;transform:rotate(-6deg)">
+        <div class="desk-item di-sketchbook" style="top:42%;left:calc(12% - 40px);transform:rotate(-6deg)">
           <div class="di-sketchbook-binding">
             <div class="di-sketchbook-coil"></div>
             <div class="di-sketchbook-coil"></div>
@@ -712,54 +538,90 @@
             <div class="di-sketchbook-coil"></div>
             <div class="di-sketchbook-coil"></div>
             <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
+            <div class="di-sketchbook-coil"></div>
           </div>
+          <div class="di-page-flip" style="z-index:9"></div>
+          <div class="di-page-flip" style="z-index:8"></div>
+          <div class="di-page-flip" style="z-index:7"></div>
           <div class="di-sketchbook-inner">
-            <svg width="100%" height="100%" viewBox="0 0 278 196" xmlns="http://www.w3.org/2000/svg">
+            <svg width="100%" height="100%" viewBox="0 0 278 408" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <marker id="arr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                <pattern id="dotgrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                  <circle cx="5" cy="5" r="0.9" fill="#c4bdb4"/>
+                </pattern>
+                <marker id="arr2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
                   <path d="M0,0 L5,2.5 L0,5 Z" fill="#8a7a6a"/>
                 </marker>
               </defs>
+              <!-- Dot grid background -->
+              <rect width="278" height="408" fill="url(#dotgrid)"/>
+
+              <!-- ── Page 1: user flow ── -->
               <text x="8" y="16" font-size="8" fill="#6a5a4a" font-family="sans-serif" font-weight="700" font-style="italic">user flow v3 — onboarding</text>
-              <!-- Box 1 -->
-              <rect x="8" y="26" width="58" height="36" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="37" y="46" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">onboarding</text>
-              <!-- Arrow 1→2 -->
-              <line x1="66" y1="44" x2="82" y2="44" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr)"/>
-              <!-- Box 2 -->
-              <rect x="82" y="26" width="54" height="36" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="109" y="46" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">paywall</text>
-              <!-- Arrow 2→3 -->
-              <line x1="136" y1="44" x2="152" y2="44" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr)"/>
-              <!-- Box 3 -->
-              <rect x="152" y="26" width="62" height="36" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="183" y="43" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">success</text>
-              <text x="183" y="53" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">state</text>
-              <!-- Branch down from box 1 -->
-              <line x1="37" y1="62" x2="37" y2="80" stroke="#8a7a6a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
-              <rect x="8" y="80" width="58" height="30" rx="3" fill="none" stroke="#9a8a7a" stroke-width="1"/>
-              <text x="37" y="98" text-anchor="middle" font-size="6.5" fill="#9a8a7a" font-family="sans-serif">email verify</text>
-              <!-- Annotations -->
-              <text x="86" y="78" font-size="7.5" fill="#c04040" font-family="sans-serif">✗ too much friction</text>
-              <text x="154" y="78" font-size="7.5" fill="#408040" font-family="sans-serif">✓ clear CTA</text>
-              <!-- Notes line -->
-              <line x1="8" y1="130" x2="240" y2="130" stroke="#c0b8a8" stroke-width="0.7" stroke-dasharray="2,3"/>
-              <text x="8" y="142" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ reduce steps before paywall hit</text>
-              <text x="8" y="154" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ test with 5 new users next sprint</text>
-              <!-- A tiny star annotation -->
-              <text x="220" y="46" font-size="10" fill="#c04040" font-family="sans-serif">*</text>
+              <rect x="8" y="24" width="58" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
+              <text x="37" y="43" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">onboarding</text>
+              <line x1="66" y1="40" x2="80" y2="40" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr2)"/>
+              <rect x="80" y="24" width="52" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
+              <text x="106" y="43" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">paywall</text>
+              <line x1="132" y1="40" x2="148" y2="40" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr2)"/>
+              <rect x="148" y="24" width="60" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
+              <text x="178" y="39" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">success</text>
+              <text x="178" y="50" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">state</text>
+              <line x1="37" y1="56" x2="37" y2="72" stroke="#8a7a6a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+              <rect x="8" y="72" width="58" height="28" rx="3" fill="none" stroke="#9a8a7a" stroke-width="1"/>
+              <text x="37" y="89" text-anchor="middle" font-size="6.5" fill="#9a8a7a" font-family="sans-serif">email verify</text>
+              <text x="84" y="70" font-size="7" fill="#c04040" font-family="sans-serif">✗ too much friction</text>
+              <text x="150" y="70" font-size="7" fill="#408040" font-family="sans-serif">✓ clear CTA</text>
+              <text x="220" y="38" font-size="10" fill="#c04040" font-family="sans-serif">*</text>
+              <line x1="8" y1="112" x2="260" y2="112" stroke="#c0b8a8" stroke-width="0.6" stroke-dasharray="2,3"/>
+              <text x="8" y="124" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ reduce steps before paywall hit</text>
+              <text x="8" y="136" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ test with 5 new users next sprint</text>
+
+              <!-- ── Divider ── -->
+              <line x1="8" y1="154" x2="260" y2="154" stroke="#d8d0c8" stroke-width="0.8"/>
+
+              <!-- ── Page 2: component sketch ── -->
+              <text x="8" y="170" font-size="8" fill="#6a5a4a" font-family="sans-serif" font-weight="700" font-style="italic">nav redesign — mobile</text>
+              <!-- rough phone outline -->
+              <rect x="90" y="180" width="96" height="156" rx="10" fill="none" stroke="#a09080" stroke-width="1.4"/>
+              <rect x="96" y="188" width="84" height="140" rx="4" fill="#f5f0e8" stroke="#c0b8a8" stroke-width="0.8"/>
+              <!-- notch -->
+              <rect x="118" y="181" width="40" height="8" rx="4" fill="#a09080"/>
+              <!-- nav bar inside -->
+              <rect x="96" y="312" width="84" height="16" rx="0" fill="#ede8e0" stroke="none"/>
+              <circle cx="116" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
+              <circle cx="138" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
+              <circle cx="160" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
+              <!-- content lines -->
+              <rect x="104" y="200" width="60" height="5" rx="2" fill="#c8c0b4"/>
+              <rect x="104" y="210" width="72" height="4" rx="2" fill="#d8d0c8"/>
+              <rect x="104" y="218" width="50" height="4" rx="2" fill="#d8d0c8"/>
+              <!-- annotations -->
+              <line x1="186" y1="320" x2="212" y2="320" stroke="#b0a898" stroke-width="0.8" stroke-dasharray="2,2"/>
+              <text x="214" y="323" font-size="6.5" fill="#8a7a6a" font-family="sans-serif">tab bar</text>
+              <line x1="186" y1="260" x2="212" y2="260" stroke="#b0a898" stroke-width="0.8" stroke-dasharray="2,2"/>
+              <text x="214" y="263" font-size="6.5" fill="#8a7a6a" font-family="sans-serif">content</text>
+              <text x="8" y="356" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ sticky nav on scroll?</text>
+              <text x="8" y="368" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ icon + label vs icon only</text>
+              <text x="8" y="380" font-size="7" fill="#c04040" font-family="sans-serif">* check with accessibility team</text>
             </svg>
           </div>
         </div>
 
-        <!-- ══ PHOTO under sketchbook edge (tucked) ══ -->
-        <div class="desk-item di-photo draggable" style="top:66%;left:16%;transform:rotate(-14deg)" data-rot="-14" data-z="7">
+        <!-- ══ PHOTO — K2 base camp ══ -->
+        <div class="desk-item di-photo draggable" style="top:34%;right:12%;transform:rotate(-14deg)" data-rot="-14" data-z="7">
           <div class="di-photo-img" style="background:linear-gradient(170deg,#7ab8e8 0%,#aad4f4 38%,#5a9060 62%,#3a6838 100%)"></div>
           <p class="di-photo-cap">K2 base camp, 2023</p>
         </div>
 
-        <!-- ══ BOARDING PASS — peeking under sketchbook ══ -->
-        <div class="desk-item di-boarding draggable" style="top:76%;left:18%;transform:rotate(-9deg)" data-rot="-9" data-z="10">
+        <!-- ══ BOARDING PASS ══ -->
+        <div class="desk-item di-boarding draggable" style="top:58%;right:7%;transform:rotate(-9deg)" data-rot="-9" data-z="10">
           <div class="di-boarding-label">Boarding Pass</div>
           <div class="di-boarding-route">
             <span>YYC</span>
@@ -769,28 +631,30 @@
           <div class="di-boarding-sub">WINDOW · 22A · Economy</div>
         </div>
 
-        <!-- ══ STICKY 1 — Coral "Scientist → Designer" (upper-left of sketchbook) ══ -->
-        <div class="desk-item di-sticky di-sticky-coral draggable" style="top:28%;left:14%;transform:rotate(-11deg)" data-rot="-11" data-z="12">
-          <div class="di-sticky-text">Scientist<br>→ Designer</div>
-        </div>
+        <!-- ══ STICKY 1 — Coral / Barstool — upper-left ══ -->
+        <a href="barstool.html" class="desk-item di-sticky di-sticky-coral draggable" style="top:20%;left:calc(26% + 12px);transform:rotate(-11deg)" data-rot="-11" data-z="12">
+          <div class="di-sticky-inner"><div class="di-sticky-text">Barstool<br>Sports Store ↗</div></div>
+        </a>
 
-        <!-- ══ STICKY 2 — Teal "Design systems / WCAG 2.1" (lower-right of sketchbook, covers subtitle) ══ -->
-        <div class="desk-item di-sticky di-sticky-teal draggable" style="top:57%;left:36%;transform:rotate(9deg)" data-rot="9" data-z="14">
-          <div class="di-sticky-text">Design systems<br>/ WCAG 2.1</div>
-        </div>
+        <!-- ══ STICKY 2 — Periwinkle / VEERUM — upper-right ══ -->
+        <a href="veerum.html" class="desk-item di-sticky di-sticky-teal draggable" style="top:14%;left:56%;transform:rotate(8deg)" data-rot="8" data-z="14">
+          <div class="di-sticky-inner"><div class="di-sticky-text">VEERUM ↗</div></div>
+        </a>
 
-        <!-- ══ STICKY 3 — Lavender "User interviews (100+)" (covers subtitle, center-left) ══ -->
-        <div class="desk-item di-sticky di-sticky-lavender draggable" style="top:50%;left:30%;transform:rotate(-6deg)" data-rot="-6" data-z="15">
-          <div class="di-sticky-text">User interviews<br>(100+)</div>
-        </div>
+        <!-- ══ STICKY 3 — Purple / Max Retail — lower-left ══ -->
+        <a href="max-retail.html" class="desk-item di-sticky di-sticky-lavender draggable" style="top:76%;left:42%;transform:rotate(-7deg)" data-rot="-7" data-z="15">
+          <div class="di-sticky-inner"><div class="di-sticky-text">Max<br>Retail ↗</div></div>
+        </a>
 
-        <!-- ══ STICKY 4 — Yellow "Cheeto has strong opinions" (covers subtitle, center-right) ══ -->
-        <div class="desk-item di-sticky di-sticky-yellow draggable" style="top:52%;left:55%;transform:rotate(7deg)" data-rot="7" data-z="15">
-          <div class="di-sticky-text">Cheeto has<br>strong opinions</div>
-        </div>
+        <!-- ══ STICKY 4 — Mint / Proposify — lower-right ══ -->
+        <a href="proposify.html" class="desk-item di-sticky di-sticky-yellow draggable" style="top:72%;left:62%;transform:rotate(6deg)" data-rot="6" data-z="15">
+          <div class="di-sticky-inner"><div class="di-sticky-text">Proposify ↗</div></div>
+        </a>
 
         <!-- ══ AIRPODS CASE — top right ══ -->
-        <div class="desk-item di-airpods draggable" style="top:11%;right:11%;transform:rotate(18deg)" data-rot="18" data-z="10"></div>
+        <div class="desk-item di-airpods draggable" style="top:28%;right:22%;transform:rotate(18deg)" data-rot="18" data-z="10">
+          <img src="desk_elements/hubba_bubba_airpods.png" alt="">
+        </div>
 
         <!-- ══ LIP BALM — lower left ══ -->
         <div class="desk-item di-lipbalm draggable" style="top:67%;left:6%;transform:rotate(-22deg)" data-rot="-22" data-z="10">
@@ -798,10 +662,7 @@
           <div class="di-lipbalm-tube"></div>
         </div>
 
-        <!-- ══ SCRUNCHIE — near pens, slight overlap on sticky ══ -->
-        <div class="desk-item di-scrunchie draggable" style="top:50%;left:8%;transform:rotate(14deg)" data-rot="14" data-z="10"></div>
-
-        <!-- ══ RAINBOW PENS — fan, bottom-center-right, pen 3 overlaps subtitle ══ -->
+<!-- ══ RAINBOW PENS — fan, bottom-center-right, pen 3 overlaps subtitle ══ -->
         <div class="desk-item di-pen di-pen-red    draggable" style="top:68%;left:50%;transform:rotate(-38deg)" data-rot="-38" data-z="11"></div>
         <div class="desk-item di-pen di-pen-orange draggable" style="top:71%;left:54%;transform:rotate(-26deg)" data-rot="-26" data-z="11"></div>
         <div class="desk-item di-pen di-pen-blue   draggable" style="top:61%;left:55%;transform:rotate(-14deg)" data-rot="-14" data-z="13"></div>
@@ -809,23 +670,20 @@
         <div class="desk-item di-pen di-pen-green  draggable" style="top:66%;left:66%;transform:rotate(9deg)"   data-rot="9"   data-z="11"></div>
 
         <!-- ══ PHOTO 2 — ocean/scuba ══ -->
-        <div class="desk-item di-photo draggable" style="top:18%;left:10%;transform:rotate(-8deg)" data-rot="-8" data-z="9">
+        <div class="desk-item di-photo draggable" style="top:26%;left:28%;transform:rotate(-8deg)" data-rot="-8" data-z="9">
           <div class="di-photo-img" style="background:linear-gradient(170deg,#183878 0%,#2460a8 42%,#40a0cc 72%,#2878aa 100%)"></div>
           <p class="di-photo-cap">scuba in Utila, 2022</p>
         </div>
 
         <!-- ══ PHOTO 3 — Cheeto (bird) ══ -->
-        <div class="desk-item di-photo draggable" style="top:14%;left:21%;transform:rotate(7deg)" data-rot="7" data-z="9">
+        <div class="desk-item di-photo draggable" style="top:4%;left:30%;transform:rotate(7deg)" data-rot="7" data-z="9">
           <div class="di-photo-img" style="background:linear-gradient(160deg,#f5a030 0%,#f8c840 40%,#f06820 68%,#e84818 100%)"></div>
           <p class="di-photo-cap">Cheeto being judgy</p>
         </div>
 
         <!-- ══ MATCHA MUG + STAIN — right of center, static ══ -->
-        <div class="desk-item di-matcha-group" style="top:34%;right:12%;transform:rotate(5deg)">
-          <div class="di-matcha-stain"></div>
-          <div class="di-matcha-mug">
-            <div class="di-matcha-handle"></div>
-          </div>
+        <div class="desk-item di-matcha-group draggable" style="top:calc(6% + 64px);left:4%;transform:rotate(5deg)" data-rot="5" data-z="6">
+          <img src="desk_elements/iced-matcha.png" alt="">
         </div>
 
         <!-- ══ USB-C DONGLE — lower right ══ -->
@@ -937,12 +795,13 @@
   <script>
     (function () {
       var surface = document.getElementById('deskSurface');
+      var hero    = document.getElementById('heroDesk');
       var hint    = document.getElementById('deskHint');
-      if (!surface) return;
+      if (!surface || !hero) return;
 
       /* ── Settle entrance animation ── */
-      var draggables = Array.from(surface.querySelectorAll('.desk-item.draggable'));
-      draggables.forEach(function (el, i) {
+      var allItems = Array.from(surface.querySelectorAll('.desk-item:not(.di-monstera):not(.di-matcha-group)'));
+      allItems.forEach(function (el, i) {
         el.style.animationDelay = (i * 38) + 'ms';
         el.classList.add('settle');
         el.addEventListener('animationend', function () {
@@ -950,49 +809,452 @@
         }, { once: true });
       });
 
-      /* ── Drag state per element ── */
-      draggables.forEach(function (el) {
-        var curX = 0, curY = 0;   // accumulated drag offset from original CSS position
-        var startPX = 0, startPY = 0; // pointer start minus current offset
-        var rot  = parseFloat(el.dataset.rot) || 0;
-        var baseZ = parseInt(el.dataset.z, 10) || 10;
-        el.style.zIndex = baseZ;
+      /* ── Push physics ── */
+      var RADIUS = 150;  // px — influence radius around cursor
+      var ACCEL  = 3.0;  // push acceleration per frame at closest point
+      var DAMP   = 0.88; // velocity damping (items coast to a stop and stay)
 
-        function applyTransform(tx, ty, scale) {
-          el.style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg) scale(' + (scale || 1) + ')';
+      var pushItems = [];
+      var cursorX = -9999, cursorY = -9999;
+      var matchaHeroRect = null; // cached matcha bounds in hero-local px
+
+      // Store origin centers after layout settles
+      var penItems    = [];
+      var stickyItems = [];
+      var PEN_RADIUS = 70;
+      var PEN_ACCEL  = 0.5;
+      var PEN_DAMP   = 0.86;
+      var PEN_MAX_V  = 3.5;
+
+      setTimeout(function () {
+        var heroRect = hero.getBoundingClientRect();
+
+        allItems.forEach(function (el) {
+          if (el.classList.contains('di-pen'))        return; // pens handled separately
+          if (el.classList.contains('di-sticky'))    return; // stickies handled separately
+          if (el.classList.contains('di-sketchbook')) return; // sketchbook has page-flip instead
+          var r = el.getBoundingClientRect();
+          pushItems.push({
+            el:  el,
+            rot: parseFloat(el.dataset.rot) || 0,
+            ox: r.left + r.width  / 2 - heroRect.left,
+            oy: r.top  + r.height / 2 - heroRect.top,
+            hw: r.width  / 2,
+            hh: r.height / 2,
+            px: 0, py: 0,
+            vx: 0, vy: 0
+          });
+        });
+
+        // Cache matcha bounds in hero-local coordinates
+        if (matchaEl) {
+          var mr = matchaEl.getBoundingClientRect();
+          matchaHeroRect = {
+            left:   mr.left   - heroRect.left,
+            top:    mr.top    - heroRect.top,
+            right:  mr.right  - heroRect.left,
+            bottom: mr.bottom - heroRect.top
+          };
         }
 
-        el.addEventListener('pointerdown', function (e) {
-          e.preventDefault();
-          el.setPointerCapture(e.pointerId);
-          startPX = e.clientX - curX;
-          startPY = e.clientY - curY;
-          el.style.transition = 'none';
-          el.style.zIndex = 200;
-          el.classList.add('is-dragging');
-          applyTransform(curX, curY, 1.04);
-          if (hint && !hint.classList.contains('gone')) {
-            hint.classList.add('gone');
+        // Build pen roll items
+        Array.from(surface.querySelectorAll('.di-pen')).forEach(function (el) {
+          var r        = el.getBoundingClientRect();
+          var baseRot  = parseFloat(el.dataset.rot) || 0;
+          var angleRad = baseRot * Math.PI / 180;
+          penItems.push({
+            el:       el,
+            baseRot:  baseRot,
+            ox:       r.left + r.width  / 2 - heroRect.left,
+            oy:       r.top  + r.height / 2 - heroRect.top,
+            px: 0,    py: 0,
+            rollVel:  0,
+            // roll direction = perpendicular to the pen's long axis
+            // pen is naturally vertical; after rotate(θ), long axis = (-sinθ, cosθ)
+            // perpendicular to that = (cosθ, sinθ)
+            perpX:    Math.cos(angleRad),
+            perpY:    Math.sin(angleRad)
+          });
+        });
+
+        // Build sticky wiggle items
+        Array.from(surface.querySelectorAll('.di-sticky')).forEach(function (el) {
+          var r       = el.getBoundingClientRect();
+          var baseRot = parseFloat(el.dataset.rot) || 0;
+          stickyItems.push({
+            el:      el,
+            baseRot: baseRot,
+            cx:      r.left + r.width  / 2 - heroRect.left,
+            cy:      r.top  + r.height / 2 - heroRect.top,
+            theta:   0,
+            omega:   0
+          });
+        });
+
+        requestAnimationFrame(tick);
+        requestAnimationFrame(penTick);
+        requestAnimationFrame(stickyTick);
+      }, 600);
+
+      function penTick() {
+        penItems.forEach(function (pen) {
+          var cx   = pen.ox + pen.px;
+          var cy   = pen.oy + pen.py;
+          var dx   = cx - cursorX;
+          var dy   = cy - cursorY;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < PEN_RADIUS && dist > 0) {
+            // Project push direction onto the pen's roll axis only
+            var pushX  = (dx / dist) * (1 - dist / PEN_RADIUS) * PEN_ACCEL;
+            var pushY  = (dy / dist) * (1 - dist / PEN_RADIUS) * PEN_ACCEL;
+            var proj   = pushX * pen.perpX + pushY * pen.perpY;
+            pen.rollVel += proj;
           }
-        });
 
-        el.addEventListener('pointermove', function (e) {
-          if (!(e.buttons & 1)) return;
-          curX = e.clientX - startPX;
-          curY = e.clientY - startPY;
-          applyTransform(curX, curY, 1.04);
-        });
+          pen.rollVel *= PEN_DAMP;
+          pen.rollVel = Math.max(-PEN_MAX_V, Math.min(PEN_MAX_V, pen.rollVel));
+          pen.px += pen.rollVel * pen.perpX;
+          pen.py += pen.rollVel * pen.perpY;
 
-        function onRelease() {
-          el.classList.remove('is-dragging');
-          el.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), z-index 0.1s';
-          el.style.zIndex = baseZ;
-          applyTransform(curX, curY, 1);
+          pen.el.style.transform =
+            'translate(' + pen.px + 'px,' + pen.py + 'px) rotate(' + pen.baseRot + 'deg)';
+        });
+        requestAnimationFrame(penTick);
+      }
+
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        cursorX = e.clientX - r.left;
+        cursorY = e.clientY - r.top;
+        if (hint && !hint.classList.contains('gone')) hint.classList.add('gone');
+      });
+
+      hero.addEventListener('mouseleave', function () {
+        cursorX = -9999;
+        cursorY = -9999;
+      });
+
+      function tick() {
+        pushItems.forEach(function (item) {
+          // Use actual current center (origin + displacement) for distance check
+          var cx   = item.ox + item.px;
+          var cy   = item.oy + item.py;
+          var dx   = cx - cursorX;
+          var dy   = cy - cursorY;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < RADIUS && dist > 0) {
+            // Add impulse away from cursor, stronger when closer
+            var force = (1 - dist / RADIUS) * ACCEL;
+            item.vx += (dx / dist) * force;
+            item.vy += (dy / dist) * force;
+          }
+
+          // Damping only — no spring back, items stay where they land
+          item.vx *= DAMP;
+          item.vy *= DAMP;
+          item.px += item.vx;
+          item.py += item.vy;
+
+          // ── Matcha collision: items push into it, get stuck, matcha wiggles ──
+          if (matchaHeroRect) {
+            // Use item center (no half-size offset) so items slide right up to the
+            // visible matcha edge despite any transparent padding in the image bounds.
+            var iCX = item.ox + item.px;
+            var iCY = item.oy + item.py;
+            var mL = matchaHeroRect.left, mR = matchaHeroRect.right;
+            var mT = matchaHeroRect.top,  mB = matchaHeroRect.bottom;
+
+            if (iCX > mL && iCX < mR && iCY > mT && iCY < mB) {
+              var oLeft   = iCX - mL;
+              var oRight  = mR - iCX;
+              var oTop    = iCY - mT;
+              var oBottom = mB - iCY;
+              var minO    = Math.min(oLeft, oRight, oTop, oBottom);
+
+              if      (minO === oLeft)   { item.px -= oLeft;    if (item.vx > 0) item.vx = 0; }
+              else if (minO === oRight)  { item.px += oRight;   if (item.vx < 0) item.vx = 0; }
+              else if (minO === oTop)    { item.py -= oTop;     if (item.vy > 0) item.vy = 0; }
+              else                       { item.py += oBottom;  if (item.vy < 0) item.vy = 0; }
+
+              // Kick the matcha into a wiggle on contact
+              mOmega += (Math.random() > 0.5 ? 1 : -1) * (1.2 + Math.random() * 1.0);
+              mWiggling = true;
+            }
+          }
+
+          item.el.style.transform =
+            'translate(' + item.px + 'px,' + item.py + 'px) rotate(' + item.rot + 'deg)';
+        });
+        requestAnimationFrame(tick);
+      }
+
+      /* ── Sticky note wiggle ── */
+      function stickyTick() {
+        var S_RADIUS = 80;   // px — cursor must be this close to trigger
+        var S_SPRING = 0.18; // restoring force
+        var S_DAMP   = 0.72; // heavy damping — settles quickly
+        var S_KICK   = 1.8;  // max rotation impulse in degrees
+
+        stickyItems.forEach(function (s) {
+          var dx   = s.cx - cursorX;
+          var dy   = s.cy - cursorY;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < S_RADIUS && dist > 0) {
+            // Tiny flick proportional to proximity, direction based on cursor side
+            var strength = (1 - dist / S_RADIUS) * S_KICK;
+            s.omega += (dx > 0 ? -1 : 1) * strength * 0.08;
+          }
+
+          s.omega  = s.omega * S_DAMP - s.theta * S_SPRING;
+          s.theta += s.omega;
+          s.theta  = Math.max(-3, Math.min(3, s.theta)); // cap at ±3°
+
+          s.el.style.transform =
+            'rotate(' + (s.baseRot + s.theta) + 'deg)';
+        });
+        requestAnimationFrame(stickyTick);
+      }
+
+      /* ── Matcha wiggle & splash ── */
+      var matchaEl = surface.querySelector('.di-matcha-group');
+      if (matchaEl) {
+        matchaEl.style.pointerEvents = 'auto';
+
+        var M_BASE_ROT = 5;   // matches inline rotate(5deg)
+        var M_SPRING   = 0.22;
+        var M_DAMP     = 0.76;
+        var mTheta = 0, mOmega = 0, mWiggling = false;
+
+        function blobRadius() {
+          function rv() { return Math.floor(8 + Math.random() * 82); }
+          return rv()+'% '+rv()+'% '+rv()+'% '+rv()+'%' +
+                 ' / '+rv()+'% '+rv()+'% '+rv()+'% '+rv()+'%';
         }
 
-        el.addEventListener('pointerup',     onRelease);
-        el.addEventListener('pointercancel', onRelease);
-      });
+        // Registry of landed blobs for merge detection
+        var landedBlobs = [];
+
+        // Places a dark stain on the coral sticky that exactly mirrors the blob's
+        // shape and position — overflow:hidden on the sticky clips it to the wet area.
+        function maybeStickyStain(blobClientX, blobClientY, blobW, blobH, blobBR, blobRot) {
+          var coralSticky = surface.querySelector('.di-sticky-coral');
+          if (!coralSticky) return;
+          var sr    = coralSticky.getBoundingClientRect();
+          var blobR = Math.max(blobW, blobH) * 0.6;
+          // AABB proximity check
+          var clampX = Math.max(sr.left, Math.min(blobClientX, sr.right));
+          var clampY = Math.max(sr.top,  Math.min(blobClientY, sr.bottom));
+          var dist   = Math.sqrt(Math.pow(blobClientX - clampX, 2) + Math.pow(blobClientY - clampY, 2));
+          if (dist >= blobR) return; // no overlap
+
+          // Convert blob center to sticky's local coordinate space
+          var stickyRot = (parseFloat(coralSticky.dataset.rot) || 0) * Math.PI / 180;
+          var scx    = sr.left + sr.width  / 2;
+          var scy    = sr.top  + sr.height / 2;
+          var offX   = blobClientX - scx;
+          var offY   = blobClientY - scy;
+          var localX = offX * Math.cos(-stickyRot) - offY * Math.sin(-stickyRot);
+          var localY = offX * Math.sin(-stickyRot) + offY * Math.cos(-stickyRot);
+
+          // Stain is the same shape/size as the blob — sticky's overflow:hidden clips it
+          var stain = document.createElement('div');
+          stain.style.cssText =
+            'position:absolute;pointer-events:none;z-index:2;' +
+            'left:calc(50% + ' + localX + 'px);' +
+            'top:calc(50%  + ' + localY + 'px);' +
+            'width:' + blobW + 'px;height:' + blobH + 'px;' +
+            'background:rgba(30,72,10,0.68);' +
+            'border-radius:' + blobBR + ';' +
+            'transform:translate(-50%,-50%) rotate(' + (blobRot || 0) + 'deg);' +
+            'filter:blur(0.6px);';
+          var stainTarget = coralSticky.querySelector('.di-sticky-inner') || coralSticky;
+          stainTarget.appendChild(stain);
+        }
+
+        function growBlob(lb, addArea) {
+          var startW = lb.w;
+          var startH = lb.h;
+          var newArea   = lb.w * lb.h + addArea;
+          var newAspect = 0.8 + Math.random() * 0.4;
+          var targetW   = Math.sqrt(newArea / newAspect);
+          var targetH   = targetW * newAspect;
+          lb.el.style.borderRadius = blobRadius();
+          // After growing, check if the blob now touches the sticky
+          var hr2 = hero.getBoundingClientRect();
+          maybeStickyStain(lb.vcx + hr2.left, lb.vcy + hr2.top, targetW, targetH, lb.el.style.borderRadius, 0);
+          var dur = 200;
+          var t0  = null;
+          function gf(t) {
+            if (!t0) t0 = t;
+            var p = Math.min((t - t0) / dur, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+            var cw = startW + (targetW - startW) * e;
+            var ch = startH + (targetH - startH) * e;
+            lb.el.style.width  = cw + 'px';
+            lb.el.style.height = ch + 'px';
+            lb.w = cw; lb.h = ch;
+            lb.r = Math.max(cw, ch) * 0.6;
+            if (p < 1) requestAnimationFrame(gf);
+            else        mergeOverlappingBlobs();
+          }
+          requestAnimationFrame(gf);
+        }
+
+        function mergeOverlappingBlobs() {
+          for (var i = 0; i < landedBlobs.length; i++) {
+            for (var j = i + 1; j < landedBlobs.length; j++) {
+              var a  = landedBlobs[i];
+              var b  = landedBlobs[j];
+              var dx = a.vcx - b.vcx;
+              var dy = a.vcy - b.vcy;
+              if (Math.sqrt(dx * dx + dy * dy) < a.r + b.r) {
+                // Absorb the smaller into the larger
+                var keep = (a.w * a.h >= b.w * b.h) ? a : b;
+                var lose = (keep === a) ? b : a;
+                var loseIdx = landedBlobs.indexOf(lose);
+                lose.el.remove();
+                landedBlobs.splice(loseIdx, 1);
+                growBlob(keep, lose.w * lose.h); // growBlob fires mergeOverlappingBlobs again when done
+                return; // one merge per call — let growBlob chain the rest
+              }
+            }
+          }
+        }
+
+        function spawnSplash() {
+          var hr    = hero.getBoundingClientRect();
+          var mr    = matchaEl.getBoundingClientRect();
+          var cx    = mr.left + mr.width  / 2 - hr.left;
+          var cy    = mr.top  + mr.height / 2 - hr.top;
+          var rim   = mr.width * 0.3;
+          var count = 3 + Math.floor(Math.random() * 3);
+
+          for (var i = 0; i < count; i++) {
+            (function () {
+              var size    = 9 + Math.random() * 16;
+              var aspect  = 0.75 + Math.random() * 0.5;
+              var angle   = Math.random() * Math.PI * 2;
+              var sx      = cx + Math.cos(angle) * rim * (0.6 + Math.random() * 0.4);
+              var sy      = cy + Math.sin(angle) * rim * (0.6 + Math.random() * 0.4);
+              var flyDist = 16 + Math.random() * 36;
+              var flyX    = Math.cos(angle) * flyDist;
+              var flyY    = Math.sin(angle) * flyDist;
+              var dur     = 320 + Math.random() * 240;
+              var r = Math.floor(105 + Math.random() * 20);
+              var g = Math.floor(185 + Math.random() * 25);
+              var b = Math.floor(55  + Math.random() * 20);
+              var flyBlob  = blobRadius();
+              var landBlob = blobRadius();
+              var landRot  = Math.random() * 360;
+
+              var drop = document.createElement('div');
+              drop.style.cssText =
+                'position:absolute;pointer-events:none;will-change:transform,opacity;' +
+                'width:' + size + 'px;height:' + (size * aspect) + 'px;' +
+                'left:' + sx + 'px;top:' + sy + 'px;' +
+                'background:rgba(' + r + ',' + g + ',' + b + ',0.88);' +
+                'border-radius:' + flyBlob + ';' +
+                'transform:translate(-50%,-50%)';
+              surface.appendChild(drop);
+
+              var t0 = null;
+              function frame(t) {
+                if (!t0) t0 = t;
+                var p    = Math.min((t - t0) / dur, 1);
+                var ease = 1 - Math.pow(1 - p, 2);
+                var grav = 18 * p * p;
+                drop.style.transform =
+                  'translate(calc(-50% + ' + (flyX * ease) + 'px),' +
+                  ' calc(-50% + ' + (flyY * ease + grav) + 'px))';
+
+                if (p < 1) {
+                  requestAnimationFrame(frame);
+                } else {
+                  // Final resting center in surface coords
+                  var vcx   = sx + flyX;
+                  var vcy   = sy + flyY + grav;
+                  var landW = size * 1.4;
+                  var landH = size * (0.8 + Math.random() * 0.4);
+                  var newR  = Math.max(landW, landH) * 0.6;
+
+                  // ── Check if drop touches the coral sticky ──
+                  maybeStickyStain(vcx + hr.left, vcy + hr.top, landW, landH, landBlob, landRot);
+
+                  // ── Check if drop merges with an existing desk blob ──
+                  var merged = false;
+                  if (!merged) {
+                    for (var j = 0; j < landedBlobs.length; j++) {
+                      var lb = landedBlobs[j];
+                      var dx = vcx - lb.vcx;
+                      var dy = vcy - lb.vcy;
+                      var dist = Math.sqrt(dx * dx + dy * dy);
+                      if (dist < lb.r + newR) {
+                        growBlob(lb, landW * landH);
+                        drop.remove();
+                        merged = true;
+                        break;
+                      }
+                    }
+                  }
+
+                  if (!merged) {
+                    drop.style.opacity      = '0.42';
+                    drop.style.filter       = 'blur(0.7px)';
+                    drop.style.zIndex       = '4';
+                    drop.style.width        = landW + 'px';
+                    drop.style.height       = landH + 'px';
+                    drop.style.borderRadius = landBlob;
+                    drop.style.transform =
+                      'translate(calc(-50% + ' + flyX + 'px), calc(-50% + ' + (flyY + grav) + 'px))' +
+                      ' rotate(' + landRot + 'deg)';
+                    landedBlobs.push({ el: drop, vcx: vcx, vcy: vcy, w: landW, h: landH, r: newR });
+                    mergeOverlappingBlobs();
+                  }
+                }
+              }
+              requestAnimationFrame(frame);
+            }());
+          }
+        }
+
+        matchaEl.addEventListener('mouseenter', function () {
+          mOmega += (Math.random() > 0.5 ? 1 : -1) * (2.5 + Math.random() * 1.5);
+          spawnSplash(); // every hover adds more spills
+        });
+
+        function matchaTick() {
+          if (Math.abs(mTheta) > 0.02 || Math.abs(mOmega) > 0.02) {
+            mOmega  = mOmega * M_DAMP - mTheta * M_SPRING;
+            mTheta += mOmega;
+            matchaEl.style.transform = 'rotate(' + (M_BASE_ROT + mTheta) + 'deg)';
+          } else if (mWiggling) {
+            mTheta = 0; mOmega = 0; mWiggling = false;
+            matchaEl.style.transform = 'rotate(' + M_BASE_ROT + 'deg)';
+          }
+          requestAnimationFrame(matchaTick);
+        }
+        matchaTick();
+      }
+
+      /* ── Sketchbook page flip on mouseenter ── */
+      var sketchbookEl = surface.querySelector('.di-sketchbook');
+      var pageFlipEls = sketchbookEl ? Array.from(sketchbookEl.querySelectorAll('.di-page-flip')) : [];
+      var flippedCount = 0;
+      if (sketchbookEl && pageFlipEls.length) {
+        sketchbookEl.addEventListener('mouseenter', function () {
+          if (flippedCount >= pageFlipEls.length) return;
+          var page = pageFlipEls[flippedCount];
+          page.style.zIndex = 99;
+          page.classList.add('flipping');
+          page.addEventListener('animationend', function () {
+            page.style.zIndex = 0;
+          }, { once: true });
+          flippedCount++;
+        });
+      }
 
     })();
   </script>
