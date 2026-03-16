@@ -861,6 +861,7 @@
         allItems.forEach(function (el) {
           if (el.classList.contains('di-pen'))        return; // pens handled separately
           if (el.classList.contains('di-sticky'))    return; // stickies handled separately
+          if (el.classList.contains('di-hubba'))     return; // hubba bubba stays put
           if (el.classList.contains('di-sketchbook')) return; // sketchbook has page-flip instead
           var r = el.getBoundingClientRect();
           pushItems.push({
