@@ -1662,10 +1662,13 @@
     })();
 
     // ── Notebook arrows ──────────────────────────────────────────────────────
-    // Tail exits LEFT or RIGHT of the text note; head lands on the nearest
-    // corner/edge of the polaroid. A quadratic bezier with a small perpendicular
-    // bow gives a natural hand-drawn feel. The path never routes through the
-    // polaroid and all coordinates stay within the 305×445 page.
+    // Two routing modes:
+    //   SIDE  — note is mostly left/right of polaroid: tail from facing edge,
+    //            head at near side of polaroid, arc bows away from horizontal.
+    //   BELOW — note is mostly above/below polaroid: tail from note's top
+    //            corner (avoids crossing note text), head at polaroid's SIDE
+    //            (not bottom), arc bows outward. Side is chosen by checking
+    //            which of left/right keeps both endpoints within the page.
     function drawNbArrows() {
       document.querySelectorAll('.nb-arrow-svg').forEach(function (svg) {
         var page = svg.parentElement;
@@ -1676,29 +1679,22 @@
           var pol = page.querySelector('[data-nb-id="' + note.dataset.nbPol + '"]');
           if (!pol) return;
 
-          // Polaroid centre & axis-aligned bounding box
           var hw = pol.offsetWidth / 2, hh = pol.offsetHeight / 2;
           var pcx = pol.offsetLeft + hw, pcy = pol.offsetTop + hh;
           var rm = (pol.getAttribute('style') || '').match(/rotate\((-?[\d.]+)deg\)/);
           var rad = rm ? parseFloat(rm[1]) * Math.PI / 180 : 0;
           var aabbHW = Math.abs(hw * Math.cos(rad)) + Math.abs(hh * Math.sin(rad));
-          var aabbHH = Math.abs(hw * Math.sin(rad)) + Math.abs(hh * Math.cos(rad));
 
-          // Note bounding box
           var nx = note.offsetLeft, ny = note.offsetTop;
           var nw = note.offsetWidth, nh = note.offsetHeight;
           var ncx = nx + nw / 2, ncy = ny + nh / 2;
-
-          // Vector from note centre to polaroid centre
           var dx = pcx - ncx; // + = polaroid right of note
-          var dy = pcy - ncy; // – = polaroid above note (most common)
+          var dy = pcy - ncy; // – = polaroid above (most common)
 
           var tailX, tailY, headX, headY, ctrlX, ctrlY;
 
           if (Math.abs(dx) > Math.abs(dy) * 0.7) {
-            // ── SIDE case: note is mostly left/right of polaroid ─────────────
-            // Tail exits the facing side; head at the near side of polaroid.
-            // Control point bows away from the horizontal axis.
+            // ── SIDE case ────────────────────────────────────────────────────
             if (dx > 0) {
               tailX = nx + nw + 4; tailY = ncy;
               headX = pcx - aabbHW - 6; headY = pcy + dy * 0.35;
@@ -1707,27 +1703,32 @@
               headX = pcx + aabbHW + 6; headY = pcy + dy * 0.35;
             }
             ctrlX = (tailX + headX) / 2;
-            ctrlY = (tailY + headY) / 2 - Math.abs(dx) * 0.15;
+            ctrlY = (tailY + headY) / 2 - Math.abs(dx) * 0.2;
 
           } else {
-            // ── BELOW/ABOVE case: note is mostly above or below polaroid ─────
-            // Tail exits on the side that is horizontally closer to the polaroid.
-            // Head lands on the nearest bottom (or top) corner of the polaroid.
-            // Control point bows outward on the same side as the tail so the
-            // curve cannot cross through the polaroid.
-            var exitRight = dx >= 0;
+            // ── BELOW/ABOVE case ─────────────────────────────────────────────
+            // Pre-compute both side options and pick the one that stays in bounds.
+            var rTailX = nx + nw + 4, rHeadX = pcx + aabbHW + 6;
+            var lTailX = nx - 4,      lHeadX = pcx - aabbHW - 6;
+            var rOk = Math.min(rTailX, rHeadX) > 8 && Math.max(rTailX, rHeadX) < 297;
+            var lOk = Math.min(lTailX, lHeadX) > 8 && Math.max(lTailX, lHeadX) < 297;
+            // Both valid → pick the side note centre is on (avoids crossing).
+            var exitRight = (rOk && !lOk) ? true
+                          : (lOk && !rOk) ? false
+                          : ncx >= pcx;
             var sign = exitRight ? 1 : -1;
-            if (exitRight) {
-              tailX = nx + nw + 4; tailY = ncy;
-              headX = pcx + aabbHW * 0.3;
-            } else {
-              tailX = nx - 4; tailY = ncy;
-              headX = pcx - aabbHW * 0.3;
-            }
-            // Head at bottom of polaroid when pol is above, top when below
-            headY = pcy + (dy < 0 ? aabbHH + 6 : -aabbHH - 6);
 
-            ctrlX = (tailX + headX) / 2 + sign * Math.max(10, Math.abs(dy) * 0.14);
+            // Tail at the top corner of the note (nearest to polaroid above).
+            tailX = exitRight ? rTailX : lTailX;
+            tailY = dy < 0 ? ny : ny + nh; // top when pol above, bottom when below
+
+            // Head at the polaroid's left or right SIDE (not bottom).
+            headX = exitRight ? rHeadX : lHeadX;
+            headY = pcy; // mid-height of polaroid side
+
+            // Control point bows outward on the same side for a visible arc.
+            var bowAmt = Math.max(18, Math.abs(dy) * 0.22);
+            ctrlX = (tailX + headX) / 2 + sign * bowAmt;
             ctrlY = (tailY + headY) / 2;
           }
 
