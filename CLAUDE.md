@@ -72,6 +72,26 @@ All assets live in `brand_assets/`:
 - Always `git push` after committing so GitHub stays in sync.
 - Check `git status` before committing to confirm only intended files are staged.
 
+## Hero Desk (index.html)
+
+Bird's-eye draggable desk scene. All desk items live in `#deskSurface` with class `desk-item`.
+Desk element PNGs live in `desk_elements/`: `monstera.png`, `iced-matcha.png`, `hubba_bubba_airpods.png`.
+
+**Physics system (inline `<script>` at bottom of index.html):**
+- `pushItems` — cursor pushes items away; items stay where they land (no spring-back). Sketchbook, pens, and stickies are excluded from this loop.
+- `penTick` — pens roll along their long axis only.
+- `stickyTick` — stickies wiggle (rotate) when cursor is near; they don't translate.
+- Matcha collision — items in `pushItems` are stopped at the matcha boundary and can't pass through it; contact triggers a matcha wiggle.
+- Matcha wiggle + splash — `mOmega`/`mTheta` spring system; splash blobs spawn on hover and stain the coral sticky if they land on it.
+- Notebook page flip — 3 stacked `.di-page-flip` elements inside `.di-sketchbook`. Each `mouseenter` flips the next unflipped page (adds `.flipping`, `animation-fill-mode: forwards` so it stays). The flipping page gets `z-index: 99` during animation, drops to `0` on `animationend`. `flippedCount` tracks progress; stops after all 3 are flipped.
+
+**Key structural rules:**
+- `.di-monstera` — PNG image (`desk_elements/monstera.png`), top-right corner, static.
+- `.di-matcha-group` — excluded from `allItems` settle animation and push physics; has its own wiggle loop.
+- `.di-sketchbook` — excluded from push physics; uses page-flip interaction instead. Has `perspective: 700px` for 3D flip.
+- Sticky notes are `<a>` tags linking to case studies. Inner wrapper `.di-sticky-inner` handles the peel-up hover transform and `overflow: hidden` (do not flatten this structure — the matcha stain appends into `.di-sticky-inner`).
+- `data-rot` attribute on each draggable stores the base rotation in degrees for physics calculations.
+
 ## Hard Rules
 - Never invent brand colors — use the hex values above
 - Never use default Tailwind palette
