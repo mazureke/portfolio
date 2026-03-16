@@ -1661,7 +1661,11 @@
 
     })();
 
-    // ── Notebook arrows: tail exits left/right of text note, curls to polaroid ──
+    // ── Notebook arrows ──────────────────────────────────────────────────────
+    // Tail exits LEFT or RIGHT of the text note; head lands on the nearest
+    // corner/edge of the polaroid. A quadratic bezier with a small perpendicular
+    // bow gives a natural hand-drawn feel. The path never routes through the
+    // polaroid and all coordinates stay within the 305×445 page.
     function drawNbArrows() {
       document.querySelectorAll('.nb-arrow-svg').forEach(function (svg) {
         var page = svg.parentElement;
@@ -1672,54 +1676,74 @@
           var pol = page.querySelector('[data-nb-id="' + note.dataset.nbPol + '"]');
           if (!pol) return;
 
-          // Polaroid center & axis-aligned bounding box half-extents
+          // Polaroid centre & axis-aligned bounding box
           var hw = pol.offsetWidth / 2, hh = pol.offsetHeight / 2;
           var pcx = pol.offsetLeft + hw, pcy = pol.offsetTop + hh;
-          var m = (pol.getAttribute('style') || '').match(/rotate\((-?[\d.]+)deg\)/);
-          var rad = m ? parseFloat(m[1]) * Math.PI / 180 : 0;
-          var sinA = Math.sin(rad), cosA = Math.cos(rad);
-          var aabbHW = Math.abs(hw * cosA) + Math.abs(hh * sinA);
-          var aabbHH = Math.abs(hw * sinA) + Math.abs(hh * cosA);
+          var rm = (pol.getAttribute('style') || '').match(/rotate\((-?[\d.]+)deg\)/);
+          var rad = rm ? parseFloat(rm[1]) * Math.PI / 180 : 0;
+          var aabbHW = Math.abs(hw * Math.cos(rad)) + Math.abs(hh * Math.sin(rad));
+          var aabbHH = Math.abs(hw * Math.sin(rad)) + Math.abs(hh * Math.cos(rad));
 
           // Note bounding box
           var nx = note.offsetLeft, ny = note.offsetTop;
           var nw = note.offsetWidth, nh = note.offsetHeight;
           var ncx = nx + nw / 2, ncy = ny + nh / 2;
 
-          // Side: note to the right of polaroid → use RIGHT side for both endpoints.
-          //       note to the left → use LEFT side for both.
-          // Both head and tail on the same side means the C-curve bows outward
-          // and can never cross through the polaroid.
-          var useRight = ncx >= pcx;
-          var sign = useRight ? 1 : -1;
+          // Vector from note centre to polaroid centre
+          var dx = pcx - ncx; // + = polaroid right of note
+          var dy = pcy - ncy; // – = polaroid above note (most common)
 
-          // Tail: left or right edge of note at its vertical centre
-          var tailX = useRight ? nx + nw + 4 : nx - 4;
-          var tailY = ncy;
+          var tailX, tailY, headX, headY, ctrlX, ctrlY;
 
-          // Head: same-side edge of polaroid AABB at its vertical centre
-          var headX = useRight ? pcx + aabbHW + 6 : pcx - aabbHW - 6;
-          var headY = pcy;
+          if (Math.abs(dx) > Math.abs(dy) * 0.7) {
+            // ── SIDE case: note is mostly left/right of polaroid ─────────────
+            // Tail exits the facing side; head at the near side of polaroid.
+            // Control point bows away from the horizontal axis.
+            if (dx > 0) {
+              tailX = nx + nw + 4; tailY = ncy;
+              headX = pcx - aabbHW - 6; headY = pcy + dy * 0.35;
+            } else {
+              tailX = nx - 4; tailY = ncy;
+              headX = pcx + aabbHW + 6; headY = pcy + dy * 0.35;
+            }
+            ctrlX = (tailX + headX) / 2;
+            ctrlY = (tailY + headY) / 2 - Math.abs(dx) * 0.15;
 
-          // Enforce minimum 32px straight-line distance (push head further out)
-          var dist = Math.sqrt((headX - tailX) * (headX - tailX) + (headY - tailY) * (headY - tailY));
-          if (dist < 32) {
-            headX += sign * (32 - dist);
+          } else {
+            // ── BELOW/ABOVE case: note is mostly above or below polaroid ─────
+            // Tail exits on the side that is horizontally closer to the polaroid.
+            // Head lands on the nearest bottom (or top) corner of the polaroid.
+            // Control point bows outward on the same side as the tail so the
+            // curve cannot cross through the polaroid.
+            var exitRight = dx >= 0;
+            var sign = exitRight ? 1 : -1;
+            if (exitRight) {
+              tailX = nx + nw + 4; tailY = ncy;
+              headX = pcx + aabbHW * 0.3;
+            } else {
+              tailX = nx - 4; tailY = ncy;
+              headX = pcx - aabbHW * 0.3;
+            }
+            // Head at bottom of polaroid when pol is above, top when below
+            headY = pcy + (dy < 0 ? aabbHH + 6 : -aabbHH - 6);
+
+            ctrlX = (tailX + headX) / 2 + sign * Math.max(10, Math.abs(dy) * 0.14);
+            ctrlY = (tailY + headY) / 2;
           }
 
-          // Cubic bezier — C-shape: both CPs pushed outward on sign side.
-          // Tail and head lean slightly toward each other vertically so the
-          // curve has a gentle hook rather than a flat bow.
-          var vertSpan = headY - tailY; // negative when polaroid is above note
-          var curl = Math.max(22, Math.abs(vertSpan) * 0.5);
-          var cp1x = tailX + sign * curl;
-          var cp1y = tailY + vertSpan * 0.15;
-          var cp2x = headX + sign * curl;
-          var cp2y = headY - vertSpan * 0.15;
+          // Enforce minimum 32px path length
+          var dist = Math.sqrt((headX - tailX) * (headX - tailX) + (headY - tailY) * (headY - tailY));
+          if (dist < 32) {
+            var s = 32 / dist;
+            var ohx = headX, ohy = headY;
+            headX = tailX + (headX - tailX) * s;
+            headY = tailY + (headY - tailY) * s;
+            ctrlX += headX - ohx;
+            ctrlY += headY - ohy;
+          }
 
           var d = 'M ' + tailX.toFixed(1) + ',' + tailY.toFixed(1) +
-                  ' C ' + cp1x.toFixed(1) + ',' + cp1y.toFixed(1) +
-                  ' ' + cp2x.toFixed(1) + ',' + cp2y.toFixed(1) +
+                  ' Q ' + ctrlX.toFixed(1) + ',' + ctrlY.toFixed(1) +
                   ' ' + headX.toFixed(1) + ',' + headY.toFixed(1);
 
           var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
