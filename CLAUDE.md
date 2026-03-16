@@ -62,8 +62,8 @@ All assets live in `brand_assets/`:
 `/links` page is footer-only (not in primary nav)
 
 ## Git & Version Control
-- This repo is tracked in git and pushed to GitHub — commit and push regularly so no work is ever lost.
-- **After every meaningful change** (new page, significant edit, bug fix), commit and push before moving on.
+- This repo is tracked in git and pushed to GitHub — **commit and push after every single change**, no exceptions.
+- Do not batch changes across multiple user messages. Each task or fix = one commit + push before moving on.
 - Commit messages must be clean and descriptive — describe what changed and why, not just "update files".
   - Good: `add community page with resource grid and mentoring services`
   - Good: `fix nav toggle aria state on mobile`
