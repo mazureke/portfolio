@@ -342,6 +342,7 @@
       font-weight: 500;
       text-align: center;
       margin-top: 8px;
+      margin-bottom: 0;
       color: #6B6B6B; /* 5.3:1 on #fff — WCAG AA */
       font-style: italic;
     }
@@ -662,18 +663,19 @@
               <p class="di-photo-cap">biochem days, circa 2017</p>
             </div>
             <!--
-              Notes placed directly below / beside each polaroid.
-              Arrow: tail = 8px from note edge, head = 8px from polaroid edge.
-              · K2 note   → directly below K2,     arrow points up   to K2 bottom-center (77,140)
-              · Cheeto note → directly below Cheeto, arrow points up   to Cheeto bottom-center (202,131)
-              · Research note → directly right of Research, arrow points left to Research right-center (161,280)
+              Polaroid border box: 106px wide (94+6+6 pad), 124px tall (6+77+8+11+22).
+              Transform-origin = center = (left%×305 + 53, top%×445 + 62).
+              Arrow: tail 8px from note edge, head 8px from polaroid bottom-center.
+              · K2   (7%,8%,−9°): bottom-center ≈ (84,159). head (84,167), tail (84,187). note top 44%=196, left 10%=31.
+              · Cheeto (53%,6%,+7°): bottom-center ≈ (207,150). head (207,158), tail (207,178). note top 42%=187, left 51%=156.
+              · Research (22%,52%,−5°): right-center ≈ (173,289). head (181,289), tail (206,289). note top 62%=276, left 70%=214.
             -->
             <!-- K2 note: directly below K2 polaroid -->
-            <p class="nb-note" style="top:41%;left:9%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
+            <p class="nb-note" style="top:44%;left:10%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
             <!-- Cheeto note: directly below Cheeto polaroid -->
-            <p class="nb-note" style="top:39%;left:50%;transform:rotate(4deg)">sun conure. owns me.</p>
+            <p class="nb-note" style="top:42%;left:51%;transform:rotate(4deg)">sun conure. owns me.</p>
             <!-- Research note: directly right of Research polaroid -->
-            <p class="nb-note" style="top:60%;left:66%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
+            <p class="nb-note" style="top:62%;left:70%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
             <!-- curved pen arrows (viewBox matches 305×445 content area) -->
             <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
               <defs>
@@ -681,12 +683,12 @@
                   <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 </marker>
               </defs>
-              <!-- K2: tail 8px above note top (41%×445=182→174), head 8px below K2 bottom (140+8=148) -->
-              <path d="M 77,174 C 74,164 76,156 77,148" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
-              <!-- Cheeto: tail 8px above note top (39%×445=173→165), head 8px below Cheeto bottom (131+8=139) -->
-              <path d="M 202,165 C 205,156 205,148 202,139" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
-              <!-- Research: tail 8px left of note left (66%×305=201→193), head 8px right of Research right (161+8=169) -->
-              <path d="M 193,280 C 186,278 178,278 169,280" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+              <!-- K2: tail (84,187) → head (84,167), 20px arrow -->
+              <path d="M 84,187 C 81,179 82,173 84,167" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+              <!-- Cheeto: tail (207,178) → head (207,158), 20px arrow -->
+              <path d="M 207,178 C 210,170 210,164 207,158" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+              <!-- Research: tail (206,289) → head (181,289), 25px horizontal arrow -->
+              <path d="M 206,289 C 199,287 191,287 181,289" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
             </svg>
           </div>
 
@@ -709,21 +711,23 @@
               <p class="di-photo-cap">Marrakech, 2019</p>
             </div>
             <!--
-              Notes placed directly below each polaroid.
-              Arrow: tail = 8px from note edge, head = 8px from polaroid bottom-center.
-              · MB bottom-center (70,131): head (70,139), tail (70,164), note top 39%×445=173
-              · IC bottom-center (200,122): head (200,130), tail (200,155), note top 37%×445=164
-              · Painting bottom-center (68,327): head (68,335), tail (68,360), note top 83%×445=369
-              · Marrakech bottom-center (215,318): head (215,326), tail (215,351), note top 81%×445=360
+              Polaroid border box: 106px wide (94+6+6 pad), 124px tall (6+77+8+11+22).
+              Transform-origin = center = (left%×305 + 53, top%×445 + 62).
+              Arrow: tail 8px from note edge, head 8px from polaroid bottom-center.
+              Inter-row gap is only ~69px so top-row arrows are kept at 12px.
+              · MB   (5%,6%,−8°):  bottom-center ≈ (77,150). head (77,158), tail (77,170). note top 40%=178, left 8%=24.
+              · IC   (52%,4%,+6°): bottom-center ≈ (205,141). head (205,149), tail (205,161). note top 38%=169, left 50%=153.
+              · Painting (8%,50%,+4°): bottom-center ≈ (73,346). head (73,354), tail (73,374). note top 86%=383, left 7%=21.
+              · Marrakech (53%,48%,−7°): bottom-center ≈ (222,337). head (222,345), tail (222,365). note top 84%=374, left 55%=168.
             -->
             <!-- MB note: directly below MB polaroid -->
-            <p class="nb-note" style="top:39%;left:7%;transform:rotate(3deg)">2× world champ! Calgary Stampede Showband.</p>
+            <p class="nb-note" style="top:40%;left:8%;transform:rotate(3deg)">2× world champ! Calgary Stampede Showband.</p>
             <!-- IC note: directly below IC polaroid -->
-            <p class="nb-note" style="top:37%;left:49%;transform:rotate(-4deg)">yes, there's a workshop for this.</p>
+            <p class="nb-note" style="top:38%;left:50%;transform:rotate(-4deg)">yes, there's a workshop for this.</p>
             <!-- Painting note: directly below Painting polaroid -->
-            <p class="nb-note" style="top:83%;left:6%;transform:rotate(-3deg)">oil on canvas. grandma hated it.</p>
+            <p class="nb-note" style="top:86%;left:7%;transform:rotate(-3deg)">oil on canvas. grandma hated it.</p>
             <!-- Marrakech note: directly below Marrakech polaroid -->
-            <p class="nb-note" style="top:81%;left:54%;transform:rotate(4deg)">23 countries + counting.</p>
+            <p class="nb-note" style="top:84%;left:55%;transform:rotate(4deg)">23 countries + counting.</p>
             <!-- curved pen arrows (viewBox matches 305×445 content area) -->
             <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
               <defs>
@@ -731,14 +735,14 @@
                   <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 </marker>
               </defs>
-              <!-- MB: tail 8px above note top (39%×445=173→165), head 8px below MB bottom (131+8=139) -->
-              <path d="M 70,165 C 67,155 68,147 70,139" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- IC: tail 8px above note top (37%×445=164→156), head 8px below IC bottom (122+8=130) -->
-              <path d="M 200,156 C 197,147 198,138 200,130" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- Painting: tail 8px above note top (83%×445=369→361), head 8px below Painting bottom (327+8=335) -->
-              <path d="M 68,361 C 65,352 66,343 68,335" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
-              <!-- Marrakech: tail 8px above note top (81%×445=360→352), head 8px below Marrakech bottom (318+8=326) -->
-              <path d="M 215,352 C 212,343 213,334 215,326" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- MB: tail (77,170) → head (77,158), 12px arrow -->
+              <path d="M 77,170 C 74,166 75,162 77,158" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- IC: tail (205,161) → head (205,149), 12px arrow -->
+              <path d="M 205,161 C 202,157 203,153 205,149" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- Painting: tail (73,374) → head (73,354), 20px arrow -->
+              <path d="M 73,374 C 70,366 71,360 73,354" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- Marrakech: tail (222,365) → head (222,345), 20px arrow -->
+              <path d="M 222,365 C 219,357 220,351 222,345" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
             </svg>
           </div>
 
