@@ -1310,8 +1310,15 @@
       /* ── Hubba Bubba open/close ── */
       var hubbaEl = surface.querySelector('.di-hubba');
       if (hubbaEl) {
-        hubbaEl.addEventListener('mouseenter', function () { hubbaEl.classList.add('is-open'); });
-        hubbaEl.addEventListener('mouseleave', function () { hubbaEl.classList.remove('is-open'); });
+        hero.addEventListener('mousemove', function (e) {
+          var r = hubbaEl.getBoundingClientRect();
+          var inside = e.clientX >= r.left && e.clientX <= r.right &&
+                       e.clientY >= r.top  && e.clientY <= r.bottom;
+          hubbaEl.classList.toggle('is-open', inside);
+        });
+        hero.addEventListener('mouseleave', function () {
+          hubbaEl.classList.remove('is-open');
+        });
       }
 
       /* ── Sketchbook page flip on mouseenter ── */
