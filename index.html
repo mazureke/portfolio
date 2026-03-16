@@ -1290,15 +1290,15 @@
       var monsteraEl = surface.querySelector('.di-monstera');
       if (monsteraEl) {
         var MON_BASE  = -33;
-        var MON_SPRING = 0.07, MON_DAMP = 0.80;
+        var MON_SPRING = 0.025, MON_DAMP = 0.90;
         var monTheta = 0, monOmega = 0;
 
         monsteraEl.addEventListener('mouseenter', function () {
-          monOmega += (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 3);
+          monOmega += (Math.random() > 0.5 ? 1 : -1) * (1.2 + Math.random() * 1.2);
         });
         monsteraEl.addEventListener('mousemove', function () {
-          if (Math.abs(monOmega) < 0.5) {
-            monOmega += (Math.random() > 0.5 ? 1 : -1) * 0.8;
+          if (Math.abs(monOmega) < 0.2) {
+            monOmega += (Math.random() > 0.5 ? 1 : -1) * 0.3;
           }
         });
 
