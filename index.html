@@ -104,9 +104,9 @@
 
     /* ── Sketchbook (static) ── */
     .di-sketchbook {
-      width: 296px;
-      height: 424px;
-      background: #faf7f0;
+      width: 321px;
+      height: 461px;
+      background: #6B77C8;
       border-radius: 3px;
       box-shadow: 3px 6px 28px rgba(0,0,0,0.20), 0 1px 4px rgba(0,0,0,0.08);
       z-index: 6;
@@ -159,17 +159,26 @@
     /* ── Notebook polaroids (shown on page 2 after first flip) ── */
     .nb-polaroid {
       position: absolute;
-      width: 78px;
+      width: 94px;
       background: #fff;
-      padding: 5px 5px 18px;
+      padding: 6px 6px 22px;
       box-shadow: 1px 3px 10px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.08);
       pointer-events: none;
     }
     .nb-polaroid img {
       width: 100%;
-      height: 64px;
+      height: 77px;
       object-fit: cover;
       display: block;
+    }
+    .nb-note {
+      position: absolute;
+      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
+      font-size: 14px;
+      color: #2244bb;
+      line-height: 1.55;
+      max-width: 100px;
+      pointer-events: none;
     }
     @keyframes page-unflip {
       0%   { transform: rotateY(-172deg); }
@@ -177,25 +186,6 @@
     }
     .di-page-flip.unflipping {
       animation: page-unflip 0.55s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-    }
-    .di-sketchbook-binding {
-      position: absolute;
-      left: -15px;
-      top: 10px;
-      bottom: 10px;
-      width: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .di-sketchbook-coil {
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      border: 2.5px solid #b0a898;
-      background: #ddd8ce;
-      flex-shrink: 0;
     }
     .di-sketchbook-inner {
       position: absolute;
@@ -286,42 +276,13 @@
     .di-hubba.is-open .di-hubba-open   { opacity: 1; }
     .di-hubba.is-open .di-hubba-closed { opacity: 0; }
 
-    /* ── Lip balm ── */
+    /* ── Lip gloss ── */
     .di-lipbalm {
-      width: 22px;
-      height: 76px;
+      width: 60px;
+      height: auto;
       position: relative;
       z-index: 10;
-    }
-    .di-lipbalm-tube {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 55px;
-      background: linear-gradient(150deg, #f0ece4 0%, #e0dcd4 50%, #ccc8c0 100%);
-      border-radius: 3px 3px 5px 5px;
-      box-shadow: 1px 3px 10px rgba(0,0,0,0.20);
-    }
-    .di-lipbalm-tube::after {
-      content: '';
-      position: absolute;
-      top: 6px;
-      left: 4px;
-      width: 5px;
-      height: 32px;
-      background: rgba(255,255,255,0.35);
-      border-radius: 3px;
-    }
-    .di-lipbalm-cap {
-      position: absolute;
-      top: 0;
-      left: -2px;
-      right: -2px;
-      height: 24px;
-      background: linear-gradient(150deg, #c0ead8 0%, #88c8a8 55%, #60a888 100%);
-      border-radius: 4px 4px 2px 2px;
-      box-shadow: 1px 2px 8px rgba(0,0,0,0.18);
+      filter: drop-shadow(1px 3px 8px rgba(0,0,0,0.20));
     }
 
 
@@ -387,47 +348,144 @@
 
     /* ── Boarding pass ── */
     .di-boarding {
-      width: 196px;
-      height: 72px;
-      background: linear-gradient(135deg, #fffaf4 0%, #fdf2e0 100%);
-      border-radius: 4px;
-      box-shadow: 2px 4px 16px rgba(0,0,0,0.15);
-      padding: 10px 14px 10px 14px;
+      width: 290px;
+      height: 120px;
+      background: #ffffff;
+      border-radius: 5px;
+      box-shadow: 2px 4px 18px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.10);
       position: relative;
       overflow: hidden;
-      z-index: 10;
+      z-index: 4;
+      pointer-events: auto;
+      cursor: default;
     }
-    .di-boarding::before {
-      content: '';
+    /* Portrait inner wrap: 120×290, rotated -90deg so content reads horizontally */
+    .di-boarding-inner-wrap {
       position: absolute;
-      right: 54px;
-      top: 0;
-      bottom: 0;
-      border-right: 2px dashed rgba(0,0,0,0.11);
+      width: 120px;
+      height: 290px;
+      left: 85px;
+      top: -85px;
+      transform-origin: center center;
+      transform: rotate(-90deg);
+      display: flex;
+      flex-direction: column;
     }
-    .di-boarding-label {
-      font-size: 7px;
+    .di-boarding-main {
+      flex: 1;
+      padding: 10px 14px 9px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-bottom: 2px dashed rgba(0,0,0,0.14);
+    }
+    .di-boarding-header {
+      font-size: 6.5px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       opacity: 0.38;
-      margin-bottom: 3px;
     }
-    .di-boarding-route {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      line-height: 1;
+    .di-boarding-route-row {
       display: flex;
       align-items: center;
-      gap: 5px;
-    }
-    .di-boarding-arrow { font-size: 11px; opacity: 0.35; font-weight: 400; }
-    .di-boarding-sub {
-      font-size: 7.5px;
-      opacity: 0.32;
+      gap: 7px;
       margin-top: 4px;
+    }
+    .di-boarding-iata {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .di-boarding-city {
+      font-size: 6px;
       letter-spacing: 0.06em;
+      opacity: 0.38;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .di-boarding-route-arrow {
+      font-size: 11px;
+      opacity: 0.28;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .di-boarding-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .di-boarding-pax {
+      font-size: 6.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      opacity: 0.4;
+      text-transform: uppercase;
+    }
+    .di-boarding-fields-row {
+      display: flex;
+      gap: 10px;
+    }
+    .di-boarding-field {
+      display: flex;
+      flex-direction: column;
+    }
+    .di-boarding-lbl {
+      font-size: 5.5px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      opacity: 0.32;
+    }
+    .di-boarding-val {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .di-boarding-stub {
+      flex: 0 0 100px;
+      background: #f4f2ee;
+      padding: 10px 9px 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .di-boarding-seat-block { display: flex; flex-direction: column; align-items: center; }
+    .di-boarding-seat-lbl {
+      font-size: 5.5px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      opacity: 0.32;
+    }
+    .di-boarding-seat-num {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .di-boarding-stub-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+    }
+    .di-boarding-barcode {
+      width: 64px;
+      height: 22px;
+      background: repeating-linear-gradient(
+        90deg,
+        #1A1A1A 0px, #1A1A1A 2px,
+        transparent 2px, transparent 4px,
+        #1A1A1A 4px, #1A1A1A 5px,
+        transparent 5px, transparent 7px,
+        #1A1A1A 7px, #1A1A1A 8px,
+        transparent 8px, transparent 11px
+      );
+      opacity: 0.7;
     }
 
     /* ── USB-C dongle ── */
@@ -565,117 +623,298 @@
         <img class="desk-item di-monstera" src="desk_elements/monstera.png" alt="" aria-hidden="true">
 
         <!-- ══ SKETCHBOOK — static, left-of-center overlapping text bottom ══ -->
-        <div class="desk-item di-sketchbook" style="top:42%;left:calc(12% - 104px);transform:rotate(-6deg)">
-          <div class="di-sketchbook-binding">
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
-            <div class="di-sketchbook-coil"></div>
+        <div class="desk-item di-sketchbook" style="top:calc(42% + 16px);left:calc(12% - 129px);transform:rotate(-6deg)">
+          <!-- Page 1: cover -->
+          <div class="di-page-flip" style="z-index:9">
+            <svg width="100%" height="100%" viewBox="0 0 278 408" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none">
+              <!-- solid cover fill -->
+              <rect x="0" y="0" width="278" height="408" fill="#6B77C8"/>
+              <!-- subtle texture lines -->
+              <line x1="0" y1="136" x2="278" y2="136" stroke="#7d88d0" stroke-width="0.6" opacity="0.5"/>
+              <line x1="0" y1="272" x2="278" y2="272" stroke="#7d88d0" stroke-width="0.6" opacity="0.5"/>
+              <!-- center label box -->
+              <rect x="32" y="140" width="214" height="128" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+              <!-- name -->
+              <text x="139" y="188" text-anchor="middle" font-size="18" font-family="sans-serif" font-weight="800" fill="#ffffff" letter-spacing="-0.5">emilie mazurek</text>
+              <!-- divider -->
+              <line x1="64" y1="200" x2="214" y2="200" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+              <!-- title -->
+              <text x="139" y="220" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="1.5">SENIOR PRODUCT DESIGNER</text>
+              <!-- year -->
+              <text x="139" y="248" text-anchor="middle" font-size="8" font-family="sans-serif" fill="rgba(255,255,255,0.5)" letter-spacing="0.5">2025</text>
+              <!-- corner mark -->
+              <text x="246" y="395" text-anchor="end" font-size="7" font-family="sans-serif" fill="rgba(255,255,255,0.35)">vol. 3</text>
+            </svg>
           </div>
-          <div class="di-page-flip" style="z-index:9"></div>
+
+          <!-- Page 2: 3 polaroids -->
           <div class="di-page-flip" style="z-index:8">
             <div class="nb-polaroid" style="top:8%;left:7%;transform:rotate(-9deg)">
-              <div class="di-photo-img" style="background:linear-gradient(170deg,#7ab8e8 0%,#aad4f4 38%,#5a9060 62%,#3a6838 100%);height:52px"></div>
+              <img src="desk_elements/about_images/K2.jpg" alt="K2 base camp">
               <p class="di-photo-cap">K2 base camp, 2023</p>
             </div>
             <div class="nb-polaroid" style="top:6%;left:53%;transform:rotate(7deg)">
-              <div class="di-photo-img" style="background:linear-gradient(160deg,#f5a030 0%,#f8c840 40%,#f06820 68%,#e84818 100%);height:52px"></div>
+              <img src="desk_elements/about_images/Cheeto.jpeg" alt="Cheeto the parrot">
               <p class="di-photo-cap">Cheeto being judgy</p>
             </div>
             <div class="nb-polaroid" style="top:52%;left:22%;transform:rotate(-5deg)">
-              <div class="di-photo-img" style="background:linear-gradient(170deg,#183878 0%,#2460a8 42%,#40a0cc 72%,#2878aa 100%);height:52px"></div>
-              <p class="di-photo-cap">scuba in Utila, 2022</p>
+              <img src="desk_elements/about_images/reserach-paper.jpeg" alt="research paper">
+              <p class="di-photo-cap">biochem days, circa 2017</p>
             </div>
+            <!--
+              Notes placed in free zones only:
+              · K2 + Cheeto notes → middle zone y≈37% (below both top polaroids, above Research)
+              · Research note   → right column beside Research (x≈53%, y≈54%)
+            -->
+            <!-- K2 note: right of center, arrow goes LEFT to K2 -->
+            <p class="nb-note" style="top:37%;left:36%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
+            <!-- Cheeto note: far left, arrow goes RIGHT to Cheeto -->
+            <p class="nb-note" style="top:37%;left:1%;transform:rotate(4deg)">sun conure. owns me.</p>
+            <!-- Research note: right column beside Research, arrow goes LEFT -->
+            <p class="nb-note" style="top:54%;left:54%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
+            <!-- curved pen arrows (viewBox matches 305×445 content area) -->
+            <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
+              <defs>
+                <marker id="pen-arr-p2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                  <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+              <!-- K2: from LEFT of note (x≈110,y≈168) → K2 bottom-left area (38,158) -->
+              <path d="M 110,168 C 92,164 70,160 40,157" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+              <!-- Cheeto: from RIGHT of note (x≈98,y≈174) → Cheeto bottom-left (164,143) -->
+              <path d="M 96,172 C 118,162 142,150 162,141" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+              <!-- Research: from LEFT of note (x≈165,y≈250) → Research right edge center (161,284) -->
+              <path d="M 165,250 C 170,260 168,272 163,281" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p2)"/>
+            </svg>
           </div>
-          <div class="di-page-flip" style="z-index:7"></div>
+
+          <!-- Page 3: 4 polaroids -->
+          <div class="di-page-flip" style="z-index:7">
+            <div class="nb-polaroid" style="top:6%;left:5%;transform:rotate(-8deg)">
+              <img src="desk_elements/about_images/Marching-band.jpeg" alt="Calgary Stampede Showband">
+              <p class="di-photo-cap">Stampede showband</p>
+            </div>
+            <div class="nb-polaroid" style="top:4%;left:52%;transform:rotate(6deg)">
+              <img src="desk_elements/about_images/ice-cream.jpeg" alt="ice cream workshop">
+              <p class="di-photo-cap">ice cream workshop</p>
+            </div>
+            <div class="nb-polaroid" style="top:50%;left:8%;transform:rotate(4deg)">
+              <img src="desk_elements/about_images/painting.jpeg" alt="Drammarbuie Grandma painting">
+              <p class="di-photo-cap">Drammarbuie Grandma</p>
+            </div>
+            <div class="nb-polaroid" style="top:48%;left:53%;transform:rotate(-7deg)">
+              <img src="desk_elements/about_images/travel.jpeg" alt="Marrakech travel photo">
+              <p class="di-photo-cap">Marrakech, 2019</p>
+            </div>
+            <!--
+              Notes placed in free zones only:
+              · MB note      → middle zone, far RIGHT (x≈54%), arrow goes LEFT  to MB
+              · IC note      → middle zone, far LEFT  (x≈1%),  arrow goes RIGHT to IC
+              · Painting note → bottom zone, far RIGHT (x≈54%), arrow goes LEFT  to Painting
+              · Marrakech note → bottom zone, far LEFT (x≈1%),  arrow goes RIGHT to Marrakech
+            -->
+            <!-- MB note: right side of middle zone -->
+            <p class="nb-note" style="top:34%;left:54%;transform:rotate(3deg)">2× world champ! Calgary Stampede Showband.</p>
+            <!-- IC note: left side of middle zone -->
+            <p class="nb-note" style="top:33%;left:1%;transform:rotate(-4deg)">yes, there's a workshop for this.</p>
+            <!-- Painting note: right side of bottom zone -->
+            <p class="nb-note" style="top:80%;left:54%;transform:rotate(-3deg)">oil on canvas. grandma hated it.</p>
+            <!-- Marrakech note: left side of bottom zone -->
+            <p class="nb-note" style="top:78%;left:1%;transform:rotate(4deg)">23 countries + counting.</p>
+            <!-- curved pen arrows (viewBox matches 305×445 content area) -->
+            <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
+              <defs>
+                <marker id="pen-arr-p3" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                  <path d="M 0,0 L 4,2.5 L 0,5" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+              <!-- MB: from LEFT of MB note (x≈165,y≈155) → MB right edge (108,105) -->
+              <path d="M 165,155 C 148,142 128,122 110,108" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- IC: from RIGHT of IC note (x≈98,y≈162) → IC left edge (160,80) -->
+              <path d="M 96,160 C 112,148 138,120 158,84" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- Painting: from LEFT of Painting note (x≈165,y≈362) → Painting right edge (118,280) -->
+              <path d="M 165,362 C 152,340 136,316 120,284" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+              <!-- Marrakech: from RIGHT of Marrakech note (x≈98,y≈354) → Marrakech left edge (162,270) -->
+              <path d="M 96,352 C 112,336 138,306 160,274" stroke="#2244bb" stroke-width="1.2" fill="none" stroke-linecap="round" marker-end="url(#pen-arr-p3)"/>
+            </svg>
+          </div>
+
+          <!-- Page 4 (bottom): sun conure sketch — blue pen on cream -->
           <div class="di-sketchbook-inner">
             <svg width="100%" height="100%" viewBox="0 0 278 408" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="dotgrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
                   <circle cx="5" cy="5" r="0.9" fill="#c4bdb4"/>
                 </pattern>
-                <marker id="arr2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M0,0 L5,2.5 L0,5 Z" fill="#8a7a6a"/>
-                </marker>
               </defs>
-              <!-- Dot grid background -->
+              <!-- cream base then dot grid — matches di-page-flip -->
+              <rect width="278" height="408" fill="#faf7f0"/>
               <rect width="278" height="408" fill="url(#dotgrid)"/>
 
-              <!-- ── Page 1: user flow ── -->
-              <text x="8" y="16" font-size="8" fill="#6a5a4a" font-family="sans-serif" font-weight="700" font-style="italic">user flow v3 — onboarding</text>
-              <rect x="8" y="24" width="58" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="37" y="43" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">onboarding</text>
-              <line x1="66" y1="40" x2="80" y2="40" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr2)"/>
-              <rect x="80" y="24" width="52" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="106" y="43" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">paywall</text>
-              <line x1="132" y1="40" x2="148" y2="40" stroke="#8a7a6a" stroke-width="1.2" marker-end="url(#arr2)"/>
-              <rect x="148" y="24" width="60" height="32" rx="3" fill="none" stroke="#8a7a6a" stroke-width="1.2"/>
-              <text x="178" y="39" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">success</text>
-              <text x="178" y="50" text-anchor="middle" font-size="7" fill="#8a7a6a" font-family="sans-serif">state</text>
-              <line x1="37" y1="56" x2="37" y2="72" stroke="#8a7a6a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
-              <rect x="8" y="72" width="58" height="28" rx="3" fill="none" stroke="#9a8a7a" stroke-width="1"/>
-              <text x="37" y="89" text-anchor="middle" font-size="6.5" fill="#9a8a7a" font-family="sans-serif">email verify</text>
-              <text x="84" y="70" font-size="7" fill="#c04040" font-family="sans-serif">✗ too much friction</text>
-              <text x="150" y="70" font-size="7" fill="#408040" font-family="sans-serif">✓ clear CTA</text>
-              <text x="220" y="38" font-size="10" fill="#c04040" font-family="sans-serif">*</text>
-              <line x1="8" y1="112" x2="260" y2="112" stroke="#c0b8a8" stroke-width="0.6" stroke-dasharray="2,3"/>
-              <text x="8" y="124" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ reduce steps before paywall hit</text>
-              <text x="8" y="136" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ test with 5 new users next sprint</text>
+              <!-- title -->
+              <text x="139" y="20" text-anchor="middle" font-size="8" fill="#2244bb" font-family="sans-serif" font-weight="700" font-style="italic">Cheeto — sun conure, age 4</text>
 
-              <!-- ── Divider ── -->
-              <line x1="8" y1="154" x2="260" y2="154" stroke="#d8d0c8" stroke-width="0.8"/>
+              <!-- ── branch ── -->
+              <path d="M22,300 Q90,292 160,296 Q210,299 256,294" fill="none" stroke="#2244bb" stroke-width="3.5" stroke-linecap="round"/>
+              <!-- bark texture -->
+              <path d="M55,296 Q53,303 51,310" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
+              <path d="M100,293 Q99,300 98,308" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
+              <path d="M148,294 Q148,302 148,309" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
+              <path d="M200,293 Q201,300 202,307" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
 
-              <!-- ── Page 2: component sketch ── -->
-              <text x="8" y="170" font-size="8" fill="#6a5a4a" font-family="sans-serif" font-weight="700" font-style="italic">nav redesign — mobile</text>
-              <!-- rough phone outline -->
-              <rect x="90" y="180" width="96" height="156" rx="10" fill="none" stroke="#a09080" stroke-width="1.4"/>
-              <rect x="96" y="188" width="84" height="140" rx="4" fill="#f5f0e8" stroke="#c0b8a8" stroke-width="0.8"/>
-              <!-- notch -->
-              <rect x="118" y="181" width="40" height="8" rx="4" fill="#a09080"/>
-              <!-- nav bar inside -->
-              <rect x="96" y="312" width="84" height="16" rx="0" fill="#ede8e0" stroke="none"/>
-              <circle cx="116" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
-              <circle cx="138" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
-              <circle cx="160" cy="320" r="4" fill="none" stroke="#8a7a6a" stroke-width="1"/>
-              <!-- content lines -->
-              <rect x="104" y="200" width="60" height="5" rx="2" fill="#c8c0b4"/>
-              <rect x="104" y="210" width="72" height="4" rx="2" fill="#d8d0c8"/>
-              <rect x="104" y="218" width="50" height="4" rx="2" fill="#d8d0c8"/>
-              <!-- annotations -->
-              <line x1="186" y1="320" x2="212" y2="320" stroke="#b0a898" stroke-width="0.8" stroke-dasharray="2,2"/>
-              <text x="214" y="323" font-size="6.5" fill="#8a7a6a" font-family="sans-serif">tab bar</text>
-              <line x1="186" y1="260" x2="212" y2="260" stroke="#b0a898" stroke-width="0.8" stroke-dasharray="2,2"/>
-              <text x="214" y="263" font-size="6.5" fill="#8a7a6a" font-family="sans-serif">content</text>
-              <text x="8" y="356" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ sticky nav on scroll?</text>
-              <text x="8" y="368" font-size="7" fill="#8a7a6a" font-family="sans-serif">→ icon + label vs icon only</text>
-              <text x="8" y="380" font-size="7" fill="#c04040" font-family="sans-serif">* check with accessibility team</text>
+              <!-- ── tail feathers (behind body) ── -->
+              <path d="M148,272 Q158,316 164,362" fill="none" stroke="#2244bb" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M154,270 Q168,314 178,356" fill="none" stroke="#2244bb" stroke-width="2" stroke-linecap="round"/>
+              <path d="M158,268 Q176,310 190,350" fill="none" stroke="#2244bb" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M162,268 Q182,306 200,342" fill="none" stroke="#2244bb" stroke-width="1.6" stroke-linecap="round"/>
+              <!-- feather spine detail -->
+              <path d="M151,285 Q156,302 160,320" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.5"/>
+              <path d="M158,280 Q165,300 172,322" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.5"/>
+              <path d="M163,276 Q172,296 182,316" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.5"/>
+
+              <!-- ── body ── -->
+              <ellipse cx="128" cy="228" rx="44" ry="56" fill="none" stroke="#2244bb" stroke-width="1.5"/>
+              <!-- body shading — hatching on left flank -->
+              <path d="M88,220 Q84,236 86,254" fill="none" stroke="#2244bb" stroke-width="0.8" opacity="0.4"/>
+              <path d="M84,228 Q80,244 82,262" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.3"/>
+              <path d="M90,248 Q88,260 90,272" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.4"/>
+              <!-- belly curve -->
+              <path d="M114,264 Q128,278 144,268" fill="none" stroke="#2244bb" stroke-width="0.9" opacity="0.5"/>
+
+              <!-- ── wing (folded, left side) ── -->
+              <path d="M96,214 Q68,236 66,268 Q78,280 96,272 Q116,262 132,250 Z" fill="none" stroke="#2244bb" stroke-width="1.3"/>
+              <!-- primary feather lines -->
+              <path d="M68,262 Q82,266 96,262" fill="none" stroke="#2244bb" stroke-width="1"/>
+              <path d="M66,252 Q80,256 96,252" fill="none" stroke="#2244bb" stroke-width="0.9"/>
+              <path d="M68,242 Q82,246 96,242" fill="none" stroke="#2244bb" stroke-width="0.8"/>
+              <!-- flight feather tips -->
+              <path d="M66,268 Q60,280 62,292 Q74,282 86,276" fill="none" stroke="#2244bb" stroke-width="1.1"/>
+              <path d="M62,292 Q58,304 62,314 Q74,304 86,298" fill="none" stroke="#2244bb" stroke-width="1.1"/>
+
+              <!-- ── neck join ── -->
+              <path d="M106,182 Q100,204 98,226" fill="none" stroke="#2244bb" stroke-width="1.3"/>
+              <path d="M152,178 Q156,200 158,222" fill="none" stroke="#2244bb" stroke-width="1.3"/>
+
+              <!-- ── head ── -->
+              <circle cx="132" cy="152" r="38" fill="none" stroke="#2244bb" stroke-width="1.5"/>
+              <!-- subtle shading on left of head -->
+              <path d="M97,142 Q94,154 97,166 Q102,178 110,184" fill="none" stroke="#2244bb" stroke-width="0.9" opacity="0.35"/>
+              <path d="M94,150 Q91,162 94,173" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.25"/>
+              <!-- cheek patch — loose hatching -->
+              <path d="M130,150 Q140,148 160,154" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.3"/>
+              <path d="M128,156 Q140,154 162,160" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.3"/>
+              <path d="M130,162 Q140,160 160,166" fill="none" stroke="#2244bb" stroke-width="0.6" opacity="0.3"/>
+
+              <!-- ── eye ── -->
+              <!-- eye ring -->
+              <circle cx="148" cy="148" r="11" fill="none" stroke="#2244bb" stroke-width="1.3"/>
+              <!-- iris — filled solid -->
+              <circle cx="149" cy="148" r="7.5" fill="#2244bb"/>
+              <!-- highlight — page colour -->
+              <circle cx="152" cy="145" r="2.5" fill="#faf7f0"/>
+
+              <!-- ── beak (hooked, facing right) ── -->
+              <!-- upper mandible -->
+              <path d="M166,148 Q188,150 186,162 Q180,170 170,168 Q162,162 162,154 Z" fill="none" stroke="#2244bb" stroke-width="1.3"/>
+              <!-- lower mandible -->
+              <path d="M166,160 Q178,162 176,170 Q170,174 164,170 Z" fill="none" stroke="#2244bb" stroke-width="1"/>
+              <!-- beak ridge line -->
+              <path d="M166,148 Q178,152 186,162" fill="none" stroke="#2244bb" stroke-width="0.8" opacity="0.6"/>
+              <!-- nostril -->
+              <ellipse cx="170" cy="152" rx="3.5" ry="2.5" fill="none" stroke="#2244bb" stroke-width="0.9"/>
+              <!-- cere -->
+              <path d="M162,146 Q168,141 175,144" fill="none" stroke="#2244bb" stroke-width="0.9" opacity="0.6"/>
+
+              <!-- ── crest feathers ── -->
+              <path d="M112,118 Q106,102 110,88" fill="none" stroke="#2244bb" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M122,113 Q118,96 124,82" fill="none" stroke="#2244bb" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M132,111 Q132,93 140,80" fill="none" stroke="#2244bb" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M142,114 Q146,97 156,86" fill="none" stroke="#2244bb" stroke-width="1.4" stroke-linecap="round"/>
+              <!-- small barb lines on crest -->
+              <path d="M110,100 Q114,98 118,100" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.5"/>
+              <path d="M120,96 Q124,93 128,96" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.5"/>
+              <path d="M132,92 Q136,89 140,91" fill="none" stroke="#2244bb" stroke-width="0.7" opacity="0.5"/>
+
+              <!-- ── feet ── -->
+              <!-- left foot -->
+              <path d="M106,289 Q102,304 98,312" fill="none" stroke="#2244bb" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M98,310 Q92,318 88,324" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M98,310 Q96,320 94,328" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M98,310 Q102,320 104,326" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M98,312 Q92,314 86,310" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
+              <!-- right foot -->
+              <path d="M144,288 Q142,303 140,312" fill="none" stroke="#2244bb" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M140,310 Q134,318 130,324" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M140,310 Q138,320 136,328" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M140,310 Q144,320 148,326" fill="none" stroke="#2244bb" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M140,312 Q146,314 150,310" fill="none" stroke="#2244bb" stroke-width="1" stroke-linecap="round"/>
+
+              <!-- ── caption ── -->
+              <text x="139" y="390" text-anchor="middle" font-size="7" fill="#2244bb" font-family="sans-serif" font-style="italic">"absolutely feral before noon"</text>
             </svg>
           </div>
         </div>
 
         <!-- ══ BOARDING PASS ══ -->
-        <div class="desk-item di-boarding draggable" style="top:58%;right:7%;transform:rotate(-9deg)" data-rot="-9" data-z="10">
-          <div class="di-boarding-label">Boarding Pass</div>
-          <div class="di-boarding-route">
-            <span>YYC</span>
-            <span class="di-boarding-arrow">→</span>
-            <span>UIO</span>
+        <div class="desk-item di-boarding draggable" style="top:calc(42% + 76px);left:calc(12% - 168px);transform:rotate(82deg)" data-rot="82" data-z="4">
+          <div class="di-boarding-inner-wrap">
+            <div class="di-boarding-stub">
+              <div class="di-boarding-seat-block">
+                <div class="di-boarding-seat-lbl">Seat</div>
+                <div class="di-boarding-seat-num">22A</div>
+              </div>
+              <div class="di-boarding-stub-meta">
+                <div class="di-boarding-field">
+                  <span class="di-boarding-lbl">Class</span>
+                  <span class="di-boarding-val">ECO</span>
+                </div>
+                <div class="di-boarding-field">
+                  <span class="di-boarding-lbl">Zone</span>
+                  <span class="di-boarding-val">3</span>
+                </div>
+              </div>
+              <div class="di-boarding-barcode"></div>
+            </div>
+            <div class="di-boarding-main">
+              <div class="di-boarding-footer">
+                <div class="di-boarding-header">✈ Boarding Pass</div>
+                <div class="di-boarding-pax">Mazurek / Emilie</div>
+                <div class="di-boarding-fields-row">
+                  <div class="di-boarding-field">
+                    <span class="di-boarding-lbl">Flight</span>
+                    <span class="di-boarding-val">EM 671</span>
+                  </div>
+                  <div class="di-boarding-field">
+                    <span class="di-boarding-lbl">Date</span>
+                    <span class="di-boarding-val">25 AUG</span>
+                  </div>
+                  <div class="di-boarding-field">
+                    <span class="di-boarding-lbl">Boarding</span>
+                    <span class="di-boarding-val">5:20P</span>
+                  </div>
+                  <div class="di-boarding-field">
+                    <span class="di-boarding-lbl">Gate</span>
+                    <span class="di-boarding-val">TEAL</span>
+                  </div>
+                </div>
+              </div>
+              <div class="di-boarding-route-row">
+                <div>
+                  <div class="di-boarding-iata">YYC</div>
+                  <div class="di-boarding-city">Calgary</div>
+                </div>
+                <div class="di-boarding-route-arrow">→</div>
+                <div>
+                  <div class="di-boarding-iata">UIO</div>
+                  <div class="di-boarding-city">Quito</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="di-boarding-sub">WINDOW · 22A · Economy</div>
         </div>
 
         <!-- ══ STICKY 1 — Coral / Barstool — upper-left ══ -->
-        <a href="barstool.html" class="desk-item di-sticky di-sticky-coral draggable" style="top:20%;left:calc(26% + 12px);transform:rotate(-11deg)" data-rot="-11" data-z="12">
+        <a href="barstool.html" class="desk-item di-sticky di-sticky-coral draggable" style="transform:rotate(-11deg)" data-rot="-11" data-z="12">
           <div class="di-sticky-inner"><div class="di-sticky-text">Barstool<br>Sports Store ↗</div></div>
         </a>
 
@@ -700,10 +939,9 @@
           <img class="di-hubba-open"   src="desk_elements/Hubba-bubba-open.png"   alt="">
         </div>
 
-        <!-- ══ LIP BALM — lower left ══ -->
-        <div class="desk-item di-lipbalm draggable" style="top:67%;left:6%;transform:rotate(-22deg)" data-rot="-22" data-z="10">
-          <div class="di-lipbalm-cap"></div>
-          <div class="di-lipbalm-tube"></div>
+        <!-- ══ LIP GLOSS — lower left ══ -->
+        <div class="desk-item di-lipbalm draggable" style="top:calc(42% + 320px);left:calc(12% + 150px);transform:rotate(213deg)" data-rot="213" data-z="12">
+          <img src="desk_elements/Lip-gloss.png" alt="Glossier lip gloss" draggable="false" style="width:100%;height:auto;display:block;">
         </div>
 
 <!-- ══ RAINBOW PENS — fan, bottom-center-right, pen 3 overlaps subtitle ══ -->
@@ -858,14 +1096,61 @@
       var PEN_DAMP   = 0.86;
       var PEN_MAX_V  = 3.5;
 
+      // Lip gloss roll-off physics (separate from pen system)
+      var glossItem   = null;
+      var GLOSS_DAMP  = 0.985; // low friction — rolls far before stopping
+      var GLOSS_MAX_V = 8;
+      var GLOSS_RADIUS = 84; // tuned so gloss rotates ~once over full travel distance
+
       setTimeout(function () {
         var heroRect = hero.getBoundingClientRect();
+
+        // Lock coral sticky 12px left of the matcha's visual right edge — repositions on resize too
+        var matchaLockEl  = surface.querySelector('.di-matcha-group');
+        var coralStickyEl = surface.querySelector('.di-sticky-coral');
+        function pinCoralSticky() {
+          if (!matchaLockEl || !coralStickyEl) return;
+          var hr = hero.getBoundingClientRect();
+          var mr = matchaLockEl.getBoundingClientRect();
+          var sr = coralStickyEl.getBoundingClientRect();
+          // Use bounding rect right edge + 12px so sticky clears the glass entirely
+          coralStickyEl.style.left = (mr.right - hr.left + 12) + 'px';
+          coralStickyEl.style.top  = (mr.top - hr.top + mr.height * 0.35 - sr.height / 2) + 'px';
+        }
+        pinCoralSticky();
+        window.addEventListener('resize', pinCoralSticky);
+
+        // Position lip gloss on top of the notebook (upper-center area)
+        var nbEl    = surface.querySelector('.di-sketchbook');
+        var glossEl = surface.querySelector('.di-lipbalm');
+        if (nbEl && glossEl) {
+          var nbRect = nbEl.getBoundingClientRect();
+          var gr     = glossEl.getBoundingClientRect();
+          var cx = (nbRect.left + nbRect.right) / 2 - heroRect.left + 20;
+          var cy = nbRect.top - heroRect.top + 60;
+          glossEl.style.left = (cx - gr.width  / 2) + 'px';
+          glossEl.style.top  = (cy - gr.height / 2) + 'px';
+          // Register for roll-off physics
+          var gBaseRot  = parseFloat(glossEl.dataset.rot) || 0;
+          var gAngleRad = gBaseRot * Math.PI / 180;
+          glossItem = {
+            el:         glossEl,
+            baseRot:    gBaseRot,
+            ox: cx, oy: cy,
+            px: 0,  py: 0,
+            rollVel:    0,
+            rollTheta:  0, // accumulated spin in degrees
+            perpX: Math.cos(gAngleRad),
+            perpY: Math.sin(gAngleRad)
+          };
+        }
 
         allItems.forEach(function (el) {
           if (el.classList.contains('di-pen'))        return; // pens handled separately
           if (el.classList.contains('di-sticky'))    return; // stickies handled separately
           if (el.classList.contains('di-hubba'))     return; // hubba bubba stays put
           if (el.classList.contains('di-sketchbook')) return; // sketchbook has page-flip instead
+          if (el.classList.contains('di-lipbalm'))   return; // lip gloss has roll-off physics
           var r = el.getBoundingClientRect();
           pushItems.push({
             el:  el,
@@ -876,6 +1161,8 @@
             hh: r.height / 2,
             px: 0, py: 0,
             vx: 0, vy: 0,
+            hoverX: 0, hoverVX: 0,
+            hoverY: 0, hoverVY: 0,
             inMatcha: false
           });
         });
@@ -928,6 +1215,7 @@
         requestAnimationFrame(tick);
         requestAnimationFrame(penTick);
         requestAnimationFrame(stickyTick);
+        requestAnimationFrame(glossTick);
       }, 600);
 
       function penTick() {
@@ -957,6 +1245,20 @@
         requestAnimationFrame(penTick);
       }
 
+      function glossTick() {
+        if (glossItem && Math.abs(glossItem.rollVel) > 0.01) {
+          glossItem.rollVel *= GLOSS_DAMP;
+          glossItem.rollVel = Math.max(-GLOSS_MAX_V, Math.min(GLOSS_MAX_V, glossItem.rollVel));
+          glossItem.px += glossItem.rollVel * glossItem.perpX;
+          glossItem.py += glossItem.rollVel * glossItem.perpY;
+          // spin: distance moved this frame / tube radius → degrees
+          glossItem.rollTheta += (glossItem.rollVel / GLOSS_RADIUS) * (180 / Math.PI);
+          glossItem.el.style.transform =
+            'translate(' + glossItem.px + 'px,' + glossItem.py + 'px) rotate(' + (glossItem.baseRot + glossItem.rollTheta) + 'deg)';
+        }
+        requestAnimationFrame(glossTick);
+      }
+
       hero.addEventListener('mousemove', function (e) {
         var r = hero.getBoundingClientRect();
         cursorX = e.clientX - r.left;
@@ -978,7 +1280,7 @@
           var dy   = cy - cursorY;
           var dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < RADIUS && dist > 0) {
+          if (dist < RADIUS && dist > 0 && !item.el.classList.contains('di-boarding')) {
             // Add impulse away from cursor, stronger when closer
             var force = (1 - dist / RADIUS) * ACCEL;
             item.vx += (dx / dist) * force;
@@ -1025,8 +1327,23 @@
             }
           }
 
+          // Boarding pass hover pull-out spring — slides along the card's long axis
+          if (item.el.classList.contains('di-boarding')) {
+            var rotRad  = item.rot * Math.PI / 180;
+            var pullAmt = item.el._hovering ? 30 : 0;
+            // Pull direction: up along the long axis (negate cos/sin to go toward the "up" end)
+            var txTarget = -pullAmt * Math.cos(rotRad);
+            var tyTarget = -pullAmt * Math.sin(rotRad);
+            item.hoverVX += (txTarget - item.hoverX) * 0.18;
+            item.hoverVY += (tyTarget - item.hoverY) * 0.18;
+            item.hoverVX *= 0.72;
+            item.hoverVY *= 0.72;
+            item.hoverX  += item.hoverVX;
+            item.hoverY  += item.hoverVY;
+          }
+
           item.el.style.transform =
-            'translate(' + item.px + 'px,' + item.py + 'px) rotate(' + item.rot + 'deg)';
+            'translate(' + (item.px + item.hoverX) + 'px,' + (item.py + item.hoverY) + 'px) rotate(' + item.rot + 'deg)';
         });
         requestAnimationFrame(tick);
       }
@@ -1321,6 +1638,14 @@
         });
       }
 
+      /* ── Boarding pass pull-out (flag only — spring handled in tick) ── */
+      var boardingEl = surface.querySelector('.di-boarding');
+      if (boardingEl) {
+        boardingEl.style.pointerEvents = 'auto'; // override .desk-item.draggable specificity
+        boardingEl.addEventListener('mouseenter', function () { boardingEl._hovering = true; });
+        boardingEl.addEventListener('mouseleave', function () { boardingEl._hovering = false; });
+      }
+
       /* ── Sketchbook page flip on mouseenter ── */
       var sketchbookEl = surface.querySelector('.di-sketchbook');
       var pageFlipEls = sketchbookEl ? Array.from(sketchbookEl.querySelectorAll('.di-page-flip')) : [];
@@ -1328,9 +1653,13 @@
       var n = pageFlipEls.length;
       if (sketchbookEl && n) {
         sketchbookEl.addEventListener('mouseenter', function () {
-          if (flipStep >= n * 2) return;
+          if (flipStep >= n * 2) flipStep = 0; // reset so it cycles
           if (flipStep < n) {
-            // forward flip
+            // forward flip — every flip kicks the lip gloss off
+            if (glossItem) {
+              // delay matches the page sweeping across where the gloss sits
+              setTimeout(function () { glossItem.rollVel = 8; }, 200);
+            }
             var page = pageFlipEls[flipStep];
             page.style.zIndex = 99;
             page.classList.add('flipping');
