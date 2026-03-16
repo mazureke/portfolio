@@ -261,20 +261,27 @@
     }
     a.di-sticky:focus-visible .di-sticky-inner { outline: 2px solid #fff; outline-offset: 3px; }
 
-    /* ── AirPods case ── */
-    .di-airpods {
+    /* ── Hubba Bubba gum ── */
+    .di-hubba {
       width: 120px;
       height: 120px;
       z-index: 10;
     }
-    .di-airpods img {
+    .di-hubba-closed,
+    .di-hubba-open {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
       pointer-events: none;
       -webkit-user-drag: none;
+      transition: opacity 0.12s;
     }
+    .di-hubba-open  { opacity: 0; }
+    .di-hubba:hover .di-hubba-open   { opacity: 1; }
+    .di-hubba:hover .di-hubba-closed { opacity: 0; }
 
     /* ── Lip balm ── */
     .di-lipbalm {
@@ -684,9 +691,10 @@
           <div class="di-sticky-inner"><div class="di-sticky-text">Proposify ↗</div></div>
         </a>
 
-        <!-- ══ AIRPODS CASE — top right ══ -->
-        <div class="desk-item di-airpods draggable" style="top:28%;right:22%;transform:rotate(18deg)" data-rot="18" data-z="10">
-          <img src="desk_elements/hubba_bubba_airpods.png" alt="">
+        <!-- ══ HUBBA BUBBA — bottom right ══ -->
+        <div class="desk-item di-hubba draggable" style="bottom:40px;right:40px;transform:rotate(-12deg)" data-rot="-12" data-z="10">
+          <img class="di-hubba-closed" src="desk_elements/Hubba-bubba-closed.png" alt="">
+          <img class="di-hubba-open"   src="desk_elements/Hubba-bubba-open.png"   alt="">
         </div>
 
         <!-- ══ LIP BALM — lower left ══ -->
