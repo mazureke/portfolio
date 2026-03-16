@@ -1661,15 +1661,10 @@
 
     })();
 
-    // ── Notebook arrows: drawn from actual rendered dimensions ──────────────
-    // Measures each polaroid's offsetLeft/offsetTop/offsetWidth/offsetHeight,
-    // parses its CSS rotation, computes the axis-aligned bounding box of the
-    // rotated rectangle, and places arrowhead 8px outside that envelope and
-    // arrow tail 8px outside the note's nearest edge.
+    // ── Notebook arrows: tail exits left/right of text note, curls to polaroid ──
     function drawNbArrows() {
       document.querySelectorAll('.nb-arrow-svg').forEach(function (svg) {
         var page = svg.parentElement;
-        // Remove any previously drawn arrows (keep <defs>)
         svg.querySelectorAll('path.nb-arr').forEach(function (p) { p.remove(); });
         var markerId = (svg.querySelector('marker') || {}).id || '';
 
@@ -1677,68 +1672,66 @@
           var pol = page.querySelector('[data-nb-id="' + note.dataset.nbPol + '"]');
           if (!pol) return;
 
-          // Polaroid layout box (before CSS visual transform)
+          // Polaroid center & axis-aligned bounding box half-extents
           var hw = pol.offsetWidth / 2, hh = pol.offsetHeight / 2;
           var pcx = pol.offsetLeft + hw, pcy = pol.offsetTop + hh;
-
-          // Parse rotation angle (deg → rad)
           var m = (pol.getAttribute('style') || '').match(/rotate\((-?[\d.]+)deg\)/);
           var rad = m ? parseFloat(m[1]) * Math.PI / 180 : 0;
           var sinA = Math.sin(rad), cosA = Math.cos(rad);
-
-          // Axis-aligned half-extents of the rotated polaroid
           var aabbHW = Math.abs(hw * cosA) + Math.abs(hh * sinA);
           var aabbHH = Math.abs(hw * sinA) + Math.abs(hh * cosA);
 
-          // Note layout box
+          // Note bounding box
           var nx = note.offsetLeft, ny = note.offsetTop;
           var nw = note.offsetWidth, nh = note.offsetHeight;
           var ncx = nx + nw / 2, ncy = ny + nh / 2;
 
-          // Determine which side the note is on relative to the polaroid center
-          var dx = ncx - pcx, dy = ncy - pcy;
-          var headX, headY, tailX, tailY;
+          // Tail always exits left or right of the text note.
+          // Choose the side closest to the polaroid.
+          var dx = pcx - ncx; // positive → polaroid is to the right
+          var dy = pcy - ncy;
+          var tailX, tailY, headX, headY, sign;
 
-          if (Math.abs(dy) >= Math.abs(dx)) {
-            // Primarily above/below
-            if (dy > 0) {
-              // Note is BELOW → arrow points up
-              // Bottom-center of rotated polaroid: (pcx - hh*sinA, pcy + hh*cosA)
-              var bcx = pcx - hh * sinA;
-              headY = pcy + aabbHH + 8;   // 8px below lowest extent
-              headX = bcx;
-              tailY = ny - 8;              // 8px above note top
-              tailX = bcx;
-            } else {
-              // Note is ABOVE → arrow points down
-              var tcx = pcx + hh * sinA;
-              headY = pcy - aabbHH - 8;
-              headX = tcx;
-              tailY = ny + nh + 8;
-              tailX = tcx;
-            }
+          if (dx >= 0) {
+            // Polaroid is to the right → tail exits right edge
+            tailX = nx + nw + 4;
+            tailY = ncy;
+            headX = pcx - aabbHW - 6;
+            headY = pcy + dy * 0.2;
+            sign = 1;
           } else {
-            // Primarily left/right
-            if (dx > 0) {
-              // Note is to the RIGHT → arrow points left
-              headX = pcx + aabbHW + 8;   // 8px right of rightmost extent
-              headY = ncy;
-              tailX = nx - 8;              // 8px left of note left edge
-              tailY = ncy;
-            } else {
-              // Note is to the LEFT → arrow points right
-              headX = pcx - aabbHW - 8;
-              headY = ncy;
-              tailX = nx + nw + 8;
-              tailY = ncy;
-            }
+            // Polaroid is to the left → tail exits left edge
+            tailX = nx - 4;
+            tailY = ncy;
+            headX = pcx + aabbHW + 6;
+            headY = pcy + dy * 0.2;
+            sign = -1;
           }
 
-          // Slight curve so it looks hand-drawn
-          var midX = (tailX + headX) / 2 + (tailX === headX ? 3 : 0);
-          var midY = (tailY + headY) / 2 + (tailY === headY ? 3 : 0);
+          // Enforce minimum 32px straight-line distance
+          var dist = Math.sqrt((headX - tailX) * (headX - tailX) + (headY - tailY) * (headY - tailY));
+          if (dist < 32) {
+            var scale = 32 / dist;
+            headX = tailX + (headX - tailX) * scale;
+            headY = tailY + (headY - tailY) * scale;
+          }
+
+          // Cubic bezier — curl: tail exits horizontally, then swoops to the polaroid
+          var span = Math.abs(headX - tailX);
+          var curl = Math.max(20, span * 0.4);
+          var vertDiff = headY - tailY;
+
+          // CP1: extend from tail in exit direction, arc slightly against the vertical
+          var cp1x = tailX + sign * curl;
+          var cp1y = tailY - (vertDiff >= 0 ? 14 : -14);
+
+          // CP2: approach head from behind, still pulling from the arc
+          var cp2x = headX - sign * curl * 0.45;
+          var cp2y = headY - Math.abs(vertDiff) * 0.25 - 6;
+
           var d = 'M ' + tailX.toFixed(1) + ',' + tailY.toFixed(1) +
-                  ' Q ' + midX.toFixed(1) + ',' + midY.toFixed(1) +
+                  ' C ' + cp1x.toFixed(1) + ',' + cp1y.toFixed(1) +
+                  ' ' + cp2x.toFixed(1) + ',' + cp2y.toFixed(1) +
                   ' ' + headX.toFixed(1) + ',' + headY.toFixed(1);
 
           var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
