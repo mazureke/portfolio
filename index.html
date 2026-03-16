@@ -970,18 +970,19 @@
 
           // ── Matcha collision: items push into it, get stuck, matcha wiggles ──
           if (matchaHeroRect) {
-            // Use item center (no half-size offset) so items slide right up to the
-            // visible matcha edge despite any transparent padding in the image bounds.
+            // Use item bounds so items stop when their edge meets the matcha boundary.
             var iCX = item.ox + item.px;
             var iCY = item.oy + item.py;
+            var iL = iCX - item.hw, iR = iCX + item.hw;
+            var iT = iCY - item.hh, iB = iCY + item.hh;
             var mL = matchaHeroRect.left, mR = matchaHeroRect.right;
             var mT = matchaHeroRect.top,  mB = matchaHeroRect.bottom;
 
-            if (iCX > mL && iCX < mR && iCY > mT && iCY < mB) {
-              var oLeft   = iCX - mL;
-              var oRight  = mR - iCX;
-              var oTop    = iCY - mT;
-              var oBottom = mB - iCY;
+            if (iL < mR && iR > mL && iT < mB && iB > mT) {
+              var oLeft   = iR - mL;
+              var oRight  = mR - iL;
+              var oTop    = iB - mT;
+              var oBottom = mB - iT;
               var minO    = Math.min(oLeft, oRight, oTop, oBottom);
 
               if      (minO === oLeft)   { item.px -= oLeft;    if (item.vx > 0) item.vx = 0; }
