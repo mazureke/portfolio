@@ -95,14 +95,15 @@
       transition: none !important;
     }
 
-    /* ── Monstera (static, behind text) ── */
+    /* ── Monstera (static, top-right corner) ── */
     .di-monstera {
-      top: -30px;
-      left: -30px;
-      width: 400px;
-      height: 480px;
+      top: -10px;
+      right: -10px;
+      width: 500px;
+      height: 420px;
       z-index: 1;
       pointer-events: none;
+      overflow: visible;
     }
 
     /* ── Sketchbook (static) ── */
@@ -540,38 +541,165 @@
       <!-- Desk surface — aria-hidden, all decorative -->
       <div class="desk-surface" id="deskSurface" aria-hidden="true">
 
-        <!-- ══ MONSTERA — static, top-left, behind text ══ -->
-        <svg class="desk-item di-monstera" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Stems -->
-          <path d="M50,470 C55,410 70,350 100,280 C125,220 155,185 180,150" stroke="#2a5635" stroke-width="8" stroke-linecap="round" fill="none"/>
-          <path d="M50,470 C40,400 20,330 -10,260 C-30,200 -20,140 20,100" stroke="#2a5635" stroke-width="6" stroke-linecap="round" fill="none"/>
-          <path d="M50,470 C80,450 120,420 175,390 C220,365 275,345 320,310" stroke="#2a5635" stroke-width="5" stroke-linecap="round" fill="none"/>
-          <!-- Leaf 1 — large, upper right -->
-          <path d="M180,150 C200,90 260,40 310,55 C355,68 365,120 345,165 C325,210 280,225 245,220 C225,235 205,242 188,238 C178,218 168,190 180,150 Z" fill="#3d7a50"/>
-          <!-- Leaf 1 notch left -->
-          <path d="M200,145 C185,130 178,110 192,98 C200,90 212,95 210,110" fill="#f2ede4"/>
-          <!-- Leaf 1 hole -->
-          <ellipse cx="278" cy="140" rx="24" ry="16" transform="rotate(-12,278,140)" fill="#f2ede4"/>
-          <!-- Leaf 1 notch right -->
-          <path d="M338,118 C350,104 362,102 358,118 C355,130 342,136 332,130" fill="#f2ede4"/>
-          <!-- Leaf 1 midrib -->
-          <path d="M180,150 C218,132 268,126 338,140" stroke="#2a5635" stroke-width="1.8" fill="none" opacity="0.45"/>
-          <!-- Leaf 2 — going up-left, partially clipped -->
-          <path d="M20,100 C-10,55 -20,5 20,−20 C55,−40 95,−10 105,40 C115,85 100,140 85,180 C70,220 55,255 55,270 L40,265 C35,245 20,200 10,160 C0,120 10,100 20,100 Z" fill="#4a8860"/>
-          <path d="M20,100 C-8,58 -15,10 18,-8 C48,-24 88,-2 98,40 C108,80 96,135 82,173 L50,268 C50,245 22,195 12,155 C2,115 8,102 20,100 Z" fill="#4a8860"/>
-          <!-- Leaf 2 notch -->
-          <path d="M42,175 C28,162 22,140 36,126 C48,114 62,122 60,140" fill="#f2ede4"/>
-          <!-- Leaf 2 midrib -->
-          <path d="M20,100 C28,140 38,185 50,255" stroke="#2a5635" stroke-width="1.5" fill="none" opacity="0.40"/>
-          <!-- Leaf 3 — going right toward center -->
-          <path d="M320,310 C350,288 390,270 415,275 C440,280 445,310 430,335 C415,360 380,368 350,360 C325,353 300,332 320,310 Z" fill="#3d7050"/>
-          <!-- Leaf 3 hole -->
-          <ellipse cx="385" cy="310" rx="19" ry="13" transform="rotate(10,385,310)" fill="#f2ede4"/>
-          <!-- Leaf 3 midrib -->
-          <path d="M320,310 C358,296 402,290 435,302" stroke="#2a5635" stroke-width="1.5" fill="none" opacity="0.40"/>
-          <!-- Pot hint -->
-          <ellipse cx="52" cy="472" rx="32" ry="11" fill="#8a7060" opacity="0.55"/>
-          <path d="M24,468 C28,475 38,482 52,482 C66,482 76,475 80,468" fill="#7a6050" opacity="0.45"/>
+        <!-- ══ MONSTERA — static, top-right corner, plant base off-screen ══ -->
+        <!--
+          Leaf anatomy: base (petiole) at local (0,0), tip at local (260,0).
+          Lobes extend in ±y. fill-rule="evenodd" creates transparent fenestration holes.
+          Each leaf is rotated from plant center at SVG (475, 20) so only the
+          inner portions drape onto the visible desk area.
+          Angles: 138° (down-left, large), 162° (mostly left), 115° (mostly down), 200° (lobes peek from top corner)
+        -->
+        <svg class="desk-item di-monstera" viewBox="0 0 500 420" overflow="visible" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- Subtle gradient along leaf midrib for depth -->
+            <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1c4d2c"/>
+              <stop offset="45%" stop-color="#2b6840"/>
+              <stop offset="100%" stop-color="#225835"/>
+            </linearGradient>
+            <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1a4828"/>
+              <stop offset="45%" stop-color="#276038"/>
+              <stop offset="100%" stop-color="#1e5230"/>
+            </linearGradient>
+            <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1e5230"/>
+              <stop offset="45%" stop-color="#2e6e44"/>
+              <stop offset="100%" stop-color="#246038"/>
+            </linearGradient>
+            <linearGradient id="lg4" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#183e22"/>
+              <stop offset="45%" stop-color="#245432"/>
+              <stop offset="100%" stop-color="#1c4a28"/>
+            </linearGradient>
+          </defs>
+
+          <!--
+            Shared leaf outline path (used via transform on each <g>):
+            Outer path + 2 fenestration holes via evenodd.
+            Midrib at y=0. Side A lobes at −y, Side B lobes at +y.
+            Lobe 1 (near base) peaks: A(62,−58) B(68,62)
+            Lobe 2 peaks: A(142,−78) B(138,82)
+            Lobe 3 peaks: A(212,−78) B(200,80)
+            Sinuses: A side at x≈88,163,230 and B side symmetrically
+            Fenestrations: A side at (145,−36) and (210,−32)
+          -->
+
+          <!-- LEAF 1 — large, sweeps down-left from corner (138°) -->
+          <g transform="translate(475,20) rotate(138)">
+            <path fill-rule="evenodd" fill="url(#lg1)" d="
+              M 0,0
+              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
+              C 89,-38 93,-22 97,-14
+              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
+              C 165,-50 167,-28 171,-18
+              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
+              C 233,-44 237,-24 241,-15
+              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
+              C 260,3 257,9 253,17
+              C 247,27 239,23 233,19
+              C 226,46 213,78 198,80 C 186,82 176,70 171,22
+              C 164,50 150,82 135,82 C 121,80 113,66 107,20
+              C 99,42 85,64 67,63 C 53,62 43,50 37,27
+              C 26,17 14,9 6,4
+              Z
+              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
+                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
+              M 224,-30 C 224,-40 217,-44 210,-44 C 203,-44 196,-40 196,-30
+                        C 196,-20 203,-16 210,-16 C 217,-16 224,-20 224,-30 Z
+            "/>
+            <!-- Midrib -->
+            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3d8a58" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.7"/>
+            <!-- Side A veins -->
+            <line x1="44" y1="-3" x2="68" y2="-50" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+            <line x1="180" y1="-5" x2="210" y2="-66" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+            <!-- Side B veins -->
+            <line x1="44" y1="3" x2="66" y2="54" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+            <line x1="110" y1="5" x2="136" y2="70" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+            <line x1="180" y1="5" x2="200" y2="68" stroke="#3d8a58" stroke-width="1.1" opacity="0.55"/>
+          </g>
+
+          <!-- LEAF 2 — medium, extends mostly left (162°) -->
+          <g transform="translate(475,20) rotate(162)">
+            <path fill-rule="evenodd" fill="url(#lg2)" d="
+              M 0,0
+              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
+              C 89,-38 93,-22 97,-14
+              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
+              C 165,-50 167,-28 171,-18
+              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
+              C 233,-44 237,-24 241,-15
+              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
+              C 260,3 257,9 253,17
+              C 247,27 239,23 233,19
+              C 226,46 213,78 198,80 C 186,82 176,70 171,22
+              C 164,50 150,82 135,82 C 121,80 113,66 107,20
+              C 99,42 85,64 67,63 C 53,62 43,50 37,27
+              C 26,17 14,9 6,4
+              Z
+              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
+                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
+              M 224,-30 C 224,-40 217,-44 210,-44 C 203,-44 196,-40 196,-30
+                        C 196,-20 203,-16 210,-16 C 217,-16 224,-20 224,-30 Z
+            "/>
+            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3a8254" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
+            <line x1="180" y1="-5" x2="210" y2="-66" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
+            <line x1="110" y1="5" x2="136" y2="70" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
+            <line x1="180" y1="5" x2="200" y2="68" stroke="#3a8254" stroke-width="1" opacity="0.50"/>
+          </g>
+
+          <!-- LEAF 3 — extends mostly downward (115°) — rightmost visible leaf -->
+          <g transform="translate(475,20) rotate(115)">
+            <path fill-rule="evenodd" fill="url(#lg3)" d="
+              M 0,0
+              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
+              C 89,-38 93,-22 97,-14
+              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
+              C 165,-50 167,-28 171,-18
+              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
+              C 233,-44 237,-24 241,-15
+              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
+              C 260,3 257,9 253,17
+              C 247,27 239,23 233,19
+              C 226,46 213,78 198,80 C 186,82 176,70 171,22
+              C 164,50 150,82 135,82 C 121,80 113,66 107,20
+              C 99,42 85,64 67,63 C 53,62 43,50 37,27
+              C 26,17 14,9 6,4
+              Z
+              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
+                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
+            "/>
+            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3d8a58" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.60"/>
+            <line x1="44" y1="-3" x2="68" y2="-50" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
+            <line x1="44" y1="3" x2="66" y2="54" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
+            <line x1="110" y1="-5" x2="140" y2="-68" stroke="#3d8a58" stroke-width="1" opacity="0.50"/>
+          </g>
+
+          <!-- LEAF 4 — 200°: tip goes off the top, only inner lobes peek from corner -->
+          <g transform="translate(475,20) rotate(200)">
+            <path fill-rule="evenodd" fill="url(#lg4)" d="
+              M 0,0
+              C 22,-18 40,-46 60,-56 C 70,-62 80,-60 86,-52
+              C 89,-38 93,-22 97,-14
+              C 106,-48 122,-72 140,-78 C 150,-80 158,-76 163,-66
+              C 165,-50 167,-28 171,-18
+              C 179,-54 192,-76 210,-78 C 218,-78 225,-72 229,-60
+              C 233,-44 237,-24 241,-15
+              C 246,-28 251,-26 255,-15 C 258,-7 260,-2 260,0
+              C 260,3 257,9 253,17
+              C 247,27 239,23 233,19
+              C 226,46 213,78 198,80 C 186,82 176,70 171,22
+              C 164,50 150,82 135,82 C 121,80 113,66 107,20
+              C 99,42 85,64 67,63 C 53,62 43,50 37,27
+              C 26,17 14,9 6,4
+              Z
+              M 160,-34 C 160,-44 152,-49 145,-49 C 138,-49 130,-44 130,-34
+                        C 130,-24 138,-19 145,-19 C 152,-19 160,-24 160,-34 Z
+            "/>
+            <path d="M 3,0 C 90,-1 185,0 257,0" stroke="#3a7a50" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+          </g>
         </svg>
 
         <!-- ══ SKETCHBOOK — static, left-of-center overlapping text bottom ══ -->
