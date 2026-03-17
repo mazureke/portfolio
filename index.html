@@ -291,7 +291,19 @@
     }
     /* Cap colours via hue-rotate — barrel greys are immune (0 saturation) */
     .di-pen-red    { filter: hue-rotate(-38deg) saturate(1.5); }
-    .di-pen-navy   { filter: hue-rotate(205deg) saturate(2.2) brightness(0.5); }
+    /* Navy: no filter on the barrel — ::before overlays only the cap in navy */
+    .di-pen-navy::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 15px;
+      height: 68px;
+      background-image: url('desk_elements/staedler-fineliner.svg');
+      background-repeat: no-repeat;
+      background-size: 310px 310px;
+      background-position: -146px -9px;
+      filter: hue-rotate(210deg) saturate(2.2) brightness(0.55);
+    }
     .di-pen-orange { filter: hue-rotate(-15deg) saturate(1.2); }
     .di-pen-pink   { filter: hue-rotate(-70deg) saturate(1.5); }
     .di-pen-blue   { filter: hue-rotate(186deg) saturate(1.5) brightness(0.9); }
