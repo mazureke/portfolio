@@ -276,16 +276,21 @@
 
 
     /* ── Rainbow pens — Staedtler fineliner SVG ── */
+    /* SVG canvas is 1319×1319; pen strip is x:610–695, y:40–1285.
+       Display SVG at 310×310px and crop to show only the pen. */
     .di-pen {
       width: 15px;
       height: 290px;
-      z-index: 10;
       overflow: hidden;
+      position: relative;
+      z-index: 10;
     }
     .di-pen img {
-      width: 100%;
-      height: 100%;
-      display: block;
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      left: -136px; /* centers pen strip (SVG x≈652) within 15px container */
+      top: -9px;    /* offsets y:40 to top of container */
     }
     /* Cap colours via hue-rotate — barrel greys are immune (0 saturation) */
     .di-pen-red    img { filter: hue-rotate(-38deg) saturate(1.5); }
