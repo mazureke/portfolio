@@ -1083,6 +1083,7 @@
       var penItems        = [];
       var stickyItems     = [];
       var penObstacleEls  = [];
+      var heroRect        = null;
       var PEN_RADIUS = 70;
       var PEN_ACCEL  = 0.5;
       var PEN_DAMP   = 0.97;
@@ -1095,7 +1096,7 @@
       var GLOSS_RADIUS = 84; // tuned so gloss rotates ~once over full travel distance
 
       setTimeout(function () {
-        var heroRect = hero.getBoundingClientRect();
+        heroRect = hero.getBoundingClientRect();
 
         // Lock coral sticky 12px left of the matcha's visual right edge — repositions on resize too
         var matchaLockEl  = surface.querySelector('.di-matcha-group');
