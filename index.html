@@ -213,55 +213,55 @@
       box-shadow: 2px 5px 18px rgba(0,0,0,0.16), 0 1px 4px rgba(0,0,0,0.08);
       transition: box-shadow 0.3s ease;
     }
-    /* Cutout — desk colour fills the missing corner triangle */
+    /* Subtle shadow on the note surface near the curl */
     .di-sticky-inner::after {
       content: '';
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 30px;
-      height: 30px;
-      background: linear-gradient(225deg, #f2ede4 49%, rgba(0,0,0,0.08) 49%, rgba(0,0,0,0.08) 53%, transparent 53%);
-      transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1);
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(ellipse at 100% 100%, rgba(0,0,0,0.13) 0%, transparent 65%);
       pointer-events: none;
-      z-index: 3;
+      z-index: 2;
+      transition: opacity 0.3s ease;
     }
-    /* Shadow cast under the lifted corner, below the note body */
+    /* Shadow on the desk beneath the lifted corner */
     a.di-sticky::before {
       content: '';
       position: absolute;
-      bottom: -5px;
-      right: -5px;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(225deg, transparent 45%, rgba(0,0,0,0.28) 45%);
-      filter: blur(5px);
+      bottom: -6px;
+      right: -6px;
+      width: 34px;
+      height: 34px;
+      border-radius: 100% 0 0 0;
+      background: rgba(0,0,0,0.22);
+      filter: blur(6px);
       pointer-events: none;
       z-index: -1;
       transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1);
     }
-    /* Curl flap — the back-face of the lifted paper corner */
+    /* Curl flap — rounded quarter-circle, back face of lifted paper */
     a.di-sticky::after {
       content: '';
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 30px;
-      height: 30px;
-      background: linear-gradient(225deg, rgba(255,255,255,0.94) 47%, transparent 47%);
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(to top left, #ffffff 0%, #e2dbd3 100%);
+      border-radius: 100% 0 0 0;
+      box-shadow: -2px -2px 5px rgba(0,0,0,0.14);
       pointer-events: none;
       z-index: 1;
       transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1);
     }
-    /* Hover: curl flattens — all three layers collapse */
-    a.di-sticky:hover .di-sticky-inner::after,
+    /* Hover: curl flattens */
+    a.di-sticky:hover .di-sticky-inner::after { opacity: 0; }
     a.di-sticky:hover::before,
-    a.di-sticky:hover::after {
-      width: 0;
-      height: 0;
-    }
+    a.di-sticky:hover::after { width: 0; height: 0; }
     a.di-sticky:hover .di-sticky-inner {
-      box-shadow: 2px 6px 22px rgba(0,0,0,0.20), 0 1px 5px rgba(0,0,0,0.09);
+      box-shadow: 2px 5px 16px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.07);
     }
     .di-sticky-text {
       font-size: 11px;
