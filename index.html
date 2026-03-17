@@ -277,33 +277,33 @@
 
     /* ── Rainbow pens — fineliner style: grey barrel, coloured cap, dark nib ── */
     .di-pen {
-      width: 10px;
-      height: 195px;
+      width: 15px;
+      height: 290px;
       /* Cylindrical grey barrel */
       background: linear-gradient(to right,
         #767676 0%, #c2c2c2 28%, #d8d8d8 48%, #b8b8b8 68%, #808080 100%);
-      border-radius: 2px 2px 1px 1px;
+      border-radius: 3px 3px 1px 1px;
       z-index: 10;
-      box-shadow: 1px 3px 10px rgba(0,0,0,0.28);
+      box-shadow: 1px 3px 12px rgba(0,0,0,0.28);
     }
     /* Coloured cap — top ~20% of the pen */
     .di-pen::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 40px;
-      border-radius: 2px 2px 0 0;
-      border-bottom: 1.5px solid rgba(0,0,0,0.25);
+      height: 58px;
+      border-radius: 3px 3px 0 0;
+      border-bottom: 2px solid rgba(0,0,0,0.25);
     }
     /* Dark fineliner nib at the bottom */
     .di-pen::after {
       content: '';
       position: absolute;
-      bottom: -7px;
+      bottom: -10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 4px;
-      height: 13px;
+      width: 5px;
+      height: 16px;
       background: linear-gradient(to bottom, #2a2a2a 0%, #111 100%);
       border-radius: 0 0 3px 3px;
     }
