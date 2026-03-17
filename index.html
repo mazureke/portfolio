@@ -1209,7 +1209,49 @@
         requestAnimationFrame(glossTick);
       }, 600);
 
+      // ── Pen-pen collision helpers ──────────────────────────────────────────
+      function _c01(t) { return t < 0 ? 0 : t > 1 ? 1 : t; }
+
+      // Returns closest points + distance between two line segments
+      function segSegClosest(p1x,p1y,p2x,p2y, p3x,p3y,p4x,p4y) {
+        var d1x=p2x-p1x, d1y=p2y-p1y, d2x=p4x-p3x, d2y=p4y-p3y;
+        var rx=p1x-p3x,  ry=p1y-p3y;
+        var a=d1x*d1x+d1y*d1y, e=d2x*d2x+d2y*d2y, f=d2x*rx+d2y*ry;
+        var s,t;
+        if (a<1e-10 && e<1e-10) { s=t=0; }
+        else if (a<1e-10) { s=0; t=_c01(f/e); }
+        else {
+          var c=d1x*rx+d1y*ry;
+          if (e<1e-10) { t=0; s=_c01(-c/a); }
+          else {
+            var b=d1x*d2x+d1y*d2y, denom=a*e-b*b;
+            s = denom>1e-10 ? _c01((b*f-c*e)/denom) : 0;
+            t = (b*s+f)/e;
+            if (t<0)      { t=0; s=_c01(-c/a); }
+            else if (t>1) { t=1; s=_c01((b-c)/a); }
+          }
+        }
+        var c1x=p1x+d1x*s, c1y=p1y+d1y*s;
+        var c2x=p3x+d2x*t, c2y=p3y+d2y*t;
+        var nx=c1x-c2x, ny=c1y-c2y;
+        var dist=Math.sqrt(nx*nx+ny*ny);
+        return { dist:dist, nx:nx, ny:ny };
+      }
+
+      // Returns the two endpoints of a pen's body segment
+      function penSeg(pen) {
+        var half = 135; // half the pen body length in px
+        var lx = -Math.sin(pen.baseRot * Math.PI/180);
+        var ly =  Math.cos(pen.baseRot * Math.PI/180);
+        var cx = pen.ox + pen.px, cy = pen.oy + pen.py;
+        return { x1:cx+lx*half, y1:cy+ly*half, x2:cx-lx*half, y2:cy-ly*half };
+      }
+
+      var PEN_DIAMETER  = 15;   // pen width in px
+      var PEN_RESTITUTION = 0.55; // bounciness (0=dead stop, 1=elastic)
+
       function penTick() {
+        // 1. Apply cursor push + damping + integrate
         penItems.forEach(function (pen) {
           var cx   = pen.ox + pen.px;
           var cy   = pen.oy + pen.py;
@@ -1218,21 +1260,58 @@
           var dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < PEN_RADIUS && dist > 0) {
-            // Project push direction onto the pen's roll axis only
             var pushX  = (dx / dist) * (1 - dist / PEN_RADIUS) * PEN_ACCEL;
             var pushY  = (dy / dist) * (1 - dist / PEN_RADIUS) * PEN_ACCEL;
-            var proj   = pushX * pen.perpX + pushY * pen.perpY;
-            pen.rollVel += proj;
+            pen.rollVel += pushX * pen.perpX + pushY * pen.perpY;
           }
 
           pen.rollVel *= PEN_DAMP;
-          pen.rollVel = Math.max(-PEN_MAX_V, Math.min(PEN_MAX_V, pen.rollVel));
+          pen.rollVel  = Math.max(-PEN_MAX_V, Math.min(PEN_MAX_V, pen.rollVel));
           pen.px += pen.rollVel * pen.perpX;
           pen.py += pen.rollVel * pen.perpY;
+        });
 
+        // 2. Pen-pen collisions (segment vs segment)
+        for (var i = 0; i < penItems.length; i++) {
+          for (var j = i + 1; j < penItems.length; j++) {
+            var a = penItems[i], b = penItems[j];
+            var sa = penSeg(a), sb = penSeg(b);
+            var cl = segSegClosest(sa.x1,sa.y1,sa.x2,sa.y2, sb.x1,sb.y1,sb.x2,sb.y2);
+
+            if (cl.dist < PEN_DIAMETER && cl.dist > 0.001) {
+              var nx = cl.nx / cl.dist, ny = cl.ny / cl.dist;
+
+              // Relative velocity along collision normal
+              var vn = (a.rollVel*a.perpX - b.rollVel*b.perpX)*nx
+                     + (a.rollVel*a.perpY - b.rollVel*b.perpY)*ny;
+
+              // Only resolve if pens are approaching each other
+              if (vn < 0) {
+                // Constrained impulse: each pen can only absorb force along its roll axis
+                var dA = nx*a.perpX + ny*a.perpY;
+                var dB = nx*b.perpX + ny*b.perpY;
+                var denom = dA*dA + dB*dB;
+                if (denom > 1e-6) {
+                  var J = -(1 + PEN_RESTITUTION) * vn / denom;
+                  a.rollVel += J * dA;
+                  b.rollVel -= J * dB;
+                }
+              }
+
+              // Push pens apart so they don't overlap
+              var sep = (PEN_DIAMETER - cl.dist) * 0.5;
+              a.px += nx * sep;  a.py += ny * sep;
+              b.px -= nx * sep;  b.py -= ny * sep;
+            }
+          }
+        }
+
+        // 3. Write transforms
+        penItems.forEach(function (pen) {
           pen.el.style.transform =
             'translate(' + pen.px + 'px,' + pen.py + 'px) rotate(' + pen.baseRot + 'deg)';
         });
+
         requestAnimationFrame(penTick);
       }
 
