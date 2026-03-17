@@ -276,39 +276,16 @@
 
 
     /* ── Rainbow pens ── */
-    .di-pen {
-      width: 12px;
-      height: 210px;
-      border-radius: 6px 6px 2px 2px;
-      box-shadow: 1px 3px 10px rgba(0,0,0,0.22);
+    .di-pen-group {
+      width: 210px;
       z-index: 10;
+      filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.22));
     }
-    .di-pen::before {
-      content: '';
-      position: absolute;
-      top: 5px;
-      left: 3px;
-      width: 3px;
-      height: 60px;
-      background: rgba(255,255,255,0.28);
-      border-radius: 2px;
+    .di-pen-group img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-    .di-pen::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 22px;
-      background: rgba(0,0,0,0.20);
-      border-radius: 0 0 4px 4px;
-    }
-    .di-pen-red    { background: linear-gradient(to bottom, #f54a3a, #b81808); }
-    .di-pen-orange { background: linear-gradient(to bottom, #f58838, #c05010); }
-    .di-pen-blue   { background: linear-gradient(to bottom, #4a6ef5, #1830c0); }
-    .di-pen-purple { background: linear-gradient(to bottom, #8844f5, #4410c0); }
-    .di-pen-green  { background: linear-gradient(to bottom, #3aea78, #189840); }
 
     /* ── Mini photo prints ── */
     .di-photo {
@@ -948,12 +925,10 @@
           <img src="desk_elements/Lip-gloss.png" alt="Glossier lip gloss" draggable="false" style="width:100%;height:auto;display:block;">
         </div>
 
-<!-- ══ RAINBOW PENS — fan, bottom-center-right, pen 3 overlaps subtitle ══ -->
-        <div class="desk-item di-pen di-pen-red    draggable" style="top:68%;left:50%;transform:rotate(-38deg)" data-rot="-38" data-z="11"></div>
-        <div class="desk-item di-pen di-pen-orange draggable" style="top:71%;left:54%;transform:rotate(-26deg)" data-rot="-26" data-z="11"></div>
-        <div class="desk-item di-pen di-pen-blue   draggable" style="top:61%;left:55%;transform:rotate(-14deg)" data-rot="-14" data-z="13"></div>
-        <div class="desk-item di-pen di-pen-purple draggable" style="top:70%;left:62%;transform:rotate(-4deg)"  data-rot="-4"  data-z="11"></div>
-        <div class="desk-item di-pen di-pen-green  draggable" style="top:66%;left:66%;transform:rotate(9deg)"   data-rot="9"   data-z="11"></div>
+<!-- ══ RAINBOW PENS — single group image ══ -->
+        <div class="desk-item di-pen-group draggable" style="top:60%;left:48%;transform:rotate(-18deg)" data-rot="-18" data-z="11">
+          <img src="desk_elements/rainbow_pens.png" alt="Rainbow fineliner pens" draggable="false">
+        </div>
 
         <!-- ══ MATCHA MUG + STAIN — right of center, static ══ -->
         <div class="desk-item di-matcha-group draggable" style="top:calc(6% + 64px);left:calc(4% - 12px);transform:rotate(5deg)" data-rot="5" data-z="6">
