@@ -200,6 +200,12 @@
       border-radius: 2px;
       z-index: 7;
     }
+    /* Per-colour custom property used by the curl flap gradient */
+    .di-sticky-coral    { --note-bg: #E8584A; }
+    .di-sticky-teal     { --note-bg: #6B77C8; }
+    .di-sticky-lavender { --note-bg: #6347E8; }
+    .di-sticky-yellow   { --note-bg: #7DD4B0; }
+
     .di-sticky-inner {
       position: relative;
       width: 100%;
@@ -211,58 +217,71 @@
       flex-direction: column;
       justify-content: flex-end;
       box-shadow: 2px 5px 18px rgba(0,0,0,0.16), 0 1px 4px rgba(0,0,0,0.08);
-      transition: box-shadow 0.3s ease;
+      /* Concave bezier cut at bottom-right: from (112,76) → C(112,105)(90,112) → (76,112) */
+      clip-path: path('M 0,0 L 112,0 L 112,76 C 112,105 90,112 76,112 L 0,112 Z');
+      transition: clip-path 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease;
     }
-    /* Subtle shadow on the note surface near the curl */
+    /* Fold shadow — darkens the note surface near the curl base */
     .di-sticky-inner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 54px;
+      height: 54px;
+      background: radial-gradient(ellipse at 100% 100%, rgba(0,0,0,0.18) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.35s ease;
+    }
+    /* Soft shadow on the desk beneath the lifted corner */
+    a.di-sticky::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      width: 44px;
+      height: 44px;
+      background: rgba(0,0,0,0.22);
+      border-radius: 50%;
+      filter: blur(8px);
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.35s ease;
+    }
+    /*
+     * Curl flap — exactly fills the concave cut.
+     * Element is 44×44 at bottom:0 right:0, so its coord origin = note (68,68).
+     * The bezier cut in note space:  (112,76)→C(112,105)(90,112)→(76,112)
+     * In element space:              (44,8) →C(44,37) (22,44) →(8,44)
+     * Path closes back to the corner (44,44) via straight edges = right + bottom.
+     */
+    a.di-sticky::after {
       content: '';
       position: absolute;
       bottom: 0;
       right: 0;
       width: 44px;
       height: 44px;
-      background: radial-gradient(ellipse at 100% 100%, rgba(0,0,0,0.13) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 2;
-      transition: opacity 0.3s ease;
-    }
-    /* Shadow on the desk beneath the lifted corner */
-    a.di-sticky::before {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      right: -6px;
-      width: 34px;
-      height: 34px;
-      border-radius: 100% 0 0 0;
-      background: rgba(0,0,0,0.22);
-      filter: blur(6px);
-      pointer-events: none;
-      z-index: -1;
-      transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1);
-    }
-    /* Curl flap — rounded quarter-circle, back face of lifted paper */
-    a.di-sticky::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(to top left, #ffffff 0%, #e2dbd3 100%);
-      border-radius: 100% 0 0 0;
-      box-shadow: -2px -2px 5px rgba(0,0,0,0.14);
+      clip-path: path('M 44,44 L 44,8 C 44,37 22,44 8,44 Z');
+      /* White at the curled tip → note colour at the fold base */
+      background: radial-gradient(ellipse at 100% 100%,
+        #ffffff 0%,
+        rgba(255,255,255,0.75) 35%,
+        var(--note-bg) 70%);
+      filter: drop-shadow(-1px -1px 3px rgba(0,0,0,0.20));
       pointer-events: none;
       z-index: 1;
-      transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: opacity 0.35s ease, clip-path 0.35s cubic-bezier(0.4,0,0.2,1);
     }
-    /* Hover: curl flattens */
-    a.di-sticky:hover .di-sticky-inner::after { opacity: 0; }
-    a.di-sticky:hover::before,
-    a.di-sticky:hover::after { width: 0; height: 0; }
+    /* Hover: curl flattens — note snaps back to full rectangle */
     a.di-sticky:hover .di-sticky-inner {
-      box-shadow: 2px 5px 16px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.07);
+      clip-path: path('M 0,0 L 112,0 L 112,112 C 112,112 112,112 112,112 L 0,112 Z');
     }
+    a.di-sticky:hover .di-sticky-inner::after,
+    a.di-sticky:hover::before,
+    a.di-sticky:hover::after { opacity: 0; }
+
     .di-sticky-text {
       font-size: 11px;
       font-weight: 600;
