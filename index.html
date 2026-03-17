@@ -1506,21 +1506,20 @@
             item.hoverX  += item.hoverVX;
             item.hoverY  += item.hoverVY;
 
-            // ── Check if boarding pass has moved into a landed matcha blob ──
+            // ── Check if boarding pass has moved into a landed matcha blob — absorb it ──
             if (boardingStainFn && landedBlobs && landedBlobs.length) {
               var hr3 = hero.getBoundingClientRect();
-              for (var bi = 0; bi < landedBlobs.length; bi++) {
+              for (var bi = landedBlobs.length - 1; bi >= 0; bi--) {
                 var lb2 = landedBlobs[bi];
-                if (!lb2._stainedBoarding) {
-                  var lbCX = lb2.vcx + hr3.left;
-                  var lbCY = lb2.vcy + hr3.top;
-                  var bpr  = item.el.getBoundingClientRect();
-                  var cX   = Math.max(bpr.left, Math.min(lbCX, bpr.right));
-                  var cY   = Math.max(bpr.top,  Math.min(lbCY, bpr.bottom));
-                  if (Math.sqrt(Math.pow(lbCX - cX, 2) + Math.pow(lbCY - cY, 2)) < lb2.r) {
-                    boardingStainFn(lbCX, lbCY, lb2.w, lb2.h, lb2.el.style.borderRadius, 0);
-                    lb2._stainedBoarding = true;
-                  }
+                var lbCX = lb2.vcx + hr3.left;
+                var lbCY = lb2.vcy + hr3.top;
+                var bpr  = item.el.getBoundingClientRect();
+                var cX   = Math.max(bpr.left, Math.min(lbCX, bpr.right));
+                var cY   = Math.max(bpr.top,  Math.min(lbCY, bpr.bottom));
+                if (Math.sqrt(Math.pow(lbCX - cX, 2) + Math.pow(lbCY - cY, 2)) < lb2.r) {
+                  boardingStainFn(lbCX, lbCY, lb2.w, lb2.h, lb2.el.style.borderRadius, 0);
+                  lb2.el.remove();
+                  landedBlobs.splice(bi, 1);
                 }
               }
             }
