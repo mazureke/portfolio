@@ -1080,8 +1080,9 @@
       var matchaHeroRect = null; // cached matcha bounds in hero-local px
 
       // Store origin centers after layout settles
-      var penItems    = [];
-      var stickyItems = [];
+      var penItems        = [];
+      var stickyItems     = [];
+      var penObstacleEls  = [];
       var PEN_RADIUS = 70;
       var PEN_ACCEL  = 0.5;
       var PEN_DAMP   = 0.97;
@@ -1203,6 +1204,12 @@
           });
         });
 
+        // Solid obstacles pens can't roll through
+        penObstacleEls = [
+          surface.querySelector('.di-sketchbook'),
+          surface.querySelector('.di-hubba')
+        ].filter(Boolean);
+
         requestAnimationFrame(tick);
         requestAnimationFrame(penTick);
         requestAnimationFrame(stickyTick);
@@ -1247,8 +1254,22 @@
         return { x1:cx+lx*half, y1:cy+ly*half, x2:cx-lx*half, y2:cy-ly*half };
       }
 
-      var PEN_DIAMETER  = 15;   // pen width in px
-      var PEN_RESTITUTION = 0.55; // bounciness (0=dead stop, 1=elastic)
+      // Returns the 4 AABB edges of an obstacle element in desk-surface-local px
+      function obstacleEdges(el) {
+        var r  = el.getBoundingClientRect();
+        var l  = r.left   - heroRect.left, t = r.top    - heroRect.top;
+        var ri = r.right  - heroRect.left, b = r.bottom - heroRect.top;
+        return [
+          {x1:l, y1:t, x2:ri,y2:t },  // top
+          {x1:ri,y1:t, x2:ri,y2:b },  // right
+          {x1:ri,y1:b, x2:l, y2:b },  // bottom
+          {x1:l, y1:b, x2:l, y2:t }   // left
+        ];
+      }
+
+      var PEN_DIAMETER     = 15;   // pen width in px
+      var PEN_RESTITUTION  = 0.55; // bounciness between pens
+      var WALL_RESTITUTION = 0.10; // pens mostly stop at solid obstacles
 
       function penTick() {
         // 1. Apply cursor push + damping + integrate
@@ -1306,7 +1327,33 @@
           }
         }
 
-        // 3. Write transforms
+        // 3. Pen vs solid obstacles (sketchbook, airpods)
+        var PEN_R = PEN_DIAMETER / 2;
+        penObstacleEls.forEach(function(obEl) {
+          var edges = obstacleEdges(obEl);
+          penItems.forEach(function(pen) {
+            var seg = penSeg(pen);
+            edges.forEach(function(edge) {
+              var cl = segSegClosest(seg.x1,seg.y1,seg.x2,seg.y2, edge.x1,edge.y1,edge.x2,edge.y2);
+              if (cl.dist < PEN_R && cl.dist > 0.001) {
+                // nx,ny points from wall toward pen (outward normal)
+                var nx = cl.nx / cl.dist, ny = cl.ny / cl.dist;
+                var dA = nx * pen.perpX + ny * pen.perpY;
+                var vn = pen.rollVel * dA; // velocity along outward normal
+                if (vn < 0) {
+                  // Wall is immovable — absorb approaching velocity only
+                  pen.rollVel -= (1 + WALL_RESTITUTION) * vn * dA;
+                }
+                // Separate pen from wall surface
+                var sep = PEN_R - cl.dist;
+                pen.px += nx * sep;
+                pen.py += ny * sep;
+              }
+            });
+          });
+        });
+
+        // 4. Write transforms
         penItems.forEach(function (pen) {
           pen.el.style.transform =
             'translate(' + pen.px + 'px,' + pen.py + 'px) rotate(' + pen.baseRot + 'deg)';
