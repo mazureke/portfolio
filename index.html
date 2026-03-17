@@ -1092,6 +1092,7 @@
       var pushItems = [];
       var cursorX = -9999, cursorY = -9999;
       var matchaHeroRect = null; // cached matcha bounds in hero-local px
+      var boardingStainFn = null; // set once matcha system initialises
 
       // Store origin centers after layout settles
       var penItems        = [];
@@ -1504,6 +1505,25 @@
             item.hoverVY *= 0.72;
             item.hoverX  += item.hoverVX;
             item.hoverY  += item.hoverVY;
+
+            // ── Check if boarding pass has moved into a landed matcha blob ──
+            if (boardingStainFn && landedBlobs && landedBlobs.length) {
+              var hr3 = hero.getBoundingClientRect();
+              for (var bi = 0; bi < landedBlobs.length; bi++) {
+                var lb2 = landedBlobs[bi];
+                if (!lb2._stainedBoarding) {
+                  var lbCX = lb2.vcx + hr3.left;
+                  var lbCY = lb2.vcy + hr3.top;
+                  var bpr  = item.el.getBoundingClientRect();
+                  var cX   = Math.max(bpr.left, Math.min(lbCX, bpr.right));
+                  var cY   = Math.max(bpr.top,  Math.min(lbCY, bpr.bottom));
+                  if (Math.sqrt(Math.pow(lbCX - cX, 2) + Math.pow(lbCY - cY, 2)) < lb2.r) {
+                    boardingStainFn(lbCX, lbCY, lb2.w, lb2.h, lb2.el.style.borderRadius, 0);
+                    lb2._stainedBoarding = true;
+                  }
+                }
+              }
+            }
           }
 
           item.el.style.transform =
@@ -1596,6 +1616,40 @@
           stainTarget.appendChild(stain);
         }
 
+        // Places a matcha stain on the boarding pass — mirrors maybeStickyStain
+        function maybeTicketStain(blobClientX, blobClientY, blobW, blobH, blobBR, blobRot) {
+          var boardingEl = surface.querySelector('.di-boarding');
+          if (!boardingEl) return;
+          var br    = boardingEl.getBoundingClientRect();
+          var blobR = Math.max(blobW, blobH) * 0.6;
+          var clampX = Math.max(br.left, Math.min(blobClientX, br.right));
+          var clampY = Math.max(br.top,  Math.min(blobClientY, br.bottom));
+          var dist   = Math.sqrt(Math.pow(blobClientX - clampX, 2) + Math.pow(blobClientY - clampY, 2));
+          if (dist >= blobR) return;
+
+          // Convert blob center into boarding pass local coordinate space
+          var boardingRot = (parseFloat(boardingEl.dataset.rot) || 0) * Math.PI / 180;
+          var bcx  = br.left + br.width  / 2;
+          var bcy  = br.top  + br.height / 2;
+          var offX = blobClientX - bcx;
+          var offY = blobClientY - bcy;
+          var localX = offX * Math.cos(-boardingRot) - offY * Math.sin(-boardingRot);
+          var localY = offX * Math.sin(-boardingRot) + offY * Math.cos(-boardingRot);
+
+          var stain = document.createElement('div');
+          stain.style.cssText =
+            'position:absolute;pointer-events:none;z-index:2;' +
+            'left:calc(50% + ' + localX + 'px);' +
+            'top:calc(50%  + ' + localY + 'px);' +
+            'width:' + blobW + 'px;height:' + blobH + 'px;' +
+            'background:rgba(30,72,10,0.55);' +
+            'border-radius:' + blobBR + ';' +
+            'transform:translate(-50%,-50%) rotate(' + (blobRot || 0) + 'deg);' +
+            'filter:blur(0.8px);';
+          boardingEl.appendChild(stain);
+        }
+        boardingStainFn = maybeTicketStain;
+
         function growBlob(lb, addArea) {
           var startW = lb.w;
           var startH = lb.h;
@@ -1607,6 +1661,7 @@
           // After growing, check if the blob now touches the sticky
           var hr2 = hero.getBoundingClientRect();
           maybeStickyStain(lb.vcx + hr2.left, lb.vcy + hr2.top, targetW, targetH, lb.el.style.borderRadius, 0);
+          maybeTicketStain(lb.vcx + hr2.left, lb.vcy + hr2.top, targetW, targetH, lb.el.style.borderRadius, 0);
           var dur = 200;
           var t0  = null;
           function gf(t) {
@@ -1702,8 +1757,9 @@
                   var landH = size * (0.8 + Math.random() * 0.4);
                   var newR  = Math.max(landW, landH) * 0.6;
 
-                  // ── Check if drop touches the coral sticky ──
+                  // ── Check if drop touches the coral sticky or boarding pass ──
                   maybeStickyStain(vcx + hr.left, vcy + hr.top, landW, landH, landBlob, landRot);
+                  maybeTicketStain(vcx + hr.left, vcy + hr.top, landW, landH, landBlob, landRot);
 
                   // ── Check if drop merges with an existing desk blob ──
                   var merged = false;
