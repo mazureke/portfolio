@@ -275,44 +275,24 @@
     }
 
 
-    /* ── Rainbow pens — fineliner style: grey barrel, coloured cap, dark nib ── */
+    /* ── Rainbow pens — Staedtler fineliner SVG ── */
     .di-pen {
       width: 15px;
       height: 290px;
-      /* Cylindrical grey barrel */
-      background: linear-gradient(to right,
-        #767676 0%, #c2c2c2 28%, #d8d8d8 48%, #b8b8b8 68%, #808080 100%);
-      border-radius: 3px 3px 1px 1px;
       z-index: 10;
-      box-shadow: 1px 3px 12px rgba(0,0,0,0.28);
+      overflow: hidden;
     }
-    /* Coloured cap — top ~20% of the pen */
-    .di-pen::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 58px;
-      border-radius: 3px 3px 0 0;
-      border-bottom: 2px solid rgba(0,0,0,0.25);
+    .di-pen img {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
-    /* Dark fineliner nib at the bottom */
-    .di-pen::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 5px;
-      height: 16px;
-      background: linear-gradient(to bottom, #2a2a2a 0%, #111 100%);
-      border-radius: 0 0 3px 3px;
-    }
-    /* Cap colours — cylindrical gradient to match barrel style */
-    .di-pen-red::before    { background: linear-gradient(to right, #bf2a20 0%, #e83530 30%, #f04844 52%, #d02820 72%, #b02018 100%); }
-    .di-pen-orange::before { background: linear-gradient(to right, #c05818 0%, #e87828 30%, #f09040 52%, #d06820 72%, #b05010 100%); }
-    .di-pen-pink::before   { background: linear-gradient(to right, #b82068 0%, #e03888 30%, #f050a0 52%, #d03080 72%, #a81860 100%); }
-    .di-pen-blue::before   { background: linear-gradient(to right, #2840a8 0%, #3858d0 30%, #4870e8 52%, #3050c0 72%, #2038a0 100%); }
-    .di-pen-teal::before   { background: linear-gradient(to right, #149868 0%, #20b878 30%, #30cc8c 52%, #18a870 72%, #108858 100%); }
+    /* Cap colours via hue-rotate — barrel greys are immune (0 saturation) */
+    .di-pen-red    img { filter: hue-rotate(-38deg) saturate(1.5); }
+    .di-pen-orange img { filter: hue-rotate(-15deg) saturate(1.2); }
+    .di-pen-pink   img { filter: hue-rotate(-70deg) saturate(1.5); }
+    .di-pen-blue   img { filter: hue-rotate(186deg) saturate(1.5) brightness(0.9); }
+    .di-pen-teal   img { filter: hue-rotate(114deg) saturate(1.3); }
 
     /* ── Mini photo prints ── */
     .di-photo {
@@ -953,11 +933,11 @@
         </div>
 
 <!-- ══ RAINBOW PENS — five individual fineliners ══ -->
-        <div class="desk-item di-pen di-pen-red    draggable" style="top:68%;left:50%;transform:rotate(-38deg)" data-rot="-38" data-z="11"></div>
-        <div class="desk-item di-pen di-pen-orange draggable" style="top:71%;left:54%;transform:rotate(-26deg)" data-rot="-26" data-z="11"></div>
-        <div class="desk-item di-pen di-pen-pink   draggable" style="top:61%;left:55%;transform:rotate(-14deg)" data-rot="-14" data-z="13"></div>
-        <div class="desk-item di-pen di-pen-blue   draggable" style="top:70%;left:62%;transform:rotate(-4deg)"  data-rot="-4"  data-z="11"></div>
-        <div class="desk-item di-pen di-pen-teal   draggable" style="top:66%;left:66%;transform:rotate(9deg)"   data-rot="9"   data-z="11"></div>
+        <div class="desk-item di-pen di-pen-red    draggable" style="top:68%;left:50%;transform:rotate(-38deg)" data-rot="-38" data-z="11"><img src="desk_elements/staedler-fineliner.svg" alt="pen" draggable="false"></div>
+        <div class="desk-item di-pen di-pen-orange draggable" style="top:71%;left:54%;transform:rotate(-26deg)" data-rot="-26" data-z="11"><img src="desk_elements/staedler-fineliner.svg" alt="pen" draggable="false"></div>
+        <div class="desk-item di-pen di-pen-pink   draggable" style="top:61%;left:55%;transform:rotate(-14deg)" data-rot="-14" data-z="13"><img src="desk_elements/staedler-fineliner.svg" alt="pen" draggable="false"></div>
+        <div class="desk-item di-pen di-pen-blue   draggable" style="top:70%;left:62%;transform:rotate(-4deg)"  data-rot="-4"  data-z="11"><img src="desk_elements/staedler-fineliner.svg" alt="pen" draggable="false"></div>
+        <div class="desk-item di-pen di-pen-teal   draggable" style="top:66%;left:66%;transform:rotate(9deg)"   data-rot="9"   data-z="11"><img src="desk_elements/staedler-fineliner.svg" alt="pen" draggable="false"></div>
 
         <!-- ══ MATCHA MUG + STAIN — right of center, static ══ -->
         <div class="desk-item di-matcha-group draggable" style="top:calc(6% + 64px);left:calc(4% - 12px);transform:rotate(5deg)" data-rot="5" data-z="6">
