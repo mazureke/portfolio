@@ -200,11 +200,11 @@
       border-radius: 2px;
       z-index: 7;
     }
-    /* Per-colour custom property used by the curl flap gradient */
-    .di-sticky-coral    { --note-bg: #E8584A; }
-    .di-sticky-teal     { --note-bg: #6B77C8; }
-    .di-sticky-lavender { --note-bg: #6347E8; }
-    .di-sticky-yellow   { --note-bg: #7DD4B0; }
+    /* Per-colour custom properties — bg + slightly darker underside for curl */
+    .di-sticky-coral    { --note-bg: #E8584A; --note-bg-dark: #C23C30; }
+    .di-sticky-teal     { --note-bg: #6B77C8; --note-bg-dark: #4D5AAF; }
+    .di-sticky-lavender { --note-bg: #6347E8; --note-bg-dark: #4A2FCC; }
+    .di-sticky-yellow   { --note-bg: #7DD4B0; --note-bg-dark: #52B48E; }
 
     .di-sticky-inner {
       position: relative;
@@ -264,11 +264,12 @@
       width: 44px;
       height: 44px;
       clip-path: path('M 44,44 L 44,8 C 44,37 22,44 8,44 Z');
-      /* White at the curled tip → note colour at the fold base */
+      /* Transparent at curled tip → darker underside colour at fold base */
       background: radial-gradient(ellipse at 100% 100%,
-        #ffffff 0%,
-        rgba(255,255,255,0.75) 35%,
-        var(--note-bg) 70%);
+        transparent 0%,
+        transparent 20%,
+        var(--note-bg-dark) 58%,
+        var(--note-bg-dark) 100%);
       filter: drop-shadow(-1px -1px 3px rgba(0,0,0,0.20));
       pointer-events: none;
       z-index: 1;
