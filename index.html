@@ -215,8 +215,8 @@
     /* sn-flat never shown; sn-fold fades on hover as peel takes over */
     .sn-flat { opacity: 0; }
     .sn-fold { transition: opacity 0.35s ease; }
-    a.di-sticky:hover .sn-fold { opacity: 0; }
-    a.di-sticky:hover .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
+    .di-sticky.peeling .sn-fold { opacity: 0; }
+    .di-sticky.peeling .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
 
     /* ── Peel corner ── */
     .sn-peel {
@@ -237,7 +237,7 @@
         height 0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
         filter 0.4s ease;
     }
-    a.di-sticky:hover .sn-peel {
+    .di-sticky.peeling .sn-peel {
       width: 56px;
       height: 56px;
       filter: drop-shadow(-3px -3px 10px rgba(0,0,0,0.30));
@@ -1247,6 +1247,10 @@
             theta:   0,
             omega:   0
           });
+          // Enable hover events so the peel animation works
+          el.style.pointerEvents = 'auto';
+          el.addEventListener('mouseenter', function () { el.classList.add('peeling'); });
+          el.addEventListener('mouseleave', function () { el.classList.remove('peeling'); });
         });
 
         // Solid obstacles pens can't roll through
