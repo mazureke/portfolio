@@ -212,12 +212,36 @@
       filter: drop-shadow(2px 6px 10px rgba(0,0,0,0.20));
       transition: filter 0.3s ease;
     }
-    /* Hover: fill in the curl gap + hide fold triangle */
-    .sn-flat { opacity: 0; transition: opacity 0.3s ease; }
-    .sn-fold { transition: opacity 0.3s ease; }
-    a.di-sticky:hover .sn-flat { opacity: 1; }
+    /* sn-flat never shown; sn-fold fades on hover as peel takes over */
+    .sn-flat { opacity: 0; }
+    .sn-fold { transition: opacity 0.35s ease; }
     a.di-sticky:hover .sn-fold { opacity: 0; }
-    a.di-sticky:hover .di-sticky-svg { filter: drop-shadow(1px 3px 6px rgba(0,0,0,0.14)); }
+    a.di-sticky:hover .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
+
+    /* ── Peel corner ── */
+    .sn-peel {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      z-index: 20;
+      /* triangle pointing to bottom-right */
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      /* gradient: dark crease at fold line → light back-of-paper at the lifted tip */
+      background: linear-gradient(135deg, #b8962e 0%, #d4b84a 30%, #f0e080 60%, #fffef0 100%);
+      filter: drop-shadow(-1px -1px 4px rgba(0,0,0,0.22));
+      transition:
+        width  0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
+        height 0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
+        filter 0.4s ease;
+    }
+    a.di-sticky:hover .sn-peel {
+      width: 56px;
+      height: 56px;
+      filter: drop-shadow(-3px -3px 10px rgba(0,0,0,0.30));
+    }
     .di-sticky-text {
       position: absolute;
       top: 10%;
@@ -891,6 +915,7 @@
             </svg>
             <div class="di-sticky-text">Barstool<br>Sports Store ↗</div>
           </div>
+          <div class="sn-peel"></div>
         </a>
 
         <!-- ══ STICKY 2 — Periwinkle / VEERUM — upper-right ══ -->
@@ -906,6 +931,7 @@
             </svg>
             <div class="di-sticky-text">VEERUM ↗</div>
           </div>
+          <div class="sn-peel"></div>
         </a>
 
         <!-- ══ STICKY 3 — Purple / Max Retail — lower-left ══ -->
@@ -921,6 +947,7 @@
             </svg>
             <div class="di-sticky-text">Max<br>Retail ↗</div>
           </div>
+          <div class="sn-peel"></div>
         </a>
 
         <!-- ══ STICKY 4 — Mint / Proposify — lower-right ══ -->
@@ -936,6 +963,7 @@
             </svg>
             <div class="di-sticky-text">Proposify ↗</div>
           </div>
+          <div class="sn-peel"></div>
         </a>
 
         <!-- ══ HUBBA BUBBA — bottom right ══ -->
