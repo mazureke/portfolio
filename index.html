@@ -1212,7 +1212,7 @@
           el.style.pointerEvents = 'auto';
           (function(el) {
             var w = 141, h = 141;
-            var p = new Peel(el, { corner: Peel.Corners.BOTTOM_RIGHT, topShadow: false, bottomShadow: false, backShadow: false });
+            var p = new Peel(el, { corner: Peel.Corners.BOTTOM_RIGHT, topShadow: false, bottomShadow: true, bottomShadowDarkAlpha: 0.25, bottomShadowSize: 1.0, backShadow: false });
             p.setPeelPath(w, h, w * 0.42, h * 0.42);
             var tCur = 0, tGoal = 0, rafId = null;
             function tick() {
