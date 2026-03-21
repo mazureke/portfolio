@@ -193,80 +193,61 @@
       overflow: hidden;
     }
 
+    /* ── Peel.js layer infrastructure ── */
+    .peel-layer {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      top: 0; right: 0; bottom: 0; left: 0;
+      -webkit-user-select: none;
+      user-select: none;
+      transform-origin: top left;
+    }
+    .peel-svg-clip-element {
+      position: absolute;
+      top: -10000px; left: -10000px;
+      width: 1px; height: 1px;
+      opacity: 0;
+    }
+
     /* ── Sticky notes ── */
     .di-sticky {
       width: 141px;
       height: 141px;
       z-index: 7;
     }
-    .di-sticky-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
+    .di-sticky .peel-top {
+      background: #ffeba1;
+      border-radius: 3px;
       overflow: hidden;
     }
-    .di-sticky-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      filter: drop-shadow(2px 6px 10px rgba(0,0,0,0.20));
-      transition: filter 0.3s ease;
+    .di-sticky .peel-back {
+      background: #c9ac5a; /* slightly darker — paper underside */
     }
-    /* sn-flat never shown; sn-fold is the resting-state corner shadow */
-    .sn-flat { opacity: 0; }
-    .sn-fold {
-      fill: rgba(0,0,0,0.36);
-      transition: opacity 0.3s ease;
+    .di-sticky .peel-bottom {
+      background: transparent;
     }
-    .di-sticky.peeling .sn-fold { opacity: 0; }
-    .di-sticky.peeling .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
-
-    /* ── Peel corner (CSS border-triangle fold, same technique as reference) ── */
-    /* Two adjacent borders (top + left) on a zero-size element anchored at
-       bottom-right create a natural diagonal fold line.
-       top border  → interior shadow triangle (curl shadow on sticky face)
-       left border → corner triangle (lighter paper backside at the tip)   */
-    .sn-peel {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      pointer-events: none;
-      z-index: 20;
-      border-style: solid;
-      border-color: rgba(0,0,0,0.28) rgba(255,255,255,0.20) transparent transparent;
-      border-width: 0 0 0 0;
-      transition:
-        border-top-width   0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
-        border-right-width 0.4s cubic-bezier(0.34, 1.15, 0.64, 1);
-    }
-    .di-sticky.peeling .sn-peel {
-      border-top-width:   58px;
-      border-right-width: 58px;
+    .sn-top-strip {
+      height: 22px;
+      background: rgba(0,0,0,0.07);
     }
     .di-sticky-text {
-      position: absolute;
-      top: 10%;
-      left: 11%;
-      right: 6%;
+      padding: 8px 14px 0;
       font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
       font-size: 16px;
       font-weight: 600;
       line-height: 1.4;
       font-style: italic;
+      color: #1A1A1A;
     }
-    .di-sticky-coral    .di-sticky-text,
-    .di-sticky-teal     .di-sticky-text,
-    .di-sticky-lavender .di-sticky-text,
-    .di-sticky-yellow   .di-sticky-text { color: #1A1A1A; }
     a.di-sticky {
       pointer-events: auto;
       cursor: pointer;
       text-decoration: none;
       display: block;
     }
-    a.di-sticky:focus-visible .di-sticky-svg { outline: 2px solid #fff; outline-offset: 3px; }
+    a.di-sticky:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
     /* ── Hubba Bubba gum ── */
     .di-hubba {
@@ -907,70 +888,42 @@
 
         <!-- ══ STICKY 1 — Coral / Barstool — upper-left ══ -->
         <a href="barstool.html" class="desk-item di-sticky di-sticky-coral draggable" style="transform:rotate(-11deg)" data-rot="-11" data-z="12">
-          <div class="di-sticky-inner">
-            <svg class="di-sticky-svg" viewBox="0 0 303 298" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g clip-path="url(#snclip-coral)">
-                <rect class="sn-flat" x="0" y="0" width="303" height="298" fill="#ffeba1"/>
-                <path d="M231.508 275.47C231.044 276.306 230.197 277.063 229.557 277.783C210.095 299.615 175.612 297.038 148.899 297.086L115.301 297.204C92.5094 297.302 69.717 297.149 46.9287 296.74C38.6834 296.479 30.4355 296.3 22.1865 296.207C16.4066 296.194 10.3105 296.635 4.58114 296.07C3.27728 295.941 1.58661 295.635 0.665608 294.625C-0.526452 293.32 0.940878 254.279 0.998095 250.462L1.53361 209.952C1.72636 200.581 2.17829 191.158 2.22048 181.78C2.02405 139.156 2.20703 96.5307 2.7697 53.9093C2.86621 37.8064 2.76866 21.6631 2.93187 5.55405C2.95033 3.7253 2.92686 3.06675 4.21411 1.84328C8.76297 0.485037 27.9003 0.825785 33.8345 0.813916L85.1345 0.822885L222.063 0.94974L273.569 0.971894C277.977 0.975587 298.327 0.49585 300.972 1.59431C302.195 2.97998 302.293 5.2518 302.306 7.04389C302.351 13.3424 302.159 19.7077 302.048 26.0084L301.613 53.8568L300.761 115.623L300.558 158.092C300.516 171.436 301.062 186.211 298.019 199.187C295.699 209.074 290.122 216.216 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#ffeba1"/>
-                <path class="sn-fold" d="M231.508 275.47C231.661 274.183 232.628 271.669 233.056 270.306C233.736 268.106 234.345 265.883 234.883 263.641C237.098 254.693 238.303 246.44 239.531 237.341C239.65 236.624 240.481 234.366 241.203 234.161C252.781 230.884 265.245 231.424 276.488 225.82C277.948 225.093 281.824 223.128 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#e4c06e"/>
-
-              </g>
-              <defs><clipPath id="snclip-coral"><rect width="303" height="298"/></clipPath></defs>
-            </svg>
+          <div class="peel-top">
+            <div class="sn-top-strip"></div>
             <div class="di-sticky-text">Barstool<br>Sports Store ↗</div>
           </div>
-          <div class="sn-peel"></div>
+          <div class="peel-back"></div>
+          <div class="peel-bottom"></div>
         </a>
 
         <!-- ══ STICKY 2 — Periwinkle / VEERUM — upper-right ══ -->
         <a href="veerum.html" class="desk-item di-sticky di-sticky-teal draggable" style="top:14%;left:56%;transform:rotate(8deg)" data-rot="8" data-z="14">
-          <div class="di-sticky-inner">
-            <svg class="di-sticky-svg" viewBox="0 0 303 298" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g clip-path="url(#snclip-teal)">
-                <rect class="sn-flat" x="0" y="0" width="303" height="298" fill="#ffeba1"/>
-                <path d="M231.508 275.47C231.044 276.306 230.197 277.063 229.557 277.783C210.095 299.615 175.612 297.038 148.899 297.086L115.301 297.204C92.5094 297.302 69.717 297.149 46.9287 296.74C38.6834 296.479 30.4355 296.3 22.1865 296.207C16.4066 296.194 10.3105 296.635 4.58114 296.07C3.27728 295.941 1.58661 295.635 0.665608 294.625C-0.526452 293.32 0.940878 254.279 0.998095 250.462L1.53361 209.952C1.72636 200.581 2.17829 191.158 2.22048 181.78C2.02405 139.156 2.20703 96.5307 2.7697 53.9093C2.86621 37.8064 2.76866 21.6631 2.93187 5.55405C2.95033 3.7253 2.92686 3.06675 4.21411 1.84328C8.76297 0.485037 27.9003 0.825785 33.8345 0.813916L85.1345 0.822885L222.063 0.94974L273.569 0.971894C277.977 0.975587 298.327 0.49585 300.972 1.59431C302.195 2.97998 302.293 5.2518 302.306 7.04389C302.351 13.3424 302.159 19.7077 302.048 26.0084L301.613 53.8568L300.761 115.623L300.558 158.092C300.516 171.436 301.062 186.211 298.019 199.187C295.699 209.074 290.122 216.216 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#ffeba1"/>
-                <path class="sn-fold" d="M231.508 275.47C231.661 274.183 232.628 271.669 233.056 270.306C233.736 268.106 234.345 265.883 234.883 263.641C237.098 254.693 238.303 246.44 239.531 237.341C239.65 236.624 240.481 234.366 241.203 234.161C252.781 230.884 265.245 231.424 276.488 225.82C277.948 225.093 281.824 223.128 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#e4c06e"/>
-
-              </g>
-              <defs><clipPath id="snclip-teal"><rect width="303" height="298"/></clipPath></defs>
-            </svg>
+          <div class="peel-top">
+            <div class="sn-top-strip"></div>
             <div class="di-sticky-text">VEERUM ↗</div>
           </div>
-          <div class="sn-peel"></div>
+          <div class="peel-back"></div>
+          <div class="peel-bottom"></div>
         </a>
 
         <!-- ══ STICKY 3 — Purple / Max Retail — lower-left ══ -->
         <a href="max-retail.html" class="desk-item di-sticky di-sticky-lavender draggable" style="top:76%;left:42%;transform:rotate(-7deg)" data-rot="-7" data-z="15">
-          <div class="di-sticky-inner">
-            <svg class="di-sticky-svg" viewBox="0 0 303 298" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g clip-path="url(#snclip-lav)">
-                <rect class="sn-flat" x="0" y="0" width="303" height="298" fill="#ffeba1"/>
-                <path d="M231.508 275.47C231.044 276.306 230.197 277.063 229.557 277.783C210.095 299.615 175.612 297.038 148.899 297.086L115.301 297.204C92.5094 297.302 69.717 297.149 46.9287 296.74C38.6834 296.479 30.4355 296.3 22.1865 296.207C16.4066 296.194 10.3105 296.635 4.58114 296.07C3.27728 295.941 1.58661 295.635 0.665608 294.625C-0.526452 293.32 0.940878 254.279 0.998095 250.462L1.53361 209.952C1.72636 200.581 2.17829 191.158 2.22048 181.78C2.02405 139.156 2.20703 96.5307 2.7697 53.9093C2.86621 37.8064 2.76866 21.6631 2.93187 5.55405C2.95033 3.7253 2.92686 3.06675 4.21411 1.84328C8.76297 0.485037 27.9003 0.825785 33.8345 0.813916L85.1345 0.822885L222.063 0.94974L273.569 0.971894C277.977 0.975587 298.327 0.49585 300.972 1.59431C302.195 2.97998 302.293 5.2518 302.306 7.04389C302.351 13.3424 302.159 19.7077 302.048 26.0084L301.613 53.8568L300.761 115.623L300.558 158.092C300.516 171.436 301.062 186.211 298.019 199.187C295.699 209.074 290.122 216.216 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#ffeba1"/>
-                <path class="sn-fold" d="M231.508 275.47C231.661 274.183 232.628 271.669 233.056 270.306C233.736 268.106 234.345 265.883 234.883 263.641C237.098 254.693 238.303 246.44 239.531 237.341C239.65 236.624 240.481 234.366 241.203 234.161C252.781 230.884 265.245 231.424 276.488 225.82C277.948 225.093 281.824 223.128 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#e4c06e"/>
-
-              </g>
-              <defs><clipPath id="snclip-lav"><rect width="303" height="298"/></clipPath></defs>
-            </svg>
+          <div class="peel-top">
+            <div class="sn-top-strip"></div>
             <div class="di-sticky-text">Max<br>Retail ↗</div>
           </div>
-          <div class="sn-peel"></div>
+          <div class="peel-back"></div>
+          <div class="peel-bottom"></div>
         </a>
 
         <!-- ══ STICKY 4 — Mint / Proposify — lower-right ══ -->
         <a href="proposify.html" class="desk-item di-sticky di-sticky-yellow draggable" style="top:72%;left:62%;transform:rotate(6deg)" data-rot="6" data-z="15">
-          <div class="di-sticky-inner">
-            <svg class="di-sticky-svg" viewBox="0 0 303 298" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g clip-path="url(#snclip-mint)">
-                <rect class="sn-flat" x="0" y="0" width="303" height="298" fill="#ffeba1"/>
-                <path d="M231.508 275.47C231.044 276.306 230.197 277.063 229.557 277.783C210.095 299.615 175.612 297.038 148.899 297.086L115.301 297.204C92.5094 297.302 69.717 297.149 46.9287 296.74C38.6834 296.479 30.4355 296.3 22.1865 296.207C16.4066 296.194 10.3105 296.635 4.58114 296.07C3.27728 295.941 1.58661 295.635 0.665608 294.625C-0.526452 293.32 0.940878 254.279 0.998095 250.462L1.53361 209.952C1.72636 200.581 2.17829 191.158 2.22048 181.78C2.02405 139.156 2.20703 96.5307 2.7697 53.9093C2.86621 37.8064 2.76866 21.6631 2.93187 5.55405C2.95033 3.7253 2.92686 3.06675 4.21411 1.84328C8.76297 0.485037 27.9003 0.825785 33.8345 0.813916L85.1345 0.822885L222.063 0.94974L273.569 0.971894C277.977 0.975587 298.327 0.49585 300.972 1.59431C302.195 2.97998 302.293 5.2518 302.306 7.04389C302.351 13.3424 302.159 19.7077 302.048 26.0084L301.613 53.8568L300.761 115.623L300.558 158.092C300.516 171.436 301.062 186.211 298.019 199.187C295.699 209.074 290.122 216.216 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#ffeba1"/>
-                <path class="sn-fold" d="M231.508 275.47C231.661 274.183 232.628 271.669 233.056 270.306C233.736 268.106 234.345 265.883 234.883 263.641C237.098 254.693 238.303 246.44 239.531 237.341C239.65 236.624 240.481 234.366 241.203 234.161C252.781 230.884 265.245 231.424 276.488 225.82C277.948 225.093 281.824 223.128 283.335 223.385C268.881 238.138 254.173 252.617 239.402 267.046C236.665 269.72 234.176 272.896 231.508 275.47Z" fill="#e4c06e"/>
-
-              </g>
-              <defs><clipPath id="snclip-mint"><rect width="303" height="298"/></clipPath></defs>
-            </svg>
+          <div class="peel-top">
+            <div class="sn-top-strip"></div>
             <div class="di-sticky-text">Proposify ↗</div>
           </div>
-          <div class="sn-peel"></div>
+          <div class="peel-back"></div>
+          <div class="peel-bottom"></div>
         </a>
 
         <!-- ══ HUBBA BUBBA — bottom right ══ -->
@@ -1101,6 +1054,7 @@
     </div>
   </footer>
 
+  <script src="peel.js"></script>
   <script src="nav.js"></script>
   <script>
     (function () {
@@ -1254,10 +1208,27 @@
             theta:   0,
             omega:   0
           });
-          // Enable hover events so the peel animation works
+          // Peel.js hover animation — bottom-right corner peels up on hover
           el.style.pointerEvents = 'auto';
-          el.addEventListener('mouseenter', function () { el.classList.add('peeling'); });
-          el.addEventListener('mouseleave', function () { el.classList.remove('peeling'); });
+          (function(el) {
+            var w = 141, h = 141;
+            var p = new Peel(el, { corner: Peel.Corners.BOTTOM_RIGHT });
+            p.setPeelPath(w, h, w * 0.42, h * 0.42);
+            var tCur = 0, tGoal = 0, rafId = null;
+            function tick() {
+              tCur += (tGoal - tCur) * 0.13;
+              p.setTimeAlongPath(tCur);
+              if (Math.abs(tGoal - tCur) > 0.0005) {
+                rafId = requestAnimationFrame(tick);
+              } else {
+                tCur = tGoal;
+                p.setTimeAlongPath(tCur);
+                rafId = null;
+              }
+            }
+            el.addEventListener('mouseenter', function() { tGoal = 1; if (!rafId) rafId = requestAnimationFrame(tick); });
+            el.addEventListener('mouseleave', function() { tGoal = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
+          }(el));
         });
 
         // Solid obstacles pens can't roll through
@@ -1650,7 +1621,7 @@
             'border-radius:' + blobBR + ';' +
             'transform:translate(-50%,-50%) rotate(' + (blobRot || 0) + 'deg);' +
             'filter:blur(0.6px);';
-          var stainTarget = coralSticky.querySelector('.di-sticky-inner') || coralSticky;
+          var stainTarget = coralSticky.querySelector('.peel-top') || coralSticky;
           stainTarget.appendChild(stain);
         }
 
