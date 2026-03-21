@@ -1226,7 +1226,7 @@
                 rafId = null;
               }
             }
-            el.addEventListener('mouseenter', function() { tGoal = 1; if (!rafId) rafId = requestAnimationFrame(tick); });
+            el.addEventListener('mouseenter', function() { tGoal = 0.5; if (!rafId) rafId = requestAnimationFrame(tick); });
             el.addEventListener('mouseleave', function() { tGoal = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
           }(el));
         });
