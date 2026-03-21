@@ -66,6 +66,61 @@
     .hero-cta:hover { gap: 14px; border-bottom-color: rgba(26,26,26,0.35); } /* fade underline only — text stays at full contrast */
     .hero-cta:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 2px; }
 
+    /* ── Hero watermark experiment ──────────────────────────────────────────
+       REVERT: remove 'hero-watermark-on' from <section class="hero-desk">
+       RE-ENABLE: add it back.
+    ────────────────────────────────────────────────────────────────────────── */
+    .hero-watermark-on .hero-text {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #heroWatermark {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      text-align: center;
+      padding: 80px 40px 40px;
+    }
+    .hero-watermark-on #heroWatermark { display: flex; }
+    .hw-name {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(68px, 12vw, 152px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(26,26,26,0.22);
+      white-space: nowrap;
+      margin-bottom: 22px;
+    }
+    .hw-title {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 700;
+      font-size: clamp(11px, 1.3vw, 17px);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(26,26,26,0.2);
+      margin-bottom: 16px;
+    }
+    .hw-desc {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 300;
+      font-size: clamp(13px, 1.1vw, 16px);
+      line-height: 1.75;
+      color: rgba(26,26,26,0.18);
+      max-width: 500px;
+    }
+    @media (max-width: 768px) {
+      /* On mobile the desk is hidden — restore the classic text block */
+      .hero-watermark-on .hero-text { opacity: 1; pointer-events: auto; }
+      .hero-watermark-on #heroWatermark { display: none; }
+    }
+
     /* Desk surface */
     .desk-surface {
       position: absolute;
@@ -607,7 +662,7 @@
 
   <main id="main">
 
-    <section class="hero-desk" id="heroDesk" aria-labelledby="hero-heading">
+    <section class="hero-desk hero-watermark-on" id="heroDesk" aria-labelledby="hero-heading">
 
       <!-- Accessible text layer — always readable in DOM order -->
       <div class="hero-text">
@@ -615,6 +670,15 @@
         <h1 class="hero-name" id="hero-heading">emilie<br>mazurek</h1>
         <p class="hero-desc">I design products people actually want to use — backed by research, built with intention, and proven by results.</p>
         <a href="#work" class="hero-cta">View my work <span aria-hidden="true">→</span></a>
+      </div>
+
+      <!-- ══ WATERMARK EXPERIMENT — graphic text behind desk elements ══
+           REVERT: remove 'hero-watermark-on' from the <section> class above.
+           RE-ENABLE: add 'hero-watermark-on' back to the <section> class. -->
+      <div id="heroWatermark" aria-hidden="true">
+        <p class="hw-name">emilie<br>mazurek</p>
+        <p class="hw-title">Senior Product Designer</p>
+        <p class="hw-desc">I design products people actually want to use — backed by research, built with intention, and proven by results.</p>
       </div>
 
       <!-- Desk surface — aria-hidden, all decorative -->
