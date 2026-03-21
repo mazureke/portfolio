@@ -216,12 +216,13 @@
        clipped to the sticky shape and never bleeds onto the desk */
     .sn-flat { opacity: 0; }
     .sn-fold {
-      transform-box: fill-box;
+      fill: rgba(0,0,0,0.40);      /* dark shadow — underside, not yellow */
+      transform-box: view-box;     /* scale relative to SVG viewport corner, not path bbox */
       transform-origin: bottom right;
       transition: transform 0.45s cubic-bezier(0.34, 1.10, 0.64, 1);
     }
     .di-sticky.peeling .sn-fold {
-      transform: scale(3.8);
+      transform: scale(2.0);
     }
     .di-sticky.peeling .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
 
