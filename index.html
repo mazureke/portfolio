@@ -229,18 +229,24 @@
       z-index: 20;
       /* triangle pointing to bottom-right */
       clip-path: polygon(100% 0, 100% 100%, 0 100%);
-      /* gradient: dark crease at fold line → light back-of-paper at the lifted tip */
-      background: linear-gradient(135deg, #b8962e 0%, #d4b84a 30%, #f0e080 60%, #fffef0 100%);
-      filter: drop-shadow(-1px -1px 4px rgba(0,0,0,0.22));
+      /* dark crease at fold line → cream back-of-paper → near-white lifted tip */
+      background: linear-gradient(135deg,
+        rgba(0,0,0,0.55) 0%,
+        rgba(80,55,15,0.60) 14%,
+        #b89a5a 30%,
+        #e0d4a8 50%,
+        #f6f2e4 70%,
+        #fefefe 100%
+      );
       transition:
         width  0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
         height 0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
         filter 0.4s ease;
     }
     .di-sticky.peeling .sn-peel {
-      width: 56px;
-      height: 56px;
-      filter: drop-shadow(-3px -3px 10px rgba(0,0,0,0.30));
+      width: 76px;
+      height: 76px;
+      filter: drop-shadow(-4px -6px 14px rgba(0,0,0,0.35));
     }
     .di-sticky-text {
       position: absolute;
