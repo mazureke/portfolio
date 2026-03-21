@@ -221,10 +221,11 @@
     .di-sticky.peeling .sn-fold { opacity: 0; }
     .di-sticky.peeling .di-sticky-svg { filter: drop-shadow(2px 10px 18px rgba(0,0,0,0.30)); }
 
-    /* ── Peel corner shadow ── */
-    /* clip-path polygon(100% 0, 100% 100%, 0 100%) = lower-right triangle
-       whose two non-corner vertices sit exactly on the right edge and bottom
-       edge of the element — so the arms always reach the sticky's edges. */
+    /* ── Peel corner (CSS border-triangle fold, same technique as reference) ── */
+    /* Two adjacent borders (top + left) on a zero-size element anchored at
+       bottom-right create a natural diagonal fold line.
+       top border  → interior shadow triangle (curl shadow on sticky face)
+       left border → corner triangle (lighter paper backside at the tip)   */
     .sn-peel {
       position: absolute;
       bottom: 0;
@@ -233,21 +234,16 @@
       height: 0;
       pointer-events: none;
       z-index: 20;
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-      /* dark at the fold crease, fading toward the corner tip */
-      background: linear-gradient(135deg,
-        rgba(0,0,0,0.52) 0%,
-        rgba(0,0,0,0.38) 35%,
-        rgba(0,0,0,0.20) 65%,
-        rgba(0,0,0,0.08) 100%
-      );
+      border-style: solid;
+      border-color: rgba(0,0,0,0.28) transparent transparent rgba(255,255,255,0.20);
+      border-width: 0 0 0 0;
       transition:
-        width  0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
-        height 0.4s cubic-bezier(0.34, 1.15, 0.64, 1);
+        border-top-width  0.4s cubic-bezier(0.34, 1.15, 0.64, 1),
+        border-left-width 0.4s cubic-bezier(0.34, 1.15, 0.64, 1);
     }
     .di-sticky.peeling .sn-peel {
-      width: 62px;
-      height: 62px;
+      border-top-width:  58px;
+      border-left-width: 58px;
     }
     .di-sticky-text {
       position: absolute;
