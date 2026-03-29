@@ -931,41 +931,41 @@
           </div>
         </div>
 
-        <!-- ══ STICKY 1 — Coral / Barstool — upper-left ══ -->
-        <a href="barstool.html" class="desk-item di-sticky di-sticky-coral draggable" style="transform:rotate(-11deg)" data-rot="-11" data-z="12">
+        <!-- ══ STICKY 1 — Coral / Work — upper-left ══ -->
+        <a href="index.html#work" class="desk-item di-sticky di-sticky-coral draggable" style="transform:rotate(-11deg)" data-rot="-11" data-z="12">
           <div class="peel-top">
             <div class="sn-top-strip"></div>
-            <div class="di-sticky-text">Barstool<br>Sports Store ↗</div>
+            <div class="di-sticky-text">Work ↗</div>
           </div>
           <div class="peel-back"></div>
           <div class="peel-bottom"></div>
         </a>
 
-        <!-- ══ STICKY 2 — Periwinkle / VEERUM — upper-right ══ -->
-        <a href="veerum.html" class="desk-item di-sticky di-sticky-teal draggable" style="top:14%;left:56%;transform:rotate(8deg)" data-rot="8" data-z="14">
+        <!-- ══ STICKY 2 — Periwinkle / About — upper-right ══ -->
+        <a href="about.html" class="desk-item di-sticky di-sticky-teal draggable" style="top:14%;left:56%;transform:rotate(8deg)" data-rot="8" data-z="14">
           <div class="peel-top">
             <div class="sn-top-strip"></div>
-            <div class="di-sticky-text">VEERUM ↗</div>
+            <div class="di-sticky-text">About ↗</div>
           </div>
           <div class="peel-back"></div>
           <div class="peel-bottom"></div>
         </a>
 
-        <!-- ══ STICKY 3 — Purple / Max Retail — lower-left ══ -->
-        <a href="max-retail.html" class="desk-item di-sticky di-sticky-lavender draggable" style="top:76%;left:42%;transform:rotate(-7deg)" data-rot="-7" data-z="15">
+        <!-- ══ STICKY 3 — Purple / Community — lower-left ══ -->
+        <a href="community.html" class="desk-item di-sticky di-sticky-lavender draggable" style="top:76%;left:42%;transform:rotate(-7deg)" data-rot="-7" data-z="15">
           <div class="peel-top">
             <div class="sn-top-strip"></div>
-            <div class="di-sticky-text">Max<br>Retail ↗</div>
+            <div class="di-sticky-text">Community ↗</div>
           </div>
           <div class="peel-back"></div>
           <div class="peel-bottom"></div>
         </a>
 
-        <!-- ══ STICKY 4 — Mint / Proposify — lower-right ══ -->
-        <a href="proposify.html" class="desk-item di-sticky di-sticky-yellow draggable" style="top:72%;left:62%;transform:rotate(6deg)" data-rot="6" data-z="15">
+        <!-- ══ STICKY 4 — Yellow / Resume — lower-right ══ -->
+        <a href="Emilie_Mazurek_Resume.pdf" target="_blank" rel="noopener" class="desk-item di-sticky di-sticky-yellow draggable" style="top:72%;left:62%;transform:rotate(6deg)" data-rot="6" data-z="15">
           <div class="peel-top">
             <div class="sn-top-strip"></div>
-            <div class="di-sticky-text">Proposify ↗</div>
+            <div class="di-sticky-text">Resume ↗</div>
           </div>
           <div class="peel-back"></div>
           <div class="peel-bottom"></div>
@@ -2024,6 +2024,18 @@
         });
       }
 
+    })();
+
+    /* ── Nav: hide until scrolled past hero fold ── */
+    (function () {
+      var nav = document.querySelector('.nav');
+      var hero = document.getElementById('heroDesk');
+      if (!nav || !hero) return;
+      var io = new IntersectionObserver(function (entries) {
+        // When hero is no longer intersecting (scrolled past), show nav
+        nav.classList.toggle('nav--visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      io.observe(hero);
     })();
 
     // ── Notebook arrows ──────────────────────────────────────────────────────
