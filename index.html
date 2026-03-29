@@ -1865,11 +1865,11 @@
 
           // Play first 2 seconds of ice sound
           clearTimeout(matchaAudioTimer);
-          matchaAudio.currentTime = 0;
+          matchaAudio.currentTime = 1;
           matchaAudio.play().catch(function () {});
           matchaAudioTimer = setTimeout(function () {
             matchaAudio.pause();
-          }, 2000);
+          }, 1000);
         });
 
         function matchaTick() {
