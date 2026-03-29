@@ -1943,7 +1943,7 @@
           }
           var startVol = hubbaAudio.volume;
           var t0 = performance.now();
-          var fadeMs = 1000;
+          var fadeMs = 200;
           // #region agent log
           fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaFadeOutAndReset',message:'fade raf start',data:{startVol:startVol,fadeMs:fadeMs,gen:hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H2'})}).catch(function(){});
           // #endregion
