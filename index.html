@@ -1833,9 +1833,9 @@
         matchaAudio.preload = 'auto';
         var matchaAudioTimer = null;
 
-        matchaEl.addEventListener('mouseenter', function () {
+        function onMatchaActivate() {
           mOmega += (Math.random() > 0.5 ? 1 : -1) * (2.5 + Math.random() * 1.5);
-          spawnSplash(); // every hover adds more spills
+          spawnSplash(); // every tap/hover adds more spills
 
           // Play first 2 seconds of ice sound
           clearTimeout(matchaAudioTimer);
@@ -1844,7 +1844,9 @@
           matchaAudioTimer = setTimeout(function () {
             matchaAudio.pause();
           }, 1000);
-        });
+        }
+        matchaEl.addEventListener('mouseenter', onMatchaActivate);
+        matchaEl.addEventListener('touchstart', onMatchaActivate, { passive: true });
 
         function matchaTick() {
           if (Math.abs(mTheta) > 0.02 || Math.abs(mOmega) > 0.02) {
@@ -1867,9 +1869,11 @@
         var MON_SPRING = 0.008, MON_DAMP = 0.95;
         var monTheta = 0, monOmega = 0;
 
-        monsteraEl.addEventListener('mouseenter', function () {
+        function onMonsteraActivate() {
           monOmega += (Math.random() > 0.5 ? 1 : -1) * (1.2 + Math.random() * 1.2);
-        });
+        }
+        monsteraEl.addEventListener('mouseenter', onMonsteraActivate);
+        monsteraEl.addEventListener('touchstart', onMonsteraActivate, { passive: true });
         monsteraEl.addEventListener('mousemove', function () {
           if (Math.abs(monOmega) < 0.2) {
             monOmega += (Math.random() > 0.5 ? 1 : -1) * 0.3;
@@ -1934,7 +1938,13 @@
           if (hubbaOver) { hubbaOver = false; hubbaStopAudio(); }
         });
 
-        hubbaEl.addEventListener('click', hubbaStartAudio);
+        hubbaEl.addEventListener('click', function () {
+          // On touch devices, click toggles the open state; on mouse devices
+          // the mousemove already handles it so this is a no-op for open state.
+          var opening = !hubbaEl.classList.contains('is-open');
+          hubbaEl.classList.toggle('is-open', opening);
+          if (opening) { hubbaStartAudio(); } else { hubbaStopAudio(); }
+        });
       } else if (hubbaEl) {
         hero.addEventListener('mousemove', function (e) {
           var r = hubbaEl.getBoundingClientRect();
@@ -1964,7 +1974,7 @@
       pageFlipAudio.preload = 'auto';
 
       if (sketchbookEl && n) {
-        sketchbookEl.addEventListener('mouseenter', function () {
+        function onSketchbookActivate() {
           pageFlipAudio.currentTime = 0;
           pageFlipAudio.play().catch(function () {});
           if (flipStep >= n * 2) { flipStep = 0; return; } // reset — don't act on this hover
@@ -1995,7 +2005,9 @@
             }, { once: true });
           }
           flipStep++;
-        });
+        }
+        sketchbookEl.addEventListener('mouseenter', onSketchbookActivate);
+        sketchbookEl.addEventListener('touchstart', onSketchbookActivate, { passive: true });
       }
 
     })();
