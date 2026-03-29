@@ -2027,6 +2027,8 @@
             hubbaCancelFade();
             hubbaAudio.volume = 1;
             hubbaScheduleHoverPlay();
+          } else if (!inside && hubbaWasInside) {
+            hubbaFadeOutAndReset('mousemove-leave');
           }
           hubbaWasInside = inside;
         });
