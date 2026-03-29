@@ -1919,9 +1919,9 @@
           if (hubbaAudio.paused) return;
           var t0 = performance.now();
           var v0 = hubbaAudio.volume;
-          (function step(now) {
-            var u = Math.min(1, (now - t0) / 200);
-            hubbaAudio.volume = v0 * (1 - u);
+          function step(now) {
+            var u = Math.min(1, Math.max(0, (now - t0) / 200));
+            hubbaAudio.volume = Math.min(1, Math.max(0, v0 * (1 - u)));
             if (u < 1) {
               hubbaFadeRaf = requestAnimationFrame(step);
             } else {
@@ -1929,7 +1929,8 @@
               hubbaAudio.volume = 1;
               hubbaFadeRaf = null;
             }
-          }(performance.now()));
+          }
+          hubbaFadeRaf = requestAnimationFrame(step);
         }
 
         document.addEventListener('mousemove', function (e) {
