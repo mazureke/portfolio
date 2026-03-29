@@ -613,43 +613,58 @@
       }
     }
 
-    /* Tablet portrait: stacked layout — hero is 200vh, SVG name sits at 100vh
-       and naturally divides desk items above (0–40%) from those below (66–76%) */
+    /* Tablet portrait: 160vh hero, SVG explicitly at ~57vh so it lands
+       just below the upper pens and well above the fold */
     @media (max-width: 768px) {
-      .hero-desk { min-height: 200vh; }
-      /* Remove the scale so percentage positions breathe across the full 200vh */
+      .hero-desk { min-height: 160vh; }
       .desk-surface { transform: none; }
       .desk-hint { display: none; }
-      /* SVG name stays centred in the 200vh hero — no override needed */
-      .hero-watermark-on #heroWatermark { display: flex; }
+
+      /* Pin SVG name at 57vh — right under the pens, visible above the fold */
+      .hero-watermark-on #heroWatermark {
+        display: flex;
+        justify-content: flex-start;
+        padding-top: 57vh;
+      }
       .hero-watermark-on .hero-text { opacity: 0; pointer-events: none; }
-      /* Scale SVG to fit mobile width */
-      .hw-graphic { width: clamp(220px, 80vw, 480px) !important; }
-      /* Shrink the two widest items so they don't overwhelm narrow screens */
+      .hw-graphic { width: clamp(220px, 78vw, 480px) !important; }
+
+      /* Cap the monstera so it doesn't swallow the right side */
+      .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
+
+      /* Shrink the two widest items */
       .di-sketchbook { width: 228px !important; height: 327px !important; }
       .di-matcha-group { width: 192px !important; height: 144px !important; }
-      /* Sketchbook sits at calc(42% of 200vh) ≈ 84vh — just above the SVG.
-         Push it and the boarding pass into the lower section. */
+
+      /* Pull About sticky to the left — at left:56% it's behind the monstera */
+      .di-sticky-teal { top: 18vh !important; left: 7% !important; }
+
+      /* Sketchbook at 42% of 160vh = 67vh — inside the SVG zone.
+         Explicitly move it and boarding pass below the SVG. */
       .di-sketchbook {
-        top: 115vh !important;
+        top: 88vh !important;
         left: calc(50% - 114px) !important;
         transform: rotate(-6deg) !important;
       }
       .di-boarding {
-        top: 132vh !important;
+        top: 106vh !important;
         left: calc(50% - 60px) !important;
         transform: rotate(82deg) !important;
       }
     }
 
-    /* Phone: tighten the two large items a bit more */
+    /* Phone: tighten items further, push monstera back more */
     @media (max-width: 480px) {
+      .di-monstera { width: 55vw !important; max-width: 55vw !important; right: -40px !important; }
       .di-sketchbook {
         width: 190px !important;
         height: 272px !important;
         left: calc(50% - 95px) !important;
       }
       .di-matcha-group { width: 156px !important; height: 117px !important; }
+      .di-sticky-teal { left: 5% !important; }
+      /* Raise SVG slightly so it clears pens sooner on narrow screens */
+      .hero-watermark-on #heroWatermark { padding-top: 52vh; }
     }
 
     /* Reduced motion */
