@@ -1855,9 +1855,21 @@
           }
         }
 
+        var matchaAudio = new Audio('desk_elements/ES_Ice, Movement, Whiskey & Ice Swirl, Ice Clink, Light - Epidemic Sound.mp3');
+        matchaAudio.preload = 'auto';
+        var matchaAudioTimer = null;
+
         matchaEl.addEventListener('mouseenter', function () {
           mOmega += (Math.random() > 0.5 ? 1 : -1) * (2.5 + Math.random() * 1.5);
           spawnSplash(); // every hover adds more spills
+
+          // Play first 2 seconds of ice sound
+          clearTimeout(matchaAudioTimer);
+          matchaAudio.currentTime = 0;
+          matchaAudio.play().catch(function () {});
+          matchaAudioTimer = setTimeout(function () {
+            matchaAudio.pause();
+          }, 2000);
         });
 
         function matchaTick() {
