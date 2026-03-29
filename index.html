@@ -580,52 +580,54 @@
     }
 
     /* ── Mobile / tablet: explicit layout zones ──────────────────────────────
-       Hero: 180vh.  Zone map:
-         0–45vh   upper stickies + name SVG
-        22–44vh   pens (right side)
-        68–88vh   matcha (left) + pens (right)
-        97–145vh  sketchbook + boarding pass (vertical) + lip gloss on notebook
-       134–155vh  hubba bubba (scattered near/overlapping resume sticky)
-       156–180vh  lower stickies
+       Hero: calc(172vh - 64px).  Everything below upper stickies is shifted
+       up 64px vs the base vh anchor so items sit tighter under the name SVG.
+       Zone map (base vh before -64px offset):
+         0–30vh   upper stickies + monstera (these do NOT shift)
+        22–44vh   pens (right side)             → calc(Xvh - 64px)
+        68–84vh   matcha (left) + pens (right)  → calc(Xvh - 64px)
+        97–145vh  sketchbook + boarding pass + lip gloss
+       134–155vh  hubba bubba
+       156–172vh  lower stickies
     ────────────────────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .hero-desk { min-height: 180vh; }
+      .hero-desk { min-height: calc(172vh - 64px); }
       .desk-surface { transform: none; }
       .desk-hint { display: none; }
 
-      /* SVG name */
+      /* SVG name — shifted up 64px, made larger */
       .hero-watermark-on #heroWatermark {
         display: flex;
         justify-content: flex-start;
-        padding-top: 53vh;
+        padding-top: calc(53vh - 64px);
       }
       .hero-watermark-on .hero-text { opacity: 0; pointer-events: none; }
-      .hw-graphic { width: clamp(220px, 78vw, 480px) !important; }
+      .hw-graphic { width: clamp(300px, 90vw, 560px) !important; }
 
       /* Monstera — cap width so it doesn't eat the right edge */
       .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
 
-      /* ── Upper stickies (0–30vh) ── */
+      /* ── Upper stickies — stay put ── */
       .di-sticky-teal    { top: 14vh !important; left: 5%  !important; }   /* About */
       .di-sticky-coral   { top:  8vh !important; left: 48% !important; }   /* Work  */
 
-      /* ── Pens: right-side column, clear of name SVG and sketchbook ── */
-      .di-pen-pink   { top: 22vh !important; left: 72% !important; }
-      .di-pen-navy   { top: 32vh !important; left: 80% !important; }
-      .di-pen-orange { top: 44vh !important; left: 70% !important; }
-      .di-pen-teal   { top: 78vh !important; left: 68% !important; }
-      .di-pen-blue   { top: 84vh !important; left: 76% !important; }
+      /* ── Pens: right-side column, shifted up 64px ── */
+      .di-pen-pink   { top: calc(22vh - 64px) !important; left: 72% !important; }
+      .di-pen-navy   { top: calc(32vh - 64px) !important; left: 80% !important; }
+      .di-pen-orange { top: calc(44vh - 64px) !important; left: 70% !important; }
+      .di-pen-teal   { top: calc(78vh - 64px) !important; left: 68% !important; }
+      .di-pen-blue   { top: calc(84vh - 64px) !important; left: 76% !important; }
 
-      /* ── Matcha: left side, between name and sketchbook ── */
+      /* ── Matcha: shifted up 64px ── */
       .di-matcha-group {
         width: 192px !important; height: 144px !important;
-        top: 68vh !important;   left: 3%  !important;
+        top: calc(68vh - 64px) !important;   left: 3%  !important;
       }
 
-      /* ── Sketchbook: sized down, centred ── */
+      /* ── Sketchbook: shifted up 64px ── */
       .di-sketchbook {
         width: 228px !important; height: 327px !important;
-        top: 97vh !important;
+        top: calc(97vh - 64px) !important;
         left: calc(50% - 114px) !important;
         transform: rotate(-6deg) !important;
       }
@@ -638,32 +640,32 @@
         font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important;
       }
 
-      /* ── Lip gloss: resting on top of the notebook ── */
-      .di-lipbalm { top: calc(97vh + 90px) !important; left: 46% !important; }
+      /* ── Lip gloss: on notebook, shifted up 64px ── */
+      .di-lipbalm { top: calc(97vh + 26px) !important; left: 46% !important; }
 
-      /* ── Boarding pass: vertical orientation, left of notebook (matches desktop) ── */
+      /* ── Boarding pass: vertical, shifted up 64px ── */
       .di-boarding {
-        top:  calc(97vh + 50px) !important;
+        top:  calc(97vh - 14px) !important;
         left: 22% !important;
         transform: rotate(82deg) !important;
       }
 
-      /* ── Hubba Bubba: scattered near notebook, overlaps resume sticky ── */
+      /* ── Hubba Bubba: shifted up 64px ── */
       .di-hubba {
         width: 150px !important; height: 150px !important;
         bottom: auto !important;
-        top: 134vh !important;
+        top: calc(134vh - 64px) !important;
         right: 8% !important;
       }
 
-      /* ── Lower stickies ── */
-      .di-sticky-lavender { top: 156vh !important; left:  5% !important; }  /* Community */
-      .di-sticky-yellow   { top: 160vh !important; left: 52% !important; }  /* Resume    */
+      /* ── Lower stickies: shifted up 64px ── */
+      .di-sticky-lavender { top: calc(156vh - 64px) !important; left:  5% !important; }  /* Community */
+      .di-sticky-yellow   { top: calc(160vh - 64px) !important; left: 52% !important; }  /* Resume    */
     }
 
     /* Phone (≤480px): tighten notebook and adjust proportional offsets */
     @media (max-width: 480px) {
-      .hero-watermark-on #heroWatermark { padding-top: 50vh; }
+      .hero-watermark-on #heroWatermark { padding-top: calc(50vh - 64px); }
       .di-monstera { width: 52vw !important; max-width: 52vw !important; right: -40px !important; }
 
       /* Stickies stay upper zone, nudge inward */
@@ -685,16 +687,16 @@
       /* Boarding pass: pull in slightly for narrower viewport */
       .di-boarding { left: 18% !important; }
 
-      /* Hubba Bubba: scale down, slight position tweak */
+      /* Hubba Bubba: scale down, shifted up 64px */
       .di-hubba {
         width: 120px !important; height: 120px !important;
-        top: 136vh !important;
+        top: calc(136vh - 64px) !important;
         right: 6% !important;
       }
 
-      /* Lower stickies: adjusted for shorter notebook */
-      .di-sticky-lavender { top: 153vh !important; }
-      .di-sticky-yellow   { top: 157vh !important; }
+      /* Lower stickies: adjusted for shorter notebook, shifted up 64px */
+      .di-sticky-lavender { top: calc(153vh - 64px) !important; }
+      .di-sticky-yellow   { top: calc(157vh - 64px) !important; }
     }
 
     /* Reduced motion */
