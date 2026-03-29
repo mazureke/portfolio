@@ -164,6 +164,13 @@
     .di-page-flip > * {
       backface-visibility: hidden;
     }
+    /* Inner content wrapper — clips polaroids on small screens without
+       touching .di-page-flip's overflow (which would break preserve-3d) */
+    .di-page-content {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
     /* Dot grid on the front face */
     .di-page-flip::before {
       content: '';
@@ -639,8 +646,6 @@
         transform: rotate(-6deg) !important;
       }
 
-      /* Clip page content so polaroids don't overflow smaller notebook */
-      .di-page-flip { overflow: hidden; }
       .di-sketchbook .nb-polaroid { width: 68px !important; }
       .di-sketchbook .nb-polaroid img { height: 54px !important; }
       .di-sketchbook .nb-note {
@@ -791,29 +796,31 @@
 
           <!-- Page 3: 3 polaroids -->
           <div class="di-page-flip" style="z-index:7">
-            <div class="nb-polaroid" data-nb-id="k2" style="top:8%;left:7%;transform:rotate(-9deg)">
-              <img src="desk_elements/about_images/K2.jpg" alt="K2 base camp">
-              <p class="di-photo-cap">K2 base camp, 2023</p>
+            <div class="di-page-content">
+              <div class="nb-polaroid" data-nb-id="k2" style="top:8%;left:7%;transform:rotate(-9deg)">
+                <img src="desk_elements/about_images/K2.jpg" alt="K2 base camp">
+                <p class="di-photo-cap">K2 base camp, 2023</p>
+              </div>
+              <div class="nb-polaroid" data-nb-id="cheeto" style="top:6%;left:53%;transform:rotate(7deg)">
+                <img src="desk_elements/about_images/Cheeto.jpeg" alt="Cheeto the parrot">
+                <p class="di-photo-cap">Cheeto being judgy</p>
+              </div>
+              <div class="nb-polaroid" data-nb-id="research" style="top:52%;left:22%;transform:rotate(-5deg)">
+                <img src="desk_elements/about_images/reserach-paper.jpeg" alt="research paper">
+                <p class="di-photo-cap">biochem days, circa 2017</p>
+              </div>
+              <p class="nb-note" data-nb-pol="k2" style="top:44%;left:10%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
+              <p class="nb-note" data-nb-pol="cheeto" style="top:42%;left:51%;transform:rotate(4deg)">sun conure. owns me.</p>
+              <p class="nb-note" data-nb-pol="research" style="top:62%;left:70%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
+              <!-- arrows drawn by drawNbArrows() -->
+              <svg class="nb-arrow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
+                <defs>
+                  <marker id="pen-arr-p2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                    <path d="M 0,0 L 4,2.5 L 0,5" stroke="#284283" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                </defs>
+              </svg>
             </div>
-            <div class="nb-polaroid" data-nb-id="cheeto" style="top:6%;left:53%;transform:rotate(7deg)">
-              <img src="desk_elements/about_images/Cheeto.jpeg" alt="Cheeto the parrot">
-              <p class="di-photo-cap">Cheeto being judgy</p>
-            </div>
-            <div class="nb-polaroid" data-nb-id="research" style="top:52%;left:22%;transform:rotate(-5deg)">
-              <img src="desk_elements/about_images/reserach-paper.jpeg" alt="research paper">
-              <p class="di-photo-cap">biochem days, circa 2017</p>
-            </div>
-            <p class="nb-note" data-nb-pol="k2" style="top:44%;left:10%;transform:rotate(-3deg)">3 weeks. bigger in person.</p>
-            <p class="nb-note" data-nb-pol="cheeto" style="top:42%;left:51%;transform:rotate(4deg)">sun conure. owns me.</p>
-            <p class="nb-note" data-nb-pol="research" style="top:62%;left:70%;transform:rotate(-2deg)">novel bacterial receptors. nerd era.</p>
-            <!-- arrows drawn by drawNbArrows() -->
-            <svg class="nb-arrow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" viewBox="0 0 305 445">
-              <defs>
-                <marker id="pen-arr-p2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M 0,0 L 4,2.5 L 0,5" stroke="#284283" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                </marker>
-              </defs>
-            </svg>
           </div>
 
           <!-- Page 4 (bottom): showband, ice cream, painting, Marrakech -->
