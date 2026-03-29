@@ -1938,6 +1938,7 @@
           hubbaEl.classList.toggle('is-open', over);
           if (over === hubbaOver) return;
           hubbaOver = over;
+          console.log('[hubba] over:', over, '| el:', el && (el.className || el.tagName), '| paused:', hubbaAudio.paused);
           if (over) { hubbaStartAudio(); } else { hubbaStopAudio(); }
         });
 
