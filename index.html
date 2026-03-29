@@ -160,6 +160,10 @@
       z-index: 9;
       pointer-events: none;
     }
+    /* Hide all front-face children when page is viewed from behind */
+    .di-page-flip > * {
+      backface-visibility: hidden;
+    }
     /* Dot grid on the front face */
     .di-page-flip::before {
       content: '';
@@ -605,7 +609,7 @@
       .hw-graphic { width: clamp(300px, 90vw, 560px) !important; }
 
       /* Monstera — large like real life, bleeds off the right edge */
-      .di-monstera { width: 72vw !important; max-width: 72vw !important; right: -80px !important; }
+      .di-monstera { width: 72vw !important; max-width: 72vw !important; right: -104px !important; }
 
       /* ── Upper stickies — stay put ── */
       .di-sticky-teal    { top: 14vh !important; left: 5%  !important; }   /* About */
@@ -666,7 +670,7 @@
     /* Phone (≤480px): tighten notebook and adjust proportional offsets */
     @media (max-width: 480px) {
       .hero-watermark-on #heroWatermark { padding-top: calc(50vh - 64px); }
-      .di-monstera { width: 68vw !important; max-width: 68vw !important; right: -60px !important; }
+      .di-monstera { width: 68vw !important; max-width: 68vw !important; right: -84px !important; }
 
       /* Stickies stay upper zone, nudge inward */
       .di-sticky-teal  { left: 4%  !important; }
