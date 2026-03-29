@@ -579,85 +579,97 @@
       }
     }
 
-    /* Tablet portrait: 160vh hero, SVG explicitly at ~57vh so it lands
-       just below the upper pens and well above the fold */
+    /* ── Mobile / tablet: explicit layout zones ──────────────────────────────
+       Hero: 160vh.  Zone map (all vh values are of the hero height):
+         0–40vh   stickies + pens (upper desk)
+        42–70vh   SVG pixel name — keep clear
+        73–92vh   matcha
+        97–137vh  sketchbook  (tablet 327px tall = 40vh@820px)
+       100–140vh  boarding pass (element box; visual bleeds lower)
+       141–157vh  lower stickies + hubba bubba
+    ────────────────────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       .hero-desk { min-height: 160vh; }
       .desk-surface { transform: none; }
       .desk-hint { display: none; }
 
-      /* Pin SVG name at 57vh — right under the pens, visible above the fold */
+      /* SVG name */
       .hero-watermark-on #heroWatermark {
         display: flex;
         justify-content: flex-start;
-        padding-top: 57vh;
+        padding-top: 53vh;
       }
       .hero-watermark-on .hero-text { opacity: 0; pointer-events: none; }
       .hw-graphic { width: clamp(220px, 78vw, 480px) !important; }
 
-      /* Cap the monstera so it doesn't swallow the right side */
+      /* Monstera — cap width so it doesn't eat the right edge */
       .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
 
-      /* Shrink the sketchbook */
-      .di-sketchbook { width: 228px !important; height: 327px !important; }
+      /* ── Stickies: upper zone (0–36vh) ── */
+      .di-sticky-teal    { top: 14vh !important; left: 5%  !important; }   /* About */
+      .di-sticky-coral   { top:  8vh !important; left: 48% !important; }   /* Work  */
 
-      /* Clip notebook page content so shrunk polaroids don't overflow */
-      .di-page-flip { overflow: hidden; }
+      /* ── Matcha: below SVG name, above notebook (73–93vh) ── */
+      .di-matcha-group {
+        width: 192px !important; height: 144px !important;
+        top: 73vh !important;   left: 3%  !important;
+      }
 
-      /* Scale down polaroids and notes to fit the smaller notebook */
-      .di-sketchbook .nb-polaroid { width: 68px !important; }
-      .di-sketchbook .nb-polaroid img { height: 54px !important; }
-      .di-sketchbook .nb-note { font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important; }
-
-      /* Shrink matcha proportionally */
-      .di-matcha-group { width: 192px !important; height: 144px !important; }
-
-      /* Pull About sticky to the left — at left:56% it's behind the monstera */
-      .di-sticky-teal { top: 18vh !important; left: 7% !important; }
-
-      /* Work sticky: JS positions it next to the matcha on desktop; on mobile
-         we override that with an explicit position away from the matcha */
-      .di-sticky-coral { top: 10vh !important; left: 42% !important; }
-
-      /* Matcha: move it below the SVG watermark zone so it doesn't overlap stickies */
-      .di-matcha-group { top: 76vh !important; left: 4% !important; }
-
-      /* Sketchbook below the SVG watermark zone */
+      /* ── Sketchbook: sized down, starts at 97vh so matcha clears it ── */
       .di-sketchbook {
-        top: 88vh !important;
+        width: 228px !important; height: 327px !important;
+        top: 97vh !important;
         left: calc(50% - 114px) !important;
         transform: rotate(-6deg) !important;
       }
 
-      /* Boarding pass: tuck partially under the notebook with a gentle angle */
-      .di-boarding {
-        top: calc(88vh + 240px) !important;
-        left: calc(50% - 100px) !important;
-        transform: rotate(10deg) !important;
+      /* Clip page content so polaroids don't overflow smaller notebook */
+      .di-page-flip { overflow: hidden; }
+      .di-sketchbook .nb-polaroid { width: 68px !important; }
+      .di-sketchbook .nb-polaroid img { height: 54px !important; }
+      .di-sketchbook .nb-note {
+        font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important;
       }
+
+      /* ── Boarding pass: landscape-ish angle, tucked behind notebook right side ── */
+      .di-boarding {
+        top:  calc(97vh + 190px) !important;
+        left: calc(50% - 155px) !important;
+        transform: rotate(-10deg) !important;
+      }
+
+      /* ── Lower stickies: below notebook bottom (~137vh) ── */
+      .di-sticky-lavender { top: 141vh !important; left:  5% !important; }  /* Community */
+      .di-sticky-yellow   { top: 144vh !important; left: 52% !important; }  /* Resume    */
     }
 
-    /* Phone: tighten items further, push monstera back more */
+    /* Phone (≤480px): tighten notebook and adjust proportional offsets */
     @media (max-width: 480px) {
-      .di-monstera { width: 55vw !important; max-width: 55vw !important; right: -40px !important; }
+      .hero-watermark-on #heroWatermark { padding-top: 50vh; }
+      .di-monstera { width: 52vw !important; max-width: 52vw !important; right: -40px !important; }
+
+      /* Stickies stay upper zone, nudge inward */
+      .di-sticky-teal  { left: 4%  !important; }
+      .di-sticky-coral { left: 44% !important; }
+
+      /* Matcha: same top, narrower */
+      .di-matcha-group { width: 156px !important; height: 117px !important; }
+
+      /* Notebook: shorter, centred for narrow viewport */
       .di-sketchbook {
-        width: 190px !important;
-        height: 272px !important;
+        width: 190px !important; height: 272px !important;
         left: calc(50% - 95px) !important;
       }
       .di-sketchbook .nb-polaroid { width: 56px !important; }
       .di-sketchbook .nb-polaroid img { height: 44px !important; }
       .di-sketchbook .nb-note { font-size: 9px !important; max-width: 56px !important; }
-      .di-matcha-group { width: 156px !important; height: 117px !important; top: 78vh !important; }
-      .di-sticky-teal { left: 5% !important; }
-      .di-sticky-coral { top: 10vh !important; left: 38% !important; }
-      /* Boarding pass adjusted for smaller notebook */
-      .di-boarding {
-        top: calc(88vh + 195px) !important;
-        left: calc(50% - 85px) !important;
-      }
-      /* Raise SVG slightly so it clears pens sooner on narrow screens */
-      .hero-watermark-on #heroWatermark { padding-top: 52vh; }
+
+      /* Boarding pass centred for narrow screen */
+      .di-boarding { left: calc(50% - 140px) !important; }
+
+      /* Lower stickies: nudge down slightly since phone notebook is shorter */
+      .di-sticky-lavender { top: 134vh !important; }
+      .di-sticky-yellow   { top: 137vh !important; }
     }
 
     /* Reduced motion */
