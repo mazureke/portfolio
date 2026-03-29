@@ -1986,8 +1986,13 @@
       var pageFlipEls = sketchbookEl ? Array.from(sketchbookEl.querySelectorAll('.di-page-flip')) : [];
       var flipStep = 0; // 0-2: forward, 3-5: backward
       var n = pageFlipEls.length;
+      var pageFlipAudio = new Audio('desk_elements/ES_Objects, Book, Flip Page - Epidemic Sound.mp3');
+      pageFlipAudio.preload = 'auto';
+
       if (sketchbookEl && n) {
         sketchbookEl.addEventListener('mouseenter', function () {
+          pageFlipAudio.currentTime = 0;
+          pageFlipAudio.play().catch(function () {});
           if (flipStep >= n * 2) flipStep = 0; // reset so it cycles
           if (flipStep < n) {
             // forward flip — every flip kicks the lip gloss off
