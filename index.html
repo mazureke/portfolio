@@ -580,16 +580,16 @@
     }
 
     /* ── Mobile / tablet: explicit layout zones ──────────────────────────────
-       Hero: 160vh.  Zone map (all vh values are of the hero height):
-         0–40vh   stickies + pens (upper desk)
-        42–70vh   SVG pixel name — keep clear
-        73–92vh   matcha
-        97–137vh  sketchbook  (tablet 327px tall = 40vh@820px)
-       100–140vh  boarding pass (element box; visual bleeds lower)
-       141–157vh  lower stickies + hubba bubba
+       Hero: 180vh.  Zone map:
+         0–45vh   upper stickies + name SVG
+        22–44vh   pens (right side)
+        68–88vh   matcha (left) + pens (right)
+        97–145vh  sketchbook + boarding pass (vertical) + lip gloss on notebook
+       134–155vh  hubba bubba (scattered near/overlapping resume sticky)
+       156–180vh  lower stickies
     ────────────────────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .hero-desk { min-height: 160vh; }
+      .hero-desk { min-height: 180vh; }
       .desk-surface { transform: none; }
       .desk-hint { display: none; }
 
@@ -605,17 +605,24 @@
       /* Monstera — cap width so it doesn't eat the right edge */
       .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
 
-      /* ── Stickies: upper zone (0–36vh) ── */
+      /* ── Upper stickies (0–30vh) ── */
       .di-sticky-teal    { top: 14vh !important; left: 5%  !important; }   /* About */
       .di-sticky-coral   { top:  8vh !important; left: 48% !important; }   /* Work  */
 
-      /* ── Matcha: below SVG name, above notebook (73–93vh) ── */
+      /* ── Pens: right-side column, clear of name SVG and sketchbook ── */
+      .di-pen-pink   { top: 22vh !important; left: 72% !important; }
+      .di-pen-navy   { top: 32vh !important; left: 80% !important; }
+      .di-pen-orange { top: 44vh !important; left: 70% !important; }
+      .di-pen-teal   { top: 78vh !important; left: 68% !important; }
+      .di-pen-blue   { top: 84vh !important; left: 76% !important; }
+
+      /* ── Matcha: left side, between name and sketchbook ── */
       .di-matcha-group {
         width: 192px !important; height: 144px !important;
-        top: 73vh !important;   left: 3%  !important;
+        top: 68vh !important;   left: 3%  !important;
       }
 
-      /* ── Sketchbook: sized down, starts at 97vh so matcha clears it ── */
+      /* ── Sketchbook: sized down, centred ── */
       .di-sketchbook {
         width: 228px !important; height: 327px !important;
         top: 97vh !important;
@@ -631,16 +638,27 @@
         font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important;
       }
 
-      /* ── Boarding pass: landscape-ish angle, tucked behind notebook right side ── */
+      /* ── Lip gloss: resting on top of the notebook ── */
+      .di-lipbalm { top: calc(97vh + 90px) !important; left: 46% !important; }
+
+      /* ── Boarding pass: vertical orientation, left of notebook (matches desktop) ── */
       .di-boarding {
-        top:  calc(97vh + 190px) !important;
-        left: calc(50% - 155px) !important;
-        transform: rotate(-10deg) !important;
+        top:  calc(97vh + 50px) !important;
+        left: 22% !important;
+        transform: rotate(82deg) !important;
       }
 
-      /* ── Lower stickies: below notebook bottom (~137vh) ── */
-      .di-sticky-lavender { top: 141vh !important; left:  5% !important; }  /* Community */
-      .di-sticky-yellow   { top: 144vh !important; left: 52% !important; }  /* Resume    */
+      /* ── Hubba Bubba: scattered near notebook, overlaps resume sticky ── */
+      .di-hubba {
+        width: 150px !important; height: 150px !important;
+        bottom: auto !important;
+        top: 134vh !important;
+        right: 8% !important;
+      }
+
+      /* ── Lower stickies ── */
+      .di-sticky-lavender { top: 156vh !important; left:  5% !important; }  /* Community */
+      .di-sticky-yellow   { top: 160vh !important; left: 52% !important; }  /* Resume    */
     }
 
     /* Phone (≤480px): tighten notebook and adjust proportional offsets */
@@ -664,12 +682,19 @@
       .di-sketchbook .nb-polaroid img { height: 44px !important; }
       .di-sketchbook .nb-note { font-size: 9px !important; max-width: 56px !important; }
 
-      /* Boarding pass centred for narrow screen */
-      .di-boarding { left: calc(50% - 140px) !important; }
+      /* Boarding pass: pull in slightly for narrower viewport */
+      .di-boarding { left: 18% !important; }
 
-      /* Lower stickies: nudge down slightly since phone notebook is shorter */
-      .di-sticky-lavender { top: 134vh !important; }
-      .di-sticky-yellow   { top: 137vh !important; }
+      /* Hubba Bubba: scale down, slight position tweak */
+      .di-hubba {
+        width: 120px !important; height: 120px !important;
+        top: 136vh !important;
+        right: 6% !important;
+      }
+
+      /* Lower stickies: adjusted for shorter notebook */
+      .di-sticky-lavender { top: 153vh !important; }
+      .di-sticky-yellow   { top: 157vh !important; }
     }
 
     /* Reduced motion */
