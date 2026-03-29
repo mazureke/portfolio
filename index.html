@@ -96,10 +96,7 @@
       opacity: 0.92;
       filter: drop-shadow(0 1px 0 rgba(26, 26, 26, 0.06));
     }
-    /* Always hide the watermark on mobile — desk is the hero */
-    @media (max-width: 768px) {
-      .hero-watermark-on #heroWatermark { display: none; }
-    }
+    /* Watermark SVG is always visible — it's the identity anchor on mobile */
 
     /* Desk surface */
     .desk-surface {
@@ -606,9 +603,9 @@
     .section-title { font-weight: 800; font-size: 40px; letter-spacing: -0.03em; }
     .section-count { font-size: 13px; opacity: 0.35; }
 
-    /* ── Responsive desk scaling — proportional at all sizes ── */
+    /* ── Responsive desk scaling ── */
 
-    /* Small laptop / tablet landscape */
+    /* Small laptop / tablet landscape: gentle tighten */
     @media (max-width: 1100px) {
       .desk-surface {
         transform: scale(0.82);
@@ -616,45 +613,43 @@
       }
     }
 
-    /* Tablet portrait */
+    /* Tablet portrait: stacked layout — hero is 200vh, SVG name sits at 100vh
+       and naturally divides desk items above (0–40%) from those below (66–76%) */
     @media (max-width: 768px) {
-      .desk-surface {
-        transform: scale(0.58);
-        transform-origin: top center;
-      }
+      .hero-desk { min-height: 200vh; }
+      /* Remove the scale so percentage positions breathe across the full 200vh */
+      .desk-surface { transform: none; }
       .desk-hint { display: none; }
-
-      /* Show identity card at the bottom since the scaled desk leaves open space */
-      .hero-watermark-on .hero-text {
-        opacity: 1;
-        pointer-events: auto;
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% - 48px);
-        max-width: 380px;
-        padding: 18px 22px;
-        background: rgba(242, 237, 228, 0.92);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-radius: 14px;
-        border: 1px solid rgba(26,26,26,0.07);
-        z-index: 10;
+      /* SVG name stays centred in the 200vh hero — no override needed */
+      .hero-watermark-on #heroWatermark { display: flex; }
+      .hero-watermark-on .hero-text { opacity: 0; pointer-events: none; }
+      /* Scale SVG to fit mobile width */
+      .hw-graphic { width: clamp(220px, 80vw, 480px) !important; }
+      /* Shrink the two widest items so they don't overwhelm narrow screens */
+      .di-sketchbook { width: 228px !important; height: 327px !important; }
+      .di-matcha-group { width: 192px !important; height: 144px !important; }
+      /* Sketchbook sits at calc(42% of 200vh) ≈ 84vh — just above the SVG.
+         Push it and the boarding pass into the lower section. */
+      .di-sketchbook {
+        top: 115vh !important;
+        left: calc(50% - 114px) !important;
+        transform: rotate(-6deg) !important;
       }
-      /* Hide the description and CTA on tablet — name + eyebrow is enough */
-      .hero-watermark-on .hero-text .hero-desc,
-      .hero-watermark-on .hero-text .hero-cta { display: none; }
-      .hero-watermark-on .hero-text .hero-name { margin-bottom: 0; font-size: clamp(36px, 7vw, 56px); }
-      .hero-watermark-on .hero-text .hero-eyebrow { margin-bottom: 8px; }
+      .di-boarding {
+        top: 132vh !important;
+        left: calc(50% - 60px) !important;
+        transform: rotate(82deg) !important;
+      }
     }
 
-    /* Phone */
+    /* Phone: tighten the two large items a bit more */
     @media (max-width: 480px) {
-      .desk-surface {
-        transform: scale(0.44);
-        transform-origin: top center;
+      .di-sketchbook {
+        width: 190px !important;
+        height: 272px !important;
+        left: calc(50% - 95px) !important;
       }
+      .di-matcha-group { width: 156px !important; height: 117px !important; }
     }
 
     /* Reduced motion */
