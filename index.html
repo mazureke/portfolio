@@ -591,7 +591,7 @@
        156–172vh  lower stickies
     ────────────────────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .hero-desk { min-height: calc(172vh - 64px); }
+      .hero-desk { min-height: calc(160vh + 120px); }
       .desk-surface { transform: none; }
       .desk-hint { display: none; }
 
@@ -604,8 +604,8 @@
       .hero-watermark-on .hero-text { opacity: 0; pointer-events: none; }
       .hw-graphic { width: clamp(300px, 90vw, 560px) !important; }
 
-      /* Monstera — cap width so it doesn't eat the right edge */
-      .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
+      /* Monstera — large like real life, bleeds off the right edge */
+      .di-monstera { width: 72vw !important; max-width: 72vw !important; right: -80px !important; }
 
       /* ── Upper stickies — stay put ── */
       .di-sticky-teal    { top: 14vh !important; left: 5%  !important; }   /* About */
@@ -666,7 +666,7 @@
     /* Phone (≤480px): tighten notebook and adjust proportional offsets */
     @media (max-width: 480px) {
       .hero-watermark-on #heroWatermark { padding-top: calc(50vh - 64px); }
-      .di-monstera { width: 52vw !important; max-width: 52vw !important; right: -40px !important; }
+      .di-monstera { width: 68vw !important; max-width: 68vw !important; right: -60px !important; }
 
       /* Stickies stay upper zone, nudge inward */
       .di-sticky-teal  { left: 4%  !important; }
