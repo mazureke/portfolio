@@ -521,40 +521,6 @@
       opacity: 0.7;
     }
 
-    /* ── USB-C dongle ── */
-    .di-dongle {
-      width: 54px;
-      height: 33px;
-      background: linear-gradient(145deg, #f4f2ee 0%, #d8d6d0 60%, #c4c2bc 100%);
-      border-radius: 5px;
-      box-shadow: 1px 3px 10px rgba(0,0,0,0.18), inset 0 1px 3px rgba(255,255,255,0.65);
-      position: relative;
-      z-index: 10;
-    }
-    .di-dongle::before {
-      content: '';
-      position: absolute;
-      right: -22px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 22px;
-      height: 6px;
-      background: linear-gradient(to right, #c8c6c0, #b0aeaa);
-      border-radius: 0 3px 3px 0;
-    }
-    .di-dongle::after {
-      content: '';
-      position: absolute;
-      left: 9px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 17px;
-      height: 9px;
-      background: rgba(0,0,0,0.10);
-      border-radius: 2px;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
-    }
-
     /* ── Matcha mug + stain (static) ── */
     .di-matcha-group {
       width: 264px;
@@ -632,24 +598,42 @@
       /* Cap the monstera so it doesn't swallow the right side */
       .di-monstera { width: 46vw !important; max-width: 46vw !important; right: -60px !important; }
 
-      /* Shrink the two widest items */
+      /* Shrink the sketchbook */
       .di-sketchbook { width: 228px !important; height: 327px !important; }
+
+      /* Clip notebook page content so shrunk polaroids don't overflow */
+      .di-page-flip { overflow: hidden; }
+
+      /* Scale down polaroids and notes to fit the smaller notebook */
+      .di-sketchbook .nb-polaroid { width: 68px !important; }
+      .di-sketchbook .nb-polaroid img { height: 54px !important; }
+      .di-sketchbook .nb-note { font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important; }
+
+      /* Shrink matcha proportionally */
       .di-matcha-group { width: 192px !important; height: 144px !important; }
 
       /* Pull About sticky to the left — at left:56% it's behind the monstera */
       .di-sticky-teal { top: 18vh !important; left: 7% !important; }
 
-      /* Sketchbook at 42% of 160vh = 67vh — inside the SVG zone.
-         Explicitly move it and boarding pass below the SVG. */
+      /* Work sticky: JS positions it next to the matcha on desktop; on mobile
+         we override that with an explicit position away from the matcha */
+      .di-sticky-coral { top: 10vh !important; left: 42% !important; }
+
+      /* Matcha: move it below the SVG watermark zone so it doesn't overlap stickies */
+      .di-matcha-group { top: 76vh !important; left: 4% !important; }
+
+      /* Sketchbook below the SVG watermark zone */
       .di-sketchbook {
         top: 88vh !important;
         left: calc(50% - 114px) !important;
         transform: rotate(-6deg) !important;
       }
+
+      /* Boarding pass: tuck partially under the notebook with a gentle angle */
       .di-boarding {
-        top: 106vh !important;
-        left: calc(50% - 60px) !important;
-        transform: rotate(82deg) !important;
+        top: calc(88vh + 240px) !important;
+        left: calc(50% - 100px) !important;
+        transform: rotate(10deg) !important;
       }
     }
 
@@ -661,8 +645,17 @@
         height: 272px !important;
         left: calc(50% - 95px) !important;
       }
-      .di-matcha-group { width: 156px !important; height: 117px !important; }
+      .di-sketchbook .nb-polaroid { width: 56px !important; }
+      .di-sketchbook .nb-polaroid img { height: 44px !important; }
+      .di-sketchbook .nb-note { font-size: 9px !important; max-width: 56px !important; }
+      .di-matcha-group { width: 156px !important; height: 117px !important; top: 78vh !important; }
       .di-sticky-teal { left: 5% !important; }
+      .di-sticky-coral { top: 10vh !important; left: 38% !important; }
+      /* Boarding pass adjusted for smaller notebook */
+      .di-boarding {
+        top: calc(88vh + 195px) !important;
+        left: calc(50% - 85px) !important;
+      }
       /* Raise SVG slightly so it clears pens sooner on narrow screens */
       .hero-watermark-on #heroWatermark { padding-top: 52vh; }
     }
@@ -1050,9 +1043,6 @@
           <img src="desk_elements/iced-matcha.png" alt="">
         </div>
 
-        <!-- ══ USB-C DONGLE — lower right ══ -->
-        <div class="desk-item di-dongle draggable" style="top:72%;left:68%;transform:rotate(22deg)" data-rot="22" data-z="10"></div>
-
       </div>
 
       <p class="desk-hint" id="deskHint" aria-hidden="true">drag to uncover ↑</p>
@@ -1209,6 +1199,7 @@
         var coralStickyEl = surface.querySelector('.di-sticky-coral');
         function pinCoralSticky() {
           if (!matchaLockEl || !coralStickyEl) return;
+          if (window.innerWidth <= 768) return; // CSS handles mobile positioning
           var hr = hero.getBoundingClientRect();
           var mr = matchaLockEl.getBoundingClientRect();
           var sr = coralStickyEl.getBoundingClientRect();
