@@ -976,6 +976,9 @@
           <img class="di-hubba-closed" src="desk_elements/Hubba-bubba-closed.png" alt="">
           <img class="di-hubba-open"   src="desk_elements/Hubba-bubba-open.png"   alt="">
         </div>
+        <audio id="hubbaDeskAudio" preload="auto" playsinline hidden aria-hidden="true">
+          <source src="ES_Mt. Fiji - Ryan James Carr (Version 947fe621) - fullmix_preview.mp3" type="audio/mpeg">
+        </audio>
 
         <!-- ══ LIP GLOSS — lower left ══ -->
         <div class="desk-item di-lipbalm draggable" style="top:calc(42% + 440px);left:calc(12% + 150px);transform:rotate(213deg)" data-rot="213" data-z="12">
@@ -1898,9 +1901,104 @@
         monTick();
       }
 
-      /* ── Hubba Bubba open/close ── */
+      /* ── Hubba Bubba open/close (unchanged visuals) + desk audio ── */
       var hubbaEl = surface.querySelector('.di-hubba');
-      if (hubbaEl) {
+      var hubbaAudio = document.getElementById('hubbaDeskAudio');
+      if (hubbaEl && hubbaAudio) {
+        var hubbaWasInside = false;
+        var hubbaEnterTimer = null;
+        var hubbaFadeRaf = null;
+        var hubbaAudioUnlocked = false;
+
+        function hubbaClearEnterTimer() {
+          if (hubbaEnterTimer) {
+            clearTimeout(hubbaEnterTimer);
+            hubbaEnterTimer = null;
+          }
+        }
+
+        function hubbaCancelFade() {
+          if (hubbaFadeRaf) {
+            cancelAnimationFrame(hubbaFadeRaf);
+            hubbaFadeRaf = null;
+          }
+        }
+
+        function hubbaFadeOutAndReset() {
+          hubbaClearEnterTimer();
+          hubbaCancelFade();
+          if (!hubbaAudio || (hubbaAudio.paused && hubbaAudio.currentTime === 0)) {
+            hubbaAudio.volume = 1;
+            return;
+          }
+          var startVol = hubbaAudio.volume;
+          var t0 = performance.now();
+          var fadeMs = 420;
+          function step(now) {
+            var u = (now - t0) / fadeMs;
+            if (u >= 1) {
+              hubbaAudio.volume = 0;
+              hubbaAudio.pause();
+              hubbaAudio.currentTime = 0;
+              hubbaAudio.volume = 1;
+              hubbaFadeRaf = null;
+              return;
+            }
+            hubbaAudio.volume = startVol * (1 - u);
+            hubbaFadeRaf = requestAnimationFrame(step);
+          }
+          hubbaFadeRaf = requestAnimationFrame(step);
+        }
+
+        function hubbaAttemptHoverPlay() {
+          hubbaCancelFade();
+          hubbaAudio.volume = 1;
+          var p = hubbaAudio.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        }
+
+        function hubbaScheduleHoverPlay() {
+          hubbaClearEnterTimer();
+          var delay = hubbaAudioUnlocked ? 100 : 180;
+          hubbaEnterTimer = setTimeout(function () {
+            hubbaEnterTimer = null;
+            hubbaAttemptHoverPlay();
+          }, delay);
+        }
+
+        function hubbaUnlockAndPlay() {
+          hubbaAudioUnlocked = true;
+          hubbaClearEnterTimer();
+          hubbaCancelFade();
+          hubbaAudio.volume = 1;
+          var p = hubbaAudio.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        }
+
+        hero.addEventListener('mousemove', function (e) {
+          var r = hubbaEl.getBoundingClientRect();
+          var inside = e.clientX >= r.left && e.clientX <= r.right &&
+                       e.clientY >= r.top  && e.clientY <= r.bottom;
+          hubbaEl.classList.toggle('is-open', inside);
+
+          if (inside && !hubbaWasInside) {
+            hubbaCancelFade();
+            hubbaAudio.volume = 1;
+            hubbaScheduleHoverPlay();
+          } else if (!inside && hubbaWasInside) {
+            hubbaFadeOutAndReset();
+          }
+          hubbaWasInside = inside;
+        });
+
+        hero.addEventListener('mouseleave', function () {
+          hubbaEl.classList.remove('is-open');
+          hubbaWasInside = false;
+          hubbaFadeOutAndReset();
+        });
+
+        hubbaEl.addEventListener('click', hubbaUnlockAndPlay);
+      } else if (hubbaEl) {
         hero.addEventListener('mousemove', function (e) {
           var r = hubbaEl.getBoundingClientRect();
           var inside = e.clientX >= r.left && e.clientX <= r.right &&
