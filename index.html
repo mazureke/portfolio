@@ -2009,28 +2009,31 @@
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
 
-        /* Audio: driven entirely by mouseenter/mouseleave on hubbaEl (CSS hit-test, not bounding-rect).
-           hero.mousemove only controls the is-open visual class. */
-        hubbaEl.addEventListener('mouseenter', function () {
-          hubbaCancelFade();
-          hubbaAudio.volume = 1;
-          hubbaScheduleHoverPlay();
+        /* Audio + open/close: driven by document-level mousemove using elementFromPoint.
+           This is the only reliable approach — mouseenter/mouseleave on hubbaEl and
+           getBoundingClientRect both fail due to rotation/z-stacking/settle animation. */
+        var hubbaOver = false;
+        document.addEventListener('mousemove', function (e) {
+          var el = document.elementFromPoint(e.clientX, e.clientY);
+          var over = el === hubbaEl || hubbaEl.contains(el);
+          hubbaEl.classList.toggle('is-open', over);
+          if (over === hubbaOver) return;
+          hubbaOver = over;
+          if (over) {
+            hubbaCancelFade();
+            hubbaAudio.volume = 1;
+            hubbaScheduleHoverPlay();
+          } else {
+            hubbaFadeOutAndReset('doc-mousemove-leave');
+          }
         });
 
-        hubbaEl.addEventListener('mouseleave', function () {
-          hubbaFadeOutAndReset('hubba-mouseleave');
-        });
-
-        hero.addEventListener('mousemove', function (e) {
-          var r = hubbaEl.getBoundingClientRect();
-          var inside = e.clientX >= r.left && e.clientX <= r.right &&
-                       e.clientY >= r.top  && e.clientY <= r.bottom;
-          hubbaEl.classList.toggle('is-open', inside);
-        });
-
-        hero.addEventListener('mouseleave', function () {
+        document.addEventListener('mouseleave', function () {
           hubbaEl.classList.remove('is-open');
-          hubbaFadeOutAndReset('hero-mouseleave');
+          if (hubbaOver) {
+            hubbaOver = false;
+            hubbaFadeOutAndReset('doc-mouseleave');
+          }
         });
 
         hubbaEl.addEventListener('click', hubbaUnlockAndPlay);
