@@ -1972,16 +1972,14 @@
           hubbaAudio.volume = 1;
           var p = hubbaAudio.play();
           // #region agent log
-          if (p && typeof p.then === 'function') {
-            p.then(function () {
-              if (gen !== hubbaPlayGen) {
-                hubbaAudio.pause();
-                hubbaAudio.currentTime = 0;
-                hubbaAudio.volume = 1;
-              }
-              fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaAttemptHoverPlay',message:'play resolved',data:{paused:hubbaAudio.paused,ct:hubbaAudio.currentTime,gen:gen,curGen:hubbaPlayGen,stale:gen!==hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H4'})}).catch(function(){});
-            }).catch(function () {});
-          }
+          Promise.resolve(p).then(function () {
+            if (gen !== hubbaPlayGen) {
+              hubbaAudio.pause();
+              hubbaAudio.currentTime = 0;
+              hubbaAudio.volume = 1;
+            }
+            fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaAttemptHoverPlay',message:'play resolved',data:{paused:hubbaAudio.paused,ct:hubbaAudio.currentTime,gen:gen,curGen:hubbaPlayGen,stale:gen!==hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H4'})}).catch(function(){});
+          }).catch(function () {});
           // #endregion
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
@@ -2002,17 +2000,23 @@
           hubbaCancelFade();
           hubbaAudio.volume = 1;
           var p = hubbaAudio.play();
-          if (p && typeof p.then === 'function') {
-            p.then(function () {
-              if (gen !== hubbaPlayGen) {
-                hubbaAudio.pause();
-                hubbaAudio.currentTime = 0;
-                hubbaAudio.volume = 1;
-              }
-            }).catch(function () {});
-          }
+          Promise.resolve(p).then(function () {
+            if (gen !== hubbaPlayGen) {
+              hubbaAudio.pause();
+              hubbaAudio.currentTime = 0;
+              hubbaAudio.volume = 1;
+            }
+          }).catch(function () {});
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
+
+        /* Audio stop: use element mouseleave — hero mousemove can miss leave when pointer passes through pointer-events:none desk gaps (H21) */
+        hubbaEl.addEventListener('mouseleave', function () {
+          // #region agent log
+          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaEl mouseleave',message:'hubba mouseleave',data:{},timestamp:Date.now(),hypothesisId:'H21'})}).catch(function(){});
+          // #endregion
+          hubbaFadeOutAndReset('hubba-mouseleave');
+        });
 
         hero.addEventListener('mousemove', function (e) {
           var r = hubbaEl.getBoundingClientRect();
@@ -2024,11 +2028,6 @@
             hubbaCancelFade();
             hubbaAudio.volume = 1;
             hubbaScheduleHoverPlay();
-          } else if (!inside && hubbaWasInside) {
-            // #region agent log
-            fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubba mousemove',message:'leave hubba rect',data:{inside:inside,was:hubbaWasInside},timestamp:Date.now(),hypothesisId:'H3'})}).catch(function(){});
-            // #endregion
-            hubbaFadeOutAndReset('mousemove');
           }
           hubbaWasInside = inside;
         });
