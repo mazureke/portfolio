@@ -2009,11 +2009,15 @@
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
 
-        /* Audio stop: use element mouseleave — hero mousemove can miss leave when pointer passes through pointer-events:none desk gaps (H21) */
+        /* Audio: driven entirely by mouseenter/mouseleave on hubbaEl (CSS hit-test, not bounding-rect).
+           hero.mousemove only controls the is-open visual class. */
+        hubbaEl.addEventListener('mouseenter', function () {
+          hubbaCancelFade();
+          hubbaAudio.volume = 1;
+          hubbaScheduleHoverPlay();
+        });
+
         hubbaEl.addEventListener('mouseleave', function () {
-          // #region agent log
-          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaEl mouseleave',message:'hubba mouseleave',data:{},timestamp:Date.now(),hypothesisId:'H21'})}).catch(function(){});
-          // #endregion
           hubbaFadeOutAndReset('hubba-mouseleave');
         });
 
@@ -2022,23 +2026,10 @@
           var inside = e.clientX >= r.left && e.clientX <= r.right &&
                        e.clientY >= r.top  && e.clientY <= r.bottom;
           hubbaEl.classList.toggle('is-open', inside);
-
-          if (inside && !hubbaWasInside) {
-            hubbaCancelFade();
-            hubbaAudio.volume = 1;
-            hubbaScheduleHoverPlay();
-          } else if (!inside && hubbaWasInside) {
-            hubbaFadeOutAndReset('mousemove-leave');
-          }
-          hubbaWasInside = inside;
         });
 
         hero.addEventListener('mouseleave', function () {
           hubbaEl.classList.remove('is-open');
-          hubbaWasInside = false;
-          // #region agent log
-          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubba hero mouseleave',message:'hero leave',data:{},timestamp:Date.now(),hypothesisId:'H4'})}).catch(function(){});
-          // #endregion
           hubbaFadeOutAndReset('hero-mouseleave');
         });
 
