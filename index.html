@@ -1909,6 +1909,8 @@
         var hubbaEnterTimer = null;
         var hubbaFadeRaf = null;
         var hubbaAudioUnlocked = false;
+        /** Incremented on every leave; stale play() resolutions must not start audio */
+        var hubbaPlayGen = 0;
 
         function hubbaClearEnterTimer() {
           if (hubbaEnterTimer) {
@@ -1924,16 +1926,27 @@
           }
         }
 
-        function hubbaFadeOutAndReset() {
+        function hubbaFadeOutAndReset(src) {
+          hubbaPlayGen++;
           hubbaClearEnterTimer();
           hubbaCancelFade();
+          // #region agent log
+          var _early = !hubbaAudio || (hubbaAudio.paused && hubbaAudio.currentTime === 0);
+          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaFadeOutAndReset',message:'fade called',data:{src:src||'?',gen:hubbaPlayGen,early:_early,paused:hubbaAudio&&hubbaAudio.paused,ct:hubbaAudio&&hubbaAudio.currentTime,vol:hubbaAudio&&hubbaAudio.volume,rs:hubbaAudio&&hubbaAudio.readyState},timestamp:Date.now(),hypothesisId:'H1'})}).catch(function(){});
+          // #endregion
           if (!hubbaAudio || (hubbaAudio.paused && hubbaAudio.currentTime === 0)) {
             hubbaAudio.volume = 1;
+            // #region agent log
+            fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaFadeOutAndReset',message:'early return no fade (stale play invalidated by gen)',data:{src:src||'?',gen:hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H1'})}).catch(function(){});
+            // #endregion
             return;
           }
           var startVol = hubbaAudio.volume;
           var t0 = performance.now();
-          var fadeMs = 420;
+          var fadeMs = 160;
+          // #region agent log
+          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaFadeOutAndReset',message:'fade raf start',data:{startVol:startVol,fadeMs:fadeMs,gen:hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H2'})}).catch(function(){});
+          // #endregion
           function step(now) {
             var u = (now - t0) / fadeMs;
             if (u >= 1) {
@@ -1942,6 +1955,9 @@
               hubbaAudio.currentTime = 0;
               hubbaAudio.volume = 1;
               hubbaFadeRaf = null;
+              // #region agent log
+              fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaFadeOutAndReset',message:'fade complete',data:{},timestamp:Date.now(),hypothesisId:'H2'})}).catch(function(){});
+              // #endregion
               return;
             }
             hubbaAudio.volume = startVol * (1 - u);
@@ -1951,9 +1967,22 @@
         }
 
         function hubbaAttemptHoverPlay() {
+          var gen = hubbaPlayGen;
           hubbaCancelFade();
           hubbaAudio.volume = 1;
           var p = hubbaAudio.play();
+          // #region agent log
+          if (p && typeof p.then === 'function') {
+            p.then(function () {
+              if (gen !== hubbaPlayGen) {
+                hubbaAudio.pause();
+                hubbaAudio.currentTime = 0;
+                hubbaAudio.volume = 1;
+              }
+              fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubbaAttemptHoverPlay',message:'play resolved',data:{paused:hubbaAudio.paused,ct:hubbaAudio.currentTime,gen:gen,curGen:hubbaPlayGen,stale:gen!==hubbaPlayGen},timestamp:Date.now(),hypothesisId:'H4'})}).catch(function(){});
+            }).catch(function () {});
+          }
+          // #endregion
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
 
@@ -1967,11 +1996,21 @@
         }
 
         function hubbaUnlockAndPlay() {
+          var gen = hubbaPlayGen;
           hubbaAudioUnlocked = true;
           hubbaClearEnterTimer();
           hubbaCancelFade();
           hubbaAudio.volume = 1;
           var p = hubbaAudio.play();
+          if (p && typeof p.then === 'function') {
+            p.then(function () {
+              if (gen !== hubbaPlayGen) {
+                hubbaAudio.pause();
+                hubbaAudio.currentTime = 0;
+                hubbaAudio.volume = 1;
+              }
+            }).catch(function () {});
+          }
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
 
@@ -1986,7 +2025,10 @@
             hubbaAudio.volume = 1;
             hubbaScheduleHoverPlay();
           } else if (!inside && hubbaWasInside) {
-            hubbaFadeOutAndReset();
+            // #region agent log
+            fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubba mousemove',message:'leave hubba rect',data:{inside:inside,was:hubbaWasInside},timestamp:Date.now(),hypothesisId:'H3'})}).catch(function(){});
+            // #endregion
+            hubbaFadeOutAndReset('mousemove');
           }
           hubbaWasInside = inside;
         });
@@ -1994,7 +2036,10 @@
         hero.addEventListener('mouseleave', function () {
           hubbaEl.classList.remove('is-open');
           hubbaWasInside = false;
-          hubbaFadeOutAndReset();
+          // #region agent log
+          fetch('http://127.0.0.1:7446/ingest/2dde11c3-4eaf-4dcd-8dc9-628364a91d0f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2b62e3'},body:JSON.stringify({sessionId:'2b62e3',location:'index.html:hubba hero mouseleave',message:'hero leave',data:{},timestamp:Date.now(),hypothesisId:'H4'})}).catch(function(){});
+          // #endregion
+          hubbaFadeOutAndReset('hero-mouseleave');
         });
 
         hubbaEl.addEventListener('click', hubbaUnlockAndPlay);
