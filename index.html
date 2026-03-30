@@ -223,6 +223,57 @@
       max-width: 100px;
       pointer-events: none;
     }
+    /* ── Notebook intro page (Page 2) ── */
+    .nb-intro {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 24px 22px;
+      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
+      color: #284283;
+      pointer-events: none;
+    }
+    .nb-intro-rule {
+      width: 52px;
+      height: 1px;
+      background: #284283;
+      opacity: 0.45;
+      margin: 0 auto 14px;
+    }
+    .nb-intro-body {
+      font-size: 9.5px;
+      line-height: 1.75;
+      text-align: center;
+      margin: 0 0 18px;
+    }
+    .nb-intro-body em {
+      font-style: normal;
+      font-size: 9px;
+      opacity: 0.7;
+      display: block;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .nb-intro-sig {
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.2;
+      margin-right: 8px;
+      transform: rotate(-1.5deg);
+      display: inline-block;
+      align-self: flex-end;
+    }
+    .nb-intro-sig-rule {
+      width: 36px;
+      height: 1px;
+      background: #284283;
+      opacity: 0.35;
+      align-self: flex-end;
+      margin-right: 8px;
+      margin-bottom: 4px;
+    }
     @keyframes page-unflip {
       0%   { transform: rotateY(-172deg); }
       100% { transform: rotateY(0deg); }
@@ -651,6 +702,9 @@
       .di-sketchbook .nb-note {
         font-size: 10px !important; max-width: 68px !important; line-height: 1.2 !important;
       }
+      .nb-intro { padding: 20px 16px 16px !important; }
+      .nb-intro-body { font-size: 7px !important; }
+      .nb-intro-sig { font-size: 9.5px !important; }
 
       /* ── Lip gloss: on notebook, shifted up 64px ── */
       .di-lipbalm { top: calc(97vh + 26px) !important; left: 46% !important; width: 44px !important; }
@@ -695,6 +749,9 @@
       .di-sketchbook .nb-polaroid { width: 56px !important; }
       .di-sketchbook .nb-polaroid img { height: 44px !important; }
       .di-sketchbook .nb-note { font-size: 9px !important; max-width: 56px !important; }
+      .nb-intro { padding: 16px 14px 14px !important; }
+      .nb-intro-body { font-size: 6.5px !important; }
+      .nb-intro-sig { font-size: 8.5px !important; }
 
       /* Boarding pass: pull in slightly for narrower viewport */
       .di-boarding { left: 18% !important; }
@@ -791,8 +848,22 @@
             </svg>
           </div>
 
-          <!-- Page 2: blank -->
-          <div class="di-page-flip" style="z-index:8"></div>
+          <!-- Page 2: intro -->
+          <div class="di-page-flip" style="z-index:8">
+            <div class="di-page-content">
+              <div class="nb-intro">
+                <div class="nb-intro-rule"></div>
+                <p class="nb-intro-body">
+                  <em>a note to the reader</em>
+                  Look at you, clicking around.<br>Curiosity noted.<br><br>
+                  I'm Emilie, product designer with five years of experience, ex-scientist, and someone who loves sharing what I learn. Research, strategy, systems, visuals — I like doing a bit of everything.<br><br>
+                  This is where I keep the work.<br>Have a poke around.
+                </p>
+                <div class="nb-intro-sig-rule"></div>
+                <span class="nb-intro-sig">— Emilie</span>
+              </div>
+            </div>
+          </div>
 
           <!-- Page 3: 3 polaroids -->
           <div class="di-page-flip" style="z-index:7">
