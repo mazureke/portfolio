@@ -465,9 +465,11 @@
                class="b-card b-card--tall"
                aria-label="Passionfroot — reach 80,000+ aspiring and seasoned designers">
               <em class="b-arrow" aria-hidden="true">↗</em>
-              <div class="b-icon" style="background:#E3144B; color:#fff; font-family:'ITC Avant Garde',sans-serif; font-weight:800; font-size:11px; letter-spacing:0.01em;" aria-hidden="true">pf</div>
+              <div class="b-icon" style="background:#F7894A; overflow:hidden; padding:0;" aria-hidden="true">
+                <img src="Links/passionfrootme_logo.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+              </div>
               <div>
-                <p class="b-title">looking to get in front of <span id="pf-count">80k+</span> aspiring and seasoned designers?</p>
+                <p class="b-title">looking to get in front of <span id="pf-count">80,000+</span> aspiring and seasoned designers?</p>
                 <p class="b-domain">passionfroot.me</p>
               </div>
             </a>
@@ -637,11 +639,18 @@
   </main>
 
   <script>
-    // Keep Passionfroot count in sync with the LinkedIn follower count
+    // Keep Passionfroot count in sync with the LinkedIn follower count,
+    // converting "80k+" display format to "80,000+" full-number format
     (function () {
       var lk = document.getElementById('lk-count');
       var pf = document.getElementById('pf-count');
-      if (lk && pf) pf.textContent = lk.textContent;
+      if (!lk || !pf) return;
+      var m = lk.textContent.trim().match(/^(\d+)k\+$/i);
+      if (m) {
+        pf.textContent = (parseInt(m[1]) * 1000).toLocaleString('en-US') + '+';
+      } else {
+        pf.textContent = lk.textContent;
+      }
     })();
   </script>
   <script src="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js"></script>
