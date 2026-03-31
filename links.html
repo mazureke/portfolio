@@ -265,6 +265,7 @@
       position: relative;
       min-height: 240px;
       border-radius: 20px;
+      align-self: stretch;
     }
     #calgary-map {
       position: absolute;
@@ -533,71 +534,64 @@
         <section class="bento-section" aria-label="About me">
           <p class="bento-label">about me</p>
 
-          <!-- My story row -->
-          <a href="about.html"
-             class="b-card b-card--row"
-             aria-label="My story — about Emilie Mazurek">
-            <div class="b-icon b-icon--link" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
-            </div>
-            <div>
-              <p class="b-title">→ my story</p>
-              <p class="b-domain">emiliemazurek.com</p>
-            </div>
-          </a>
+          <div class="bento-2col">
 
-          <!-- Map + stacked podcast/video cards -->
-          <div class="bento-2col" style="margin-top:10px">
-
-            <!-- Calgary map -->
+            <!-- Calgary map — stretches to match right column height -->
             <div class="b-card b-card--map" role="region" aria-label="Calgary, AB, Canada on a map">
               <div id="calgary-map"></div>
               <span class="b-map-label">📍 Calgary, AB, Canada</span>
             </div>
 
-            <!-- Stacked: podcast + youtube + canadian podcast -->
+            <!-- Stacked: my story + podcast + youtube + canadian podcast -->
             <div class="bento-colstack">
 
-              <!-- Apple Podcasts -->
+              <a href="about.html"
+                 class="b-card b-card--social"
+                 aria-label="My story — about Emilie Mazurek">
+                <em class="b-arrow" aria-hidden="true">↗</em>
+                <div class="b-icon b-icon--link" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <p class="b-title">→ my story</p>
+                <p class="b-domain">emiliemazurek.com</p>
+              </a>
+
               <a href="https://podcasts.apple.com/us/podcast/emilie-mazurek-pre-med-student/id1535510749?i=1000546767003"
                  target="_blank" rel="noopener"
-                 class="b-card b-card--row"
+                 class="b-card b-card--social"
                  aria-label="Podcast: how I discovered UX design — Apple Podcasts">
+                <em class="b-arrow" aria-hidden="true">↗</em>
                 <div class="b-icon" style="background:#B85CF5" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                   </svg>
                 </div>
-                <div>
-                  <p class="b-title">how I discovered ux design</p>
-                  <p class="b-domain">podcasts.apple.com</p>
-                </div>
+                <p class="b-title">how I discovered ux design</p>
+                <p class="b-domain">podcasts.apple.com</p>
               </a>
 
-              <!-- YouTube bootcamp -->
               <a href="https://www.youtube.com/watch?v=8P8AnjCfUu8"
                  target="_blank" rel="noopener"
-                 class="b-card b-card--row"
+                 class="b-card b-card--social"
                  aria-label="YouTube: my bootcamp experience">
+                <em class="b-arrow" aria-hidden="true">↗</em>
                 <div class="b-icon" style="background:#FF0000" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
                   </svg>
                 </div>
-                <div>
-                  <p class="b-title">my bootcamp experience</p>
-                  <p class="b-domain">youtube.com</p>
-                </div>
+                <p class="b-title">my bootcamp experience</p>
+                <p class="b-domain">youtube.com</p>
               </a>
 
-              <!-- Canadian Design Podcast -->
               <a href="https://canadian-podcasts.com/podcast/design-downtime/emilie-mazurek-loves-to-travel"
                  target="_blank" rel="noopener"
-                 class="b-card b-card--row"
+                 class="b-card b-card--social"
                  aria-label="Podcast: the real reason I wanted to transition into UX">
+                <em class="b-arrow" aria-hidden="true">↗</em>
                 <div class="b-icon b-icon--link" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
@@ -606,38 +600,11 @@
                     <line x1="8" y1="23" x2="16" y2="23"/>
                   </svg>
                 </div>
-                <div>
-                  <p class="b-title">the real reason I wanted to transition into ux</p>
-                  <p class="b-domain">canadian-podcasts.com</p>
-                </div>
+                <p class="b-title">the real reason I wanted to transition into ux</p>
+                <p class="b-domain">canadian-podcasts.com</p>
               </a>
 
             </div>
-          </div>
-        </section>
-
-        <!-- ── My Work ── -->
-        <section class="bento-section" aria-label="Portfolio and community">
-          <p class="bento-label">my work</p>
-
-          <div class="bento-2col-eq">
-            <a href="index.html" class="b-card b-card--work b-card--periwinkle"
-               aria-label="Portfolio — case studies">
-              <em class="b-arrow" aria-hidden="true">↗</em>
-              <div>
-                <p class="b-title">portfolio &amp; case studies</p>
-                <p class="b-sub">veerum · proposify · barstool sports</p>
-              </div>
-            </a>
-
-            <a href="community.html" class="b-card b-card--work b-card--coral"
-               aria-label="Community resources — mentoring, job boards, UX tools">
-              <em class="b-arrow" aria-hidden="true">↗</em>
-              <div>
-                <p class="b-title">community resources</p>
-                <p class="b-sub">mentoring, job boards, ux tools</p>
-              </div>
-            </a>
           </div>
         </section>
 
