@@ -8,8 +8,6 @@
   <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Force nav visible — no scroll trigger needed on this page */
-    .nav { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
     /* ====== PAGE ====== */
     .links-page {
@@ -20,7 +18,7 @@
     .links-layout {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 144px 24px 0; /* 64px nav + 80px breathing room */
+      padding: 160px 24px 0;
       display: grid;
       grid-template-columns: 220px 1fr;
       gap: 52px;
@@ -256,22 +254,6 @@
 <body>
   <a href="#main" class="skip-nav">Skip to main content</a>
 
-  <nav class="nav" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Emilie Mazurek — home">
-        <img src="brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks" role="list">
-        <li><a href="index.html#work">Work</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="community.html">Community</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <main id="main" class="links-page">
     <div class="links-layout">
 
@@ -431,6 +413,5 @@
     </div><!-- /links-layout -->
   </main>
 
-  <script src="nav.js"></script>
 </body>
 </html>
