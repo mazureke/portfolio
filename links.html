@@ -189,7 +189,6 @@
       padding: 18px 22px;
     }
     .b-card--row .b-title { font-size: 14px; }
-    /* Row cards use → in label, no separate arrow badge */
 
     /* ====== SOCIAL SECTION ====== */
     .bento-4col {
@@ -225,6 +224,46 @@
     a.b-card--periwinkle:hover .b-arrow,
     a.b-card--coral:hover .b-arrow { opacity: 0.85; }
 
+    /* ====== SPONSORSHIP / ABOUT ====== */
+    .bento-colstack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    /* Prevent double spacing when row cards are inside a colstack */
+    .bento-colstack .b-card--row { margin-top: 0; }
+
+    /* Map card */
+    .b-card--map {
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      min-height: 240px;
+      border-radius: 20px;
+    }
+    .b-card--map iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      border-radius: 20px;
+    }
+    .b-map-label {
+      position: absolute;
+      bottom: 14px; left: 14px;
+      background: rgba(242,237,228,0.92);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      z-index: 2;
+      pointer-events: none;
+      letter-spacing: 0.01em;
+    }
+
     /* ====== RESPONSIVE ====== */
     @media (max-width: 820px) {
       .links-layout {
@@ -247,6 +286,7 @@
       .bento-2col,
       .bento-2col-eq { grid-template-columns: 1fr; }
       .bento-4col    { grid-template-columns: repeat(2, 1fr); }
+      .b-card--map   { min-height: 200px; }
     }
     @media (max-width: 380px) {
       .bento-4col { grid-template-columns: 1fr; }
@@ -301,10 +341,10 @@
             </div>
           </div>
 
-          <!-- Row: free resources -->
-          <a href="https://emiliemazurek.gumroad.com" target="_blank" rel="noopener"
+          <!-- Row: free resources (newsletter) -->
+          <a href="https://emilie-mazurek.ck.page/" target="_blank" rel="noopener"
              class="b-card b-card--row"
-             aria-label="Free UX resources on Gumroad">
+             aria-label="Free UX resources — newsletter">
             <div class="b-icon b-icon--link" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
@@ -313,20 +353,48 @@
             </div>
             <div>
               <p class="b-title">→ free ux resources!</p>
+              <p class="b-domain">emilie-mazurek.ck.page</p>
+            </div>
+          </a>
+
+          <!-- Row: send me a priority DM -->
+          <a href="https://topmate.io/emilie_mazurek" target="_blank" rel="noopener"
+             class="b-card b-card--row"
+             aria-label="Send me a priority DM on Topmate">
+            <div class="b-icon b-icon--link" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="b-title">→ send me a priority DM</p>
+              <p class="b-domain">topmate.io</p>
+            </div>
+          </a>
+
+          <!-- Row: digital products -->
+          <a href="https://emiliemazurek.gumroad.com" target="_blank" rel="noopener"
+             class="b-card b-card--row"
+             aria-label="Digital products for FREE on Gumroad">
+            <div class="b-icon b-icon--link" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </div>
+            <div>
+              <p class="b-title">→ digital products for FREE!</p>
               <p class="b-domain">emiliemazurek.gumroad.com</p>
             </div>
           </a>
-        </section>
 
-        <!-- ── Find Me Online ── -->
-        <section class="bento-section" aria-label="Social links">
-          <p class="bento-label">find me online</p>
+          <!-- 4-col social grid -->
+          <div class="bento-4col" style="margin-top:10px">
 
-          <div class="bento-4col">
             <!-- LinkedIn -->
             <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener"
                class="b-card b-card--social"
-               aria-label="LinkedIn — 75,000+ design enthusiasts">
+               aria-label="LinkedIn — 80,000+ design enthusiasts">
               <em class="b-arrow" aria-hidden="true">↗</em>
               <div class="b-icon" style="background:#0A66C2" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -383,6 +451,168 @@
               <p class="b-sub">articles on ux &amp; design careers</p>
               <p class="b-domain">medium.com</p>
             </a>
+          </div>
+        </section>
+
+        <!-- ── Sponsorship & Collaboration ── -->
+        <section class="bento-section" aria-label="Sponsorship and collaboration">
+          <p class="bento-label">sponsorship &amp; collaboration</p>
+
+          <div class="bento-2col">
+            <!-- Left: passionfroot feature card -->
+            <a href="https://www.passionfroot.me/emilie-mazurek" target="_blank" rel="noopener"
+               class="b-card b-card--tall"
+               aria-label="Passionfroot — reach 75,000+ aspiring and seasoned designers">
+              <em class="b-arrow" aria-hidden="true">↗</em>
+              <div class="b-icon b-icon--link" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </div>
+              <div>
+                <p class="b-title">looking to get in front of 75,000+ aspiring and seasoned designers?</p>
+                <p class="b-domain">passionfroot.me</p>
+              </div>
+            </a>
+
+            <!-- Right: stacked cards -->
+            <div class="bento-colstack">
+              <!-- YouTube sponsorship example -->
+              <a href="https://www.youtube.com/watch?v=JWklP51BtxE" target="_blank" rel="noopener"
+                 class="b-card"
+                 aria-label="YouTube sponsorship example — Chris' most popular LinkedIn live with 450+ viewers">
+                <em class="b-arrow" aria-hidden="true">↗</em>
+                <div class="b-icon" style="background:#FF0000" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+                  </svg>
+                </div>
+                <p class="b-title" style="margin-top:8px">example: chris' most popular LinkedIn live yet with 450+</p>
+                <p class="b-domain">youtube.com</p>
+              </a>
+
+              <!-- Bottom row: topmate + linkedin example -->
+              <div class="bento-2col-eq">
+                <a href="https://topmate.io/emilie_mazurek/1111539/pay" target="_blank" rel="noopener"
+                   class="b-card"
+                   aria-label="Curious to learn more? Let's chat on Topmate">
+                  <em class="b-arrow" aria-hidden="true">↗</em>
+                  <div class="b-icon b-icon--link" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </div>
+                  <p class="b-title" style="margin-top:8px">curious to learn more? let's chat</p>
+                  <p class="b-domain">topmate.io</p>
+                </a>
+
+                <a href="https://www.linkedin.com/posts/emilie-mazurek_who-wrote-it-best-activity-7168243429926195200-unH_" target="_blank" rel="noopener"
+                   class="b-card"
+                   aria-label="LinkedIn sponsored post example">
+                  <em class="b-arrow" aria-hidden="true">↗</em>
+                  <div class="b-icon" style="background:#0A66C2" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </div>
+                  <p class="b-title" style="margin-top:8px">example: sponsored LinkedIn post</p>
+                  <p class="b-domain">linkedin.com</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── About Me ── -->
+        <section class="bento-section" aria-label="About me">
+          <p class="bento-label">about me</p>
+
+          <!-- My story row -->
+          <a href="about.html"
+             class="b-card b-card--row"
+             aria-label="My story — about Emilie Mazurek">
+            <div class="b-icon b-icon--link" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div>
+              <p class="b-title">→ my story</p>
+              <p class="b-domain">emiliemazurek.com</p>
+            </div>
+          </a>
+
+          <!-- Map + stacked podcast/video cards -->
+          <div class="bento-2col" style="margin-top:10px">
+
+            <!-- Calgary map -->
+            <div class="b-card b-card--map" role="img" aria-label="Calgary, AB, Canada on a map">
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-114.35%2C50.98%2C-113.88%2C51.14&amp;layer=mapnik"
+                loading="lazy"
+                title="Map of Calgary, AB, Canada"
+                sandbox="allow-scripts allow-same-origin">
+              </iframe>
+              <span class="b-map-label">📍 Calgary, AB, Canada</span>
+            </div>
+
+            <!-- Stacked: podcast + youtube + canadian podcast -->
+            <div class="bento-colstack">
+
+              <!-- Apple Podcasts -->
+              <a href="https://podcasts.apple.com/us/podcast/emilie-mazurek-pre-med-student/id1535510749?i=1000546767003"
+                 target="_blank" rel="noopener"
+                 class="b-card b-card--row"
+                 aria-label="Podcast: how I discovered UX design — Apple Podcasts">
+                <div class="b-icon" style="background:#B85CF5" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="b-title">how I discovered ux design</p>
+                  <p class="b-domain">podcasts.apple.com</p>
+                </div>
+              </a>
+
+              <!-- YouTube bootcamp -->
+              <a href="https://www.youtube.com/watch?v=8P8AnjCfUu8"
+                 target="_blank" rel="noopener"
+                 class="b-card b-card--row"
+                 aria-label="YouTube: my bootcamp experience">
+                <div class="b-icon" style="background:#FF0000" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="b-title">my bootcamp experience</p>
+                  <p class="b-domain">youtube.com</p>
+                </div>
+              </a>
+
+              <!-- Canadian Design Podcast -->
+              <a href="https://canadian-podcasts.com/podcast/design-downtime/emilie-mazurek-loves-to-travel"
+                 target="_blank" rel="noopener"
+                 class="b-card b-card--row"
+                 aria-label="Podcast: the real reason I wanted to transition into UX">
+                <div class="b-icon b-icon--link" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="b-title">the real reason I wanted to transition into ux</p>
+                  <p class="b-domain">canadian-podcasts.com</p>
+                </div>
+              </a>
+
+            </div>
           </div>
         </section>
 
