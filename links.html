@@ -63,24 +63,22 @@
       border-radius: 2px;
       margin-bottom: 24px;
     }
-    .links-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--dark);
-      color: #fff;
-      font-family: 'ITC Avant Garde', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: -0.01em;
-      padding: 13px 22px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, background 0.2s ease;
+    .links-work-label {
+      font-size: 13px;
+      color: var(--dark);
+      opacity: 0.45;
+      margin-bottom: 6px;
     }
-    .links-cta:hover { background: var(--coral); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,88,74,0.3); }
-    .links-cta:active { transform: translateY(0); }
-    .links-cta:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+    .links-work-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .links-work-link:hover { opacity: 1; }
+    .links-work-link:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 2px; opacity: 1; }
 
     /* ====== SECTIONS ====== */
     .links-sections {
@@ -346,9 +344,8 @@
           <p class="links-name">emilie mazurek</p>
           <p class="links-bio">Senior Product Designer &amp; mentor to 100s of designers</p>
           <div class="links-divider" aria-hidden="true"></div>
-          <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="links-cta">
-            let's work together <span aria-hidden="true">→</span>
-          </a>
+          <p class="links-work-label">let's work together</p>
+          <a href="mailto:howdy@dandydesign.ca" class="links-work-link">→ howdy@dandydesign.ca</a>
         </div>
       </aside>
 
