@@ -33,44 +33,54 @@
       padding-top: 0;
     }
     .links-avatar {
-      width: 78px;
-      height: 78px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
       object-position: center top;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+      margin-bottom: 22px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.18);
     }
     .links-name {
       font-family: 'ITC Avant Garde', sans-serif;
       font-weight: 800;
-      font-size: 22px;
+      font-size: 28px;
       letter-spacing: -0.03em;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       color: var(--dark);
     }
     .links-bio {
-      font-size: 13px;
+      font-size: 15px;
       line-height: 1.6;
       color: var(--dark);
       opacity: 0.5;
-      margin-bottom: 22px;
+      margin-bottom: 28px;
     }
     .links-divider {
       width: 28px;
       height: 2px;
       background: var(--coral);
       border-radius: 2px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
-    .links-email {
-      font-size: 12px;
-      color: var(--dark);
-      opacity: 0.35;
-      transition: opacity 0.2s;
+    .links-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark);
+      color: #fff;
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      padding: 13px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, background 0.2s ease;
     }
-    .links-email:hover { opacity: 0.7; }
-    .links-email:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 2px; opacity: 1; }
+    .links-cta:hover { background: var(--coral); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,88,74,0.3); }
+    .links-cta:active { transform: translateY(0); }
+    .links-cta:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 
     /* ====== SECTIONS ====== */
     .links-sections {
@@ -303,7 +313,7 @@
         gap: 18px;
         flex-wrap: wrap;
       }
-      .links-avatar { margin-bottom: 0; }
+      .links-avatar { margin-bottom: 0; width: 72px; height: 72px; }
       .links-divider { display: none; }
       .links-sidebar-text { flex: 1; }
       .links-name { font-size: 20px; }
@@ -331,12 +341,14 @@
 
       <!-- Profile sidebar -->
       <aside class="links-sidebar" aria-label="Profile">
-        <img src="brand_assets/images/DSC03711.jpg" alt="Emilie Mazurek" class="links-avatar">
+        <img src="brand_assets/Linkedin image.jpg" alt="Emilie Mazurek" class="links-avatar">
         <div class="links-sidebar-text">
           <p class="links-name">emilie mazurek</p>
           <p class="links-bio">Senior Product Designer &amp; mentor to 100s of designers</p>
           <div class="links-divider" aria-hidden="true"></div>
-          <a href="mailto:howdy@dandydesign.ca" class="links-email">howdy@dandydesign.ca</a>
+          <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="links-cta">
+            let's work together <span aria-hidden="true">→</span>
+          </a>
         </div>
       </aside>
 
