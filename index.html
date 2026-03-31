@@ -15,7 +15,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible;
       padding-top: 64px;
       background: #f2ede4;
     }
@@ -593,23 +593,6 @@
       -webkit-user-drag: none;
     }
 
-    /* Desk hint */
-    .desk-hint {
-      position: absolute;
-      bottom: 36px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.65; /* 5.1:1 on #f2ede4 — WCAG AA */
-      z-index: 20;
-      pointer-events: none;
-      transition: opacity 0.6s;
-      white-space: nowrap;
-    }
-    .desk-hint.gone { opacity: 0; }
-
     /* Settle entrance animation */
     @keyframes deskSettle {
       0%   { opacity: 0; transform: translate(var(--tx,0px), calc(var(--ty,0px) - 10px)) rotate(var(--rot,0deg)) scale(0.96); }
@@ -650,7 +633,6 @@
     @media (max-width: 768px) {
       .hero-desk { min-height: calc(160vh + 120px); }
       .desk-surface { transform: none; }
-      .desk-hint { display: none; }
 
       /* SVG name — shifted up 64px, made larger */
       .hero-watermark-on #heroWatermark {
@@ -767,7 +749,6 @@
     @media (prefers-reduced-motion: reduce) {
       .desk-item.settle { animation: none; opacity: 1; }
       .desk-item.draggable { pointer-events: none; cursor: default; }
-      .desk-hint { display: none; }
     }
   </style>
 </head>
@@ -1043,8 +1024,6 @@
 
       </div>
 
-      <p class="desk-hint" id="deskHint" aria-hidden="true">drag to uncover ↑</p>
-
     </section>
 
     <section class="section-work" id="work" aria-labelledby="work-heading">
@@ -1149,7 +1128,6 @@
     (function () {
       var surface = document.getElementById('deskSurface');
       var hero    = document.getElementById('heroDesk');
-      var hint    = document.getElementById('deskHint');
       if (!surface || !hero) return;
 
       /* ── Settle entrance animation ── */
@@ -1528,7 +1506,6 @@
         var r = hero.getBoundingClientRect();
         cursorX = e.clientX - r.left;
         cursorY = e.clientY - r.top;
-        if (hint && !hint.classList.contains('gone')) hint.classList.add('gone');
       });
 
       hero.addEventListener('mouseleave', function () {
