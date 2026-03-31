@@ -167,6 +167,14 @@
       font-style: italic;
     }
 
+    /* ====== UX HELP GRID ====== */
+    .bento-uxhelp {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .bento-span2 { grid-column: span 2; }
+
     /* ====== MENTORING SECTION ====== */
     .bento-2col {
       display: grid;
@@ -178,8 +186,8 @@
       min-height: 240px;
       justify-content: space-between;
     }
-    /* Quote card fills height of sibling colstack */
-    .b-card--quote { justify-content: center; flex: 1; }
+    /* Quote card */
+    .b-card--quote { justify-content: center; }
 
     /* Horizontal compact row card */
     .b-card--row {
@@ -287,10 +295,14 @@
       .bento-2col,
       .bento-2col-eq { grid-template-columns: 1fr; }
       .bento-4col    { grid-template-columns: repeat(2, 1fr); }
+      .bento-uxhelp  { grid-template-columns: repeat(2, 1fr); }
+      .bento-span2   { grid-column: span 2; }
       .b-card--map   { min-height: 200px; }
     }
     @media (max-width: 380px) {
-      .bento-4col { grid-template-columns: 1fr; }
+      .bento-4col  { grid-template-columns: 1fr; }
+      .bento-uxhelp { grid-template-columns: 1fr; }
+      .bento-span2  { grid-column: span 1; }
     }
   </style>
 </head>
@@ -318,10 +330,11 @@
         <section class="bento-section" aria-label="UX help">
           <p class="bento-label">ux help</p>
 
-          <div class="bento-2col">
-            <!-- Featured: booking -->
+          <div class="bento-uxhelp">
+
+            <!-- Row 1, left: booking — span 2 cols -->
             <a href="https://dandydesign.as.me" target="_blank" rel="noopener"
-               class="b-card b-card--tall"
+               class="b-card b-card--tall bento-span2"
                aria-label="Book a session — coffee chats, portfolio reviews & interview prep">
               <em class="b-arrow" aria-hidden="true">↗</em>
               <div class="b-icon b-icon--link" aria-hidden="true">
@@ -336,46 +349,42 @@
               </div>
             </a>
 
-            <!-- Right: quote + free resources stacked -->
-            <div class="bento-colstack">
-              <div class="b-card b-card--quote" role="note">
-                <p class="b-quote">"after bootcamp I landed a full-time, remote role in less than 3 months and was promoted to senior designer in just over a year — let me help you do the same."</p>
+            <!-- Row 1, right: quote — span 2 cols -->
+            <div class="b-card b-card--quote bento-span2" role="note">
+              <p class="b-quote">"after bootcamp I landed a full-time, remote role in less than 3 months and was promoted to senior designer in just over a year — let me help you do the same."</p>
+            </div>
+
+            <!-- Row 2, left: LinkedIn — span 2 cols -->
+            <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener"
+               class="b-card b-card--tall bento-span2"
+               aria-label="Join 75,000+ design enthusiasts on LinkedIn">
+              <em class="b-arrow" aria-hidden="true">↗</em>
+              <div class="b-icon" style="background:#0A66C2" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
               </div>
-              <a href="https://emilie-mazurek.ck.page/" target="_blank" rel="noopener"
-                 class="b-card"
-                 style="justify-content: space-between;"
-                 aria-label="Free UX resources — emilie-mazurek.ck.page">
-                <em class="b-arrow" aria-hidden="true">↗</em>
-                <div class="b-icon" style="padding:0;" aria-hidden="true">
-                  <img src="Links/Kit.svg" alt="" style="width:36px;height:36px;display:block;border-radius:9px;">
-                </div>
-                <div>
-                  <p class="b-title">→ free ux resources!</p>
-                  <p class="b-domain">emilie-mazurek.ck.page</p>
-                </div>
-              </a>
-            </div>
-          </div>
+              <div>
+                <p class="b-title">→ join 75,000+ design enthusiasts</p>
+                <p class="b-domain">linkedin.com</p>
+              </div>
+            </a>
 
-          <!-- Row: LinkedIn -->
-          <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener"
-             class="b-card b-card--row"
-             aria-label="Join 75,000+ design enthusiasts on LinkedIn">
-            <div class="b-icon" style="background:#0A66C2" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="b-title">→ join 75,000+ design enthusiasts</p>
-              <p class="b-domain">linkedin.com</p>
-            </div>
-          </a>
+            <!-- Row 2, right: free resources — span 2 cols -->
+            <a href="https://emilie-mazurek.ck.page/" target="_blank" rel="noopener"
+               class="b-card b-card--tall bento-span2"
+               aria-label="Free UX resources — emilie-mazurek.ck.page">
+              <em class="b-arrow" aria-hidden="true">↗</em>
+              <div class="b-icon" style="padding:0;" aria-hidden="true">
+                <img src="Links/Kit.svg" alt="" style="width:36px;height:36px;display:block;border-radius:9px;">
+              </div>
+              <div>
+                <p class="b-title">→ free ux resources!</p>
+                <p class="b-domain">emilie-mazurek.ck.page</p>
+              </div>
+            </a>
 
-          <!-- 4-col: topmate DM, YouTube, Gumroad, Figma -->
-          <div class="bento-4col" style="margin-top:10px">
-
-            <!-- Topmate: priority DM -->
+            <!-- Row 3: topmate, YouTube, Gumroad, Figma — 1 col each -->
             <a href="https://topmate.io/emilie_mazurek" target="_blank" rel="noopener"
                class="b-card b-card--social"
                aria-label="Send me a priority DM on Topmate">
@@ -387,7 +396,6 @@
               <p class="b-domain">topmate.io</p>
             </a>
 
-            <!-- YouTube -->
             <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener"
                class="b-card b-card--social"
                aria-label="YouTube — subscribe to my channel">
@@ -401,7 +409,6 @@
               <p class="b-domain">youtube.com</p>
             </a>
 
-            <!-- Gumroad: digital products -->
             <a href="https://emiliemazurek.gumroad.com" target="_blank" rel="noopener"
                class="b-card b-card--social"
                aria-label="Digital products for FREE on Gumroad">
@@ -413,7 +420,6 @@
               <p class="b-domain">emiliemazurek.gumroad.com</p>
             </a>
 
-            <!-- Figma -->
             <a href="https://figma.com/@emiliemazurek" target="_blank" rel="noopener"
                class="b-card b-card--social"
                aria-label="Figma — @emiliemazurek">
@@ -430,6 +436,7 @@
               <p class="b-sub">@emiliemazurek</p>
               <p class="b-domain">figma.com</p>
             </a>
+
           </div>
         </section>
 
