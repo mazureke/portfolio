@@ -7,6 +7,7 @@
   <meta name="description" content="All of Emilie Mazurek's links in one place.">
   <link rel="icon" href="brand_assets/Rainbow Favicon Bold@3x.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css">
   <style>
 
     /* ====== PAGE ====== */
@@ -241,12 +242,12 @@
       min-height: 240px;
       border-radius: 20px;
     }
-    .b-card--map iframe {
+    #calgary-map {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      border: none;
-      border-radius: 20px;
+      border-radius: 18px;
+      overflow: hidden;
     }
     .b-map-label {
       position: absolute;
@@ -548,12 +549,8 @@
           <div class="bento-2col" style="margin-top:10px">
 
             <!-- Calgary map -->
-            <div class="b-card b-card--map" role="img" aria-label="Calgary, AB, Canada on a map">
-              <iframe
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-170%2C15%2C-50%2C75&amp;layer=mapnik&amp;marker=51.0447%2C-114.0719"
-                loading="lazy"
-                title="Map showing Calgary, AB, Canada in North America">
-              </iframe>
+            <div class="b-card b-card--map" role="region" aria-label="Calgary, AB, Canada on a map">
+              <div id="calgary-map"></div>
               <span class="b-map-label">📍 Calgary, AB, Canada</span>
             </div>
 
@@ -644,5 +641,24 @@
     </div><!-- /links-layout -->
   </main>
 
+  <script src="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js"></script>
+  <script>
+    (function () {
+      var map = new maplibregl.Map({
+        container: 'calgary-map',
+        style: 'https://tiles.openfreemap.org/styles/positron',
+        center: [-95, 50],
+        zoom: 2.4,
+        interactive: false,
+        attributionControl: false,
+      });
+
+      map.on('load', function () {
+        new maplibregl.Marker({ color: '#E8584A', scale: 0.9 })
+          .setLngLat([-114.0719, 51.0447])
+          .addTo(map);
+      });
+    })();
+  </script>
 </body>
 </html>
