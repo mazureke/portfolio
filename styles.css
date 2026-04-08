@@ -222,9 +222,9 @@ body {
 }
 
 /* ============ FOOTER ============ */
-.footer { background: #f2ede4; color: var(--dark); padding: 64px 0 40px; }
+.footer { background: #f2ede4; color: var(--dark); padding: 28px 0 28px; }
 .footer-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-.footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; margin-bottom: 28px; flex-wrap: wrap; }
 .footer-logo-img { height: 15px; filter: none; opacity: 1; margin-bottom: 10px; }
 .footer-tagline { font-size: 13px; color: rgba(0,0,0,0.35); }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; }
