@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UX Mentorship — Emilie Mazurek</title>
+  <meta name="description" content="Land your next UX role with 1:1 mentorship from Emilie Mazurek — portfolio reviews, interview prep, job search coaching, and more.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* ── layout ── */
+    .m-section { padding: 96px 0; }
+    .m-section--white { background: var(--white); }
+    .m-section--dark  { background: var(--dark); color: white; }
+
+    /* ── hero ── */
+    .m-hero {
+      padding: 140px 0 96px;
+    }
+    .m-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin-bottom: 20px;
+    }
+    .m-hero h1 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 6vw, 76px);
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 24px;
+      max-width: 760px;
+    }
+    .m-hero h1 em {
+      font-style: normal;
+      position: relative;
+      display: inline-block;
+    }
+    .m-hero h1 em::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -4px;
+      height: 3px;
+      background: var(--pink);
+      border-radius: 2px;
+    }
+    .m-hero-lead {
+      font-size: 17px;
+      line-height: 1.8;
+      opacity: 0.65;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+
+    /* ── buttons ── */
+    .m-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .m-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s, opacity 0.2s;
+    }
+    .m-btn:active { transform: translateY(0) !important; }
+    .m-btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+
+    .m-btn--mint {
+      background: var(--mint);
+      color: var(--dark);
+    }
+    .m-btn--mint:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(125,212,176,0.45);
+    }
+    .m-btn--dark {
+      background: var(--dark);
+      color: white;
+    }
+    .m-btn--dark:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,26,26,0.28);
+    }
+    .m-btn--outline {
+      background: transparent;
+      color: var(--dark);
+      border: 1.5px solid rgba(26,26,26,0.22);
+    }
+    .m-btn--outline:hover {
+      transform: translateY(-2px);
+      border-color: rgba(26,26,26,0.6);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .m-btn--outline-white {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+    .m-btn--outline-white:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    /* ── process sections ── */
+    .m-process { max-width: 620px; }
+    .m-h2 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(30px, 4vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .m-body {
+      font-size: 16px;
+      line-height: 1.8;
+      opacity: 0.65;
+      margin-bottom: 36px;
+    }
+    .m-body p + p { margin-top: 14px; }
+
+    /* ── service cards ── */
+    .m-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 56px;
+    }
+    .m-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s;
+    }
+    .m-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.09); }
+    .m-card-title {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .m-card-body {
+      font-size: 14px;
+      line-height: 1.75;
+      opacity: 0.6;
+      flex: 1;
+    }
+    .m-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--coral);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: gap 0.2s;
+    }
+    .m-card-link:hover { gap: 10px; }
+    .m-card-link:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── testimonials ── */
+    .m-testi-h2 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+    }
+    .m-testi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .m-testi-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .m-testi-header { display: flex; align-items: center; gap: 12px; }
+    .m-testi-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .m-testi-name {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+    .m-testi-role { font-size: 11px; opacity: 0.45; line-height: 1.4; }
+    .m-testi-quote { font-size: 13px; line-height: 1.7; opacity: 0.7; }
+
+    /* ── faq ── */
+    .m-faq-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 80px;
+      align-items: flex-start;
+    }
+    .m-faq-sticky { position: sticky; top: 88px; }
+    .m-faq-h2 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0;
+    }
+    .m-faq-list { border-top: 1px solid var(--border); }
+    .m-faq-item { border-bottom: 1px solid var(--border); }
+    .m-faq-btn {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .m-faq-btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 3px; }
+    .m-faq-chevron {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      opacity: 0.4;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+    }
+    .m-faq-item.open .m-faq-chevron { transform: rotate(180deg); opacity: 0.8; }
+    .m-faq-answer {
+      display: none;
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.65;
+      padding-bottom: 24px;
+    }
+    .m-faq-answer ul { list-style: disc; padding-left: 20px; margin-top: 10px; }
+    .m-faq-answer li { margin-bottom: 6px; }
+    .m-faq-answer a { color: var(--purple); text-decoration: underline; text-underline-offset: 2px; }
+    .m-faq-answer strong { font-weight: 700; opacity: 1; color: var(--dark); }
+    .m-faq-item.open .m-faq-answer { display: block; }
+
+    /* ── responsive ── */
+    @media (max-width: 960px) {
+      .m-cards { grid-template-columns: 1fr 1fr; }
+      .m-testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .m-faq-layout { grid-template-columns: 1fr; gap: 40px; }
+      .m-faq-sticky { position: static; }
+    }
+    @media (max-width: 580px) {
+      .m-hero { padding: 100px 0 72px; }
+      .m-section { padding: 72px 0; }
+      .m-cards { grid-template-columns: 1fr; }
+      .m-testi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ══ HERO ══ -->
+    <section class="m-hero">
+      <div class="container">
+        <h1>
+          let me help you<br>
+          <em>land your next ux role.</em>
+        </h1>
+        <p class="m-hero-lead">After graduating bootcamp I landed a full-time, 100% remote role in less than 3 months and was promoted to senior designer in just over a year; let me help you do the same.</p>
+        <div class="m-btns">
+          <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-btn m-btn--mint">see availability</a>
+          <a href="/links" class="m-btn m-btn--outline">free ux resources</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DISCOVER ══ -->
+    <section class="m-section m-section--white">
+      <div class="container">
+        <p class="m-eyebrow">Discover</p>
+        <div class="m-process">
+          <h2 class="m-h2">first, do your research and collect information.</h2>
+          <div class="m-body">
+            <p>Looking for direction on how to navigate your UX job search? Have a specific question you want advice on? Let's focus on how I can help you develop your skills to grow your career — and check out some of my favourite resources to get you started.</p>
+          </div>
+          <div class="m-btns">
+            <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-btn m-btn--dark">see availability</a>
+            <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener" class="m-btn m-btn--outline">shoot me a DM</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ REFINE ══ -->
+    <section class="m-section">
+      <div class="container">
+        <p class="m-eyebrow">Refine</p>
+        <div class="m-process">
+          <h2 class="m-h2">second, gather feedback on your application package.</h2>
+          <div class="m-body">
+            <p>In such a competitive market, don't let something you have complete control over be the reason you are eliminated from the running. If you are looking for honest and actionable feedback on your portfolio, resume, or LinkedIn, these sessions are designed for you.</p>
+          </div>
+        </div>
+        <div class="m-cards">
+          <div class="m-card">
+            <p class="m-card-title">critique lab</p>
+            <p class="m-card-body">Let's analyze every aspect of your application package. We will take a look at your portfolio, resume and LinkedIn then follow-up on changes to ensure you're on the right track.</p>
+            <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-card-link">learn more →</a>
+          </div>
+          <div class="m-card">
+            <p class="m-card-title">1:1 review session</p>
+            <p class="m-card-body">Real-time, in-person personalized review session. We will work collaboratively to analyze and target feedback exactly where you need it most.</p>
+            <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-card-link">learn more →</a>
+          </div>
+          <div class="m-card">
+            <p class="m-card-title">express review</p>
+            <p class="m-card-body">Get quick and actionable feedback. I will share a 15 min recording of myself within one week of your booking, giving suggestions on how you can improve.</p>
+            <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-card-link">learn more →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ IMPRESS ══ -->
+    <section class="m-section m-section--dark">
+      <div class="container">
+        <p class="m-eyebrow" style="color:white">Impress</p>
+        <div class="m-process">
+          <h2 class="m-h2" style="color:white">finally, let's get you prepped to ace your interviews.</h2>
+          <div class="m-body" style="color:rgba(255,255,255,0.65)">
+            <p>Don't be intimidated, I can help you put your best foot forward. Struggling with what to say? We can review common interview questions and work together to practice articulate responses.</p>
+            <p>Need help with interview challenges? I run mock portfolio presentations, whiteboard challenges and app critiques so you can feel confident and prepared.</p>
+          </div>
+          <a href="https://dandydesign.as.me" target="_blank" rel="noopener" class="m-btn m-btn--mint">see availability</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TESTIMONIALS ══ -->
+    <section class="m-section">
+      <div class="container">
+        <h2 class="m-testi-h2">proof in the (ux) pudding</h2>
+        <div class="m-testi-grid">
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--periwinkle);color:white">KL</div>
+              <div>
+                <p class="m-testi-name">Kwan Liu</p>
+                <p class="m-testi-role">Product Designer</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">Shoutout to Emilie for giving me the confidence to "run wild"! If you're looking for advice or feedback, I strongly encourage you to book a session with her!</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--coral);color:white">VL</div>
+              <div>
+                <p class="m-testi-name">Vivian Lai-Bui</p>
+                <p class="m-testi-role">UX Architect</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">When I found someone like Emilie, a mentor who also had such similar background to me and transitioned into UX, I was pumped. In our few but impactful sessions, she gave me tips that helped my portfolio go from Jr. to almost Sr. level work.</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--dark);color:white">SB</div>
+              <div>
+                <p class="m-testi-name">Semire Bamikole</p>
+                <p class="m-testi-role">Product Designer</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">I was really impressed with the time Emilie took to provide thorough and thoughtful feedback on my work, and her patience in responding to any follow up questions. 10/10 would recommend booking a session with Emilie!</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--purple);color:white">JY</div>
+              <div>
+                <p class="m-testi-name">Jason Young</p>
+                <p class="m-testi-role">Freelance UX/UI Designer</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">Fantastic feedback, definitely worth the investment! I particularly loved how honest the feedback was, which got me to rewrite my case studies into a much more comprehensive and logical storytelling flow.</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--mint);color:var(--dark)">KW</div>
+              <div>
+                <p class="m-testi-name">Kara Wenz</p>
+                <p class="m-testi-role">Marketing &amp; Brand Lead</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">I am at the very beginning of my UX/UI journey and Emilie was so patient and incredibly down-to-earth. I'd highly recommend making the time to meet with her, no matter where you are in your journey.</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--pink);color:var(--dark)">KS</div>
+              <div>
+                <p class="m-testi-name">Karishma Shetty</p>
+                <p class="m-testi-role">Associate UX Researcher</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">Emilie brought out discrepancies to address so that the storytelling is more powerful, and gave tips on networking. She is incredibly knowledgeable and helpful.</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--periwinkle);color:white">NW</div>
+              <div>
+                <p class="m-testi-name">Nevin Winter</p>
+                <p class="m-testi-role">UI/UX Designer</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">Emilie was amazing! Within that small amount of time, you can tell she really wants to help you to the best of her ability. You can tell she has really thought about what advice to give you.</p>
+          </div>
+          <div class="m-testi-card">
+            <div class="m-testi-header">
+              <div class="m-testi-avatar" style="background:var(--coral);color:white">SP</div>
+              <div>
+                <p class="m-testi-name">Simon Pawar</p>
+                <p class="m-testi-role">UX Designer at ATTA</p>
+              </div>
+            </div>
+            <p class="m-testi-quote">Emilie guided me through the process of presenting my portfolio and gave me a thorough review with valuable insights on how to improve my skills. What stood out was her positive attitude.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FAQ ══ -->
+    <section class="m-section m-section--white">
+      <div class="container">
+        <div class="m-faq-layout">
+          <div class="m-faq-sticky">
+            <p class="m-eyebrow">FAQs</p>
+            <h2 class="m-faq-h2">frequently asked questions</h2>
+          </div>
+          <div class="m-faq-list">
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                How did you get started in UX?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>Only a few years ago I was stuck in a job I hated after getting rejected from medical school for the third time. I discovered UX from career counseling, then attended a 12-week bootcamp before landing my first role three months later. Within a year I was promoted to senior designer.</p>
+                <p>On paper it sounds perfect, but in reality it wasn't all roses. I learned a lot of things the hard way and received an immense amount of support from the design community. That's why I'm now on a mission to help others level up their design careers.</p>
+              </div>
+            </div>
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                Who specifically is this for?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>My services are a great fit for anyone who is:</p>
+                <ul>
+                  <li>Feeling stuck or frustrated in their job search</li>
+                  <li>Looking to transition into UX from another field</li>
+                  <li>Wanting honest, actionable feedback on their portfolio, resume, or LinkedIn</li>
+                  <li>Hoping to level up and grow as a designer, no matter your current experience</li>
+                  <li>Interested in practical advice and real-world strategies for landing roles</li>
+                </ul>
+                <p>Whether you're just starting out, making a career switch, or aiming for your next big opportunity, I'm here to help you move forward with confidence.</p>
+              </div>
+            </div>
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                Why should I trust your advice?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>I haven't been asked this directly, but I wouldn't blame you for wondering. There's a lot of advice out there.</p>
+                <p>Here's my perspective: I've landed offers for multiple UX roles — six different design jobs so far, each with its own interview process, in a variety of market conditions. That includes getting hired right out of bootcamp with zero experience, and twice more after being let go unexpectedly. Most recently, I was back on the job hunt in May 2025 and successfully landed a new role in less than a month, so I know firsthand what it's like in today's challenging market.</p>
+                <p>My advice isn't just theory or recycled tips — I share what's actually worked for me, recently and repeatedly.</p>
+              </div>
+            </div>
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                Why is your mentorship paid?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>I charge for mentorship because I've found that people get more value and are more committed when they've invested in the process. When I offered free sessions in the past, my no-show rate was as high as 50%. Charging a fee means:</p>
+                <ul>
+                  <li>I can prioritize your time and give you my full attention.</li>
+                  <li>It helps ensure I'm working with people who are genuinely interested in making progress.</li>
+                  <li>I'm able to cover my time and the paid tools I use to provide quality feedback.</li>
+                </ul>
+                <p>That said, I do my best to offer a range of options to make feedback more accessible. If you're looking for a more affordable way to get support, my Priority DM option lets you text me any questions and I'll get back to you within 72h. For quick, actionable feedback on your portfolio, LinkedIn, or resume, the Express Review is a great fit.</p>
+              </div>
+            </div>
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                Do you offer pro-bono consulting?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>I don't offer free one-on-one sessions, but I still want to support your growth and learning. Here are a couple of ways you can access free resources from me:</p>
+                <ul>
+                  <li><strong>Newsletter:</strong> I share longer-form, more personal stories, resources, and things I wish I'd known when I was starting out.</li>
+                  <li><strong>LinkedIn:</strong> For shorter, actionable tips and resources, I post 2–3 times a week. Click the bell icon to get notified on all new posts.</li>
+                </ul>
+                <p>If you're looking for additional free mentoring, I also recommend checking out communities like <a href="https://www.designbuddies.community" target="_blank" rel="noopener">Design Buddies</a>, <a href="https://www.uxcoffeehours.com" target="_blank" rel="noopener">UX Coffee Hours</a>, or local UX meetups, which often offer volunteer support and portfolio reviews.</p>
+              </div>
+            </div>
+
+            <div class="m-faq-item">
+              <button class="m-faq-btn" aria-expanded="false">
+                What happens if I miss my session?
+                <svg class="m-faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="m-faq-answer" hidden>
+                <p>Mistakes happen, I get it. I charge a small rebooking fee ($5) to account for the previously allocated time and you will be given a link to re-book at your convenience.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <img src="/brand_assets/Emilie Black@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          <p class="footer-tagline">Edmonton, AB · howdy@dandydesign.ca</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/links">Links</a>
+          <a href="https://linkedin.com/in/emilie-mazurek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://youtube.com/@emiliemazurek" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="mailto:howdy@dandydesign.ca">Email</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.m-faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.m-faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.m-faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.m-faq-btn').setAttribute('aria-expanded', 'false');
+          el.querySelector('.m-faq-answer').hidden = true;
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          item.querySelector('.m-faq-answer').hidden = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
