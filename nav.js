@@ -17,10 +17,10 @@ if (toggle && links) {
 }
 
 // Mark current page in nav
-const path = window.location.pathname.split('/').pop() || 'index.html';
+const path = window.location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('.nav-links a').forEach(a => {
-  const href = a.getAttribute('href');
-  if (href === path || (path === '' && href === 'index.html')) {
+  const href = (a.getAttribute('href') || '').replace(/\/$/, '') || '/';
+  if (href === path) {
     a.setAttribute('aria-current', 'page');
   }
 });
