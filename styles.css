@@ -235,6 +235,11 @@ body {
 .footer-bottom { padding-top: 28px; border-top: 1px solid rgba(0,0,0,0.1); }
 .footer-copy { font-size: 12px; color: rgba(0,0,0,0.25); }
 
+/* ============ SECTION HEADERS ============ */
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+.section-title { font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive; font-weight: 400; font-size: 24px; letter-spacing: 0; color: #284283; }
+.section-count { font-size: 13px; opacity: 0.35; }
+
 /* ============ WORK CARDS ============ */
 .work-grid { display: flex; flex-direction: column; gap: 10px; }
 .work-card {
@@ -343,33 +348,60 @@ body {
 
 /* ============ COMMUNITY PAGE ============ */
 .resource-section { margin-bottom: 72px; }
-.resource-section-title {
-  font-family: 'ITC Avant Garde', sans-serif;
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-  display: flex;
+.resource-grid { display: flex; flex-direction: column; gap: 10px; }
+.resource-card {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
   align-items: center;
-  gap: 12px;
+  gap: 32px;
+  padding: 28px 32px;
+  background: #f2ede4;
+  border: 1.5px solid #CEB897;
+  border-radius: 14px;
+  color: var(--dark);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
 }
-.resource-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.resource-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.resource-card { background: var(--off-white); border-radius: var(--radius-md); padding: 24px; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s; }
-.resource-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.09); }
-.resource-card:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: var(--radius-md); }
-.resource-card-date { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.35; margin-bottom: 8px; }
-.resource-card-title { font-family: 'ITC Avant Garde', sans-serif; font-weight: 700; font-size: 15px; line-height: 1.35; margin-bottom: 6px; }
-.resource-card-source { font-size: 12px; opacity: 0.4; }
+a.resource-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+a.resource-card:active { transform: translateY(-1px); }
+.resource-card:focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 3px; border-radius: 14px; }
+.resource-card-date { font-size: 12px; font-weight: 500; opacity: 0.4; letter-spacing: 0.02em; }
+.resource-card-company { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: clamp(14px, 1.4vw, 18px); letter-spacing: -0.02em; margin-bottom: 5px; }
+.resource-card-desc { font-size: 13px; line-height: 1.55; opacity: 0.5; }
+.resource-card-aside { display: flex; align-items: center; gap: 20px; }
+.resource-card-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.resource-card-pill {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border: 1px solid #CEB897;
+  border-radius: 100px;
+  padding: 5px 13px;
+  white-space: nowrap;
+}
+.resource-card-arrow { font-size: 18px; opacity: 0.35; flex-shrink: 0; transition: transform 0.2s, opacity 0.2s; }
+a.resource-card:hover .resource-card-arrow { transform: translate(3px,-3px); opacity: 0.8; }
 
-.service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.service-card { border-radius: var(--radius-lg); padding: 28px; border: 1.5px solid var(--border); transition: border-color 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
-.service-card:hover { border-color: rgba(26,26,26,0.2); transform: translateY(-3px); }
-.service-icon { font-size: 24px; margin-bottom: 14px; }
-.service-name { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; }
-.service-desc { font-size: 13px; line-height: 1.65; opacity: 0.6; }
-.service-cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--purple); transition: gap 0.2s; }
-.service-cta:hover { gap: 10px; }
+.service-grid { display: flex; flex-direction: column; gap: 10px; }
+.service-card {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 28px 32px;
+  background: #f2ede4;
+  border: 1.5px solid #CEB897;
+  border-radius: 14px;
+  color: var(--dark);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+}
+.service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+.service-card:active { transform: translateY(-1px); }
+.service-card:focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 3px; border-radius: 14px; }
+.service-icon { font-size: 22px; line-height: 1; }
+.service-name { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: clamp(14px, 1.4vw, 18px); letter-spacing: -0.02em; margin-bottom: 5px; }
+.service-desc { font-size: 13px; line-height: 1.55; opacity: 0.5; }
 
 /* ============ LINKS PAGE ============ */
 .links-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -394,19 +426,20 @@ body {
 @media (max-width: 900px) {
   .cs-overview { grid-template-columns: repeat(2, 1fr); }
   .cs-metrics { grid-template-columns: repeat(2, 1fr); }
-  .resource-grid { grid-template-columns: repeat(2, 1fr); }
-  .service-grid { grid-template-columns: repeat(2, 1fr); }
   .links-bento { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   .work-card { grid-template-columns: 1fr; gap: 14px; }
   .work-card-year { font-size: 11px; }
   .work-card-aside { justify-content: space-between; }
+  .resource-card { grid-template-columns: 1fr; gap: 14px; }
+  .resource-card-aside { justify-content: space-between; }
+  .service-card { grid-template-columns: 1fr; gap: 14px; }
   .cs-next-bar { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
   .page-hero { padding: 100px 0 48px; margin-bottom: 48px; }
   .cs-hero { padding: 100px 0 48px; }
 }
 @media (max-width: 580px) {
-  .resource-grid, .service-grid, .links-bento, .cs-metrics { grid-template-columns: 1fr; }
+  .links-bento, .cs-metrics { grid-template-columns: 1fr; }
   .cs-overview { grid-template-columns: 1fr 1fr; }
 }
