@@ -9,6 +9,20 @@
   <link rel="stylesheet" href="/styles.css">
   <style>
     .cs-hero-tint { background: color-mix(in srgb, var(--periwinkle) 6%, white); }
+
+    .cs-img-full { width: 100%; border-radius: 8px; display: block; }
+    .cs-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 0; }
+    .cs-img-pair img { width: 100%; border-radius: 8px; display: block; }
+    .cs-img-caption { font-size: 13px; line-height: 1.6; opacity: 0.5; margin-top: 10px; }
+    .cs-ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 6px; }
+    .cs-ba-grid img { width: 100%; border-radius: 6px; display: block; }
+    .cs-ba-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .cs-ba-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+    .cs-solution-img { margin: 0 0 40px; }
+
+    @media (max-width: 600px) {
+      .cs-img-pair, .cs-ba-grid, .cs-ba-labels { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -78,6 +92,12 @@
             <p>Yet the tool still had a major gap. The only way to tag assets was using 3D cubes — which worked fine for boxy equipment, but was a nightmare for anything linear. Think pipes, cables, conduit. Assets that stretch and wind across an entire facility. To tag a single pipe, you'd have to line up fifteen individual cubes end to end, each one a poor fit. Multiply that across every linear asset in a plant, and the hours add up fast.</p>
           </div>
 
+          <div class="cs-img-pair">
+            <img src="/case%20studies/veerum/Images/LCOs%201.png" alt="3D point cloud view of a pipe tagged with stacked yellow cube objects">
+            <img src="/case%20studies/veerum/Images/LCOs%202.png" alt="Industrial facility overhead view showing many separate cube objects labelled Line 1 placed along pipes">
+          </div>
+          <p class="cs-img-caption">Fifteen separate cube objects had to be individually placed to tag a single pipe. Close up you can see what a poor fit this provides.</p>
+
           <div class="cs-quote">
             <p>"Take Sulfur Plant 1, which took me three months to get done. If they could do that in a week we would do the whole plant."</p>
             <cite>— Client interview participant</cite>
@@ -100,6 +120,9 @@
             </ul>
             <p>While talking through these options with the dev team, they mentioned that VEERUM already had a measurement tool that worked almost exactly like option 2. That functionality basically already existed — it just needed to be extended so objects could be named, saved, and exported like the cube tool. Option 2 wasn't perfect, but AI detection wasn't on the table, and building on something that was already there meant the effort was low. For a problem that had been around this long, getting something fast and usable out was going to be a big deal. We went with it.</p>
           </div>
+
+          <img src="/case%20studies/veerum/Images/Chain%20tool.png" alt="VEERUM's existing measurement tool showing a chain of linked measurement points along pipes" class="cs-img-full" style="margin-top:28px; border-radius:8px;">
+          <p class="cs-img-caption">The existing measurement tool — nearly everything we needed was already there. It just couldn't save, name, or export objects yet.</p>
         </div>
 
         <div class="cs-section">
@@ -110,26 +133,50 @@
           </div>
 
           <div style="margin-top:20px">
+
             <div class="cs-iteration">
               <p class="cs-iteration-label">Finding 01</p>
               <h4>Users expected to keep going after finishing</h4>
+              <div class="cs-ba-grid">
+                <img src="/case%20studies/veerum/Images/User%20testing%201a.png" alt="Original linear object interface with full sidebar panel">
+                <img src="/case%20studies/veerum/Images/User%20testing%201b.png" alt="Updated interface allowing users to double-click and continue extending the line">
+              </div>
+              <div class="cs-ba-labels">
+                <p class="cs-ba-label">Before</p>
+                <p class="cs-ba-label">After</p>
+              </div>
               <p>Six out of seven testers tried to add more pins to a completed object, which the original design didn't allow. We updated it so users could double-click to reopen an object and keep extending the line.</p>
             </div>
+
             <div class="cs-iteration">
               <p class="cs-iteration-label">Finding 02</p>
               <h4>Rotating the model while dropping pins was confusing</h4>
+              <img src="/case%20studies/veerum/Images/User%20testing%202.png" alt="Linear object successfully placed along a pipe in the 3D viewer" class="cs-img-full" style="margin: 16px 0;">
               <p>In VEERUM, clicking and dragging rotates the 3D view — but in the linear object tool, clicking drops a pin. Five out of seven testers got stuck here. There wasn't a clean way around it. We added an undo button, which gave people a safety net while they got their bearings. Once they did, it stopped being an issue.</p>
             </div>
+
             <div class="cs-iteration">
               <p class="cs-iteration-label">Finding 03</p>
               <h4>Users wanted to see their work in 360° Pano mode</h4>
+              <div class="cs-ba-grid">
+                <img src="/case%20studies/veerum/Images/User%20testing%203a.png" alt="3D point cloud view showing a yellow linear object on pipes">
+                <img src="/case%20studies/veerum/Images/User%20testing%203b.png" alt="360° Pano mode showing the same yellow linear object overlaid on a real photo of the facility">
+              </div>
+              <div class="cs-ba-labels">
+                <p class="cs-ba-label">Before</p>
+                <p class="cs-ba-label">After</p>
+              </div>
               <p>VEERUM has two main views: the 3D point cloud and 360° Pano mode, which shows what the site actually looks like in real life. Three out of seven testers asked whether linear objects would show up in Pano mode — the view most people preferred day-to-day. We hadn't built that yet. We did.</p>
             </div>
+
           </div>
         </div>
 
         <div class="cs-section">
           <h2 class="cs-section-title">Impact</h2>
+          <div class="cs-solution-img">
+            <img src="/case%20studies/veerum/Images/Solution.png" alt="Laptop mockup showing the VEERUM platform with a yellow linear object drawn across an industrial facility" class="cs-img-full">
+          </div>
           <div class="cs-metrics">
             <div class="cs-metric-card">
               <p class="cs-metric-num" style="color:var(--periwinkle)">11×</p>
