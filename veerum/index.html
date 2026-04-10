@@ -65,94 +65,92 @@
         <div class="cs-section">
           <h2 class="cs-section-title">Background</h2>
           <div class="cs-body">
-            <p>VEERUM visualizes and unifies engineering, geospatial, planning, scheduling, and operational data for industrial companies. I joined as their first and only designer, tasked with building their design practice from scratch — introducing user research and modern processes to embed user-centered thinking into the product for the first time.</p>
-            <p>Over my time there, I conducted 100+ user interviews and usability tests, built a scalable design system, and reduced design-to-code turnaround time by 30%. The linear objects project was one of the most impactful things I shipped.</p>
+            <p>VEERUM digitizes entire industrial facilities into navigable 3D environments — letting contractors tag and document assets from a browser, anywhere in the world. I joined as their first and only designer, tasked with building a design practice from scratch and introducing user research to the product for the first time.</p>
+            <p>The linear objects project was one of the most impactful things I shipped there.</p>
           </div>
         </div>
 
         <div class="cs-section">
-          <h2 class="cs-section-title">The problem</h2>
+          <h2 class="cs-section-title">Understanding the problem</h2>
           <div class="cs-body">
-            <p>Users needed to tag linear assets — think pipes, circuits, and electrical runs across large industrial facilities. The existing tool forced them to place individual volumetric cubes one by one along the full length of an asset. For a complex circuit, this meant placing dozens of cubes sequentially, each requiring manual positioning and naming.</p>
-            <p>This had two major consequences:</p>
-            <ul>
-              <li><strong>Efficiency:</strong> The process was so slow that clients were outsourcing tagging to offshore contractors — people who had never visited the actual sites.</li>
-              <li><strong>Accuracy:</strong> Contractors working from photos and floor plans made frequent errors, and the asset library became cluttered with meaningless intermediate objects.</li>
-            </ul>
+            <p>Imagine you work at an oil and gas facility. To document what's out there, someone has to physically go to the site. That means getting certified to even set foot there, flying out — often somewhere remote up north — driving the rest of the way, suiting up in full safety gear, and then walking around with a stack of paper documentation trying to figure out what's what. Cold weather, hazardous conditions, the works. And if you missed something or made a mistake? You're going back.</p>
+            <p>VEERUM completely changed this. They digitized entire facilities into 3D environments that anyone could navigate from a computer. Suddenly, contractors sitting in India could tag sites in the US they'd never visited in person. No flights, no PPE, no paper. Just a browser.</p>
+            <p>Yet the tool still had a major gap. The only way to tag assets was using 3D cubes — which worked fine for boxy equipment, but was a nightmare for anything linear. Think pipes, cables, conduit. Assets that stretch and wind across an entire facility. To tag a single pipe, you'd have to line up fifteen individual cubes end to end, each one a poor fit. Multiply that across every linear asset in a plant, and the hours add up fast.</p>
           </div>
 
           <div class="cs-quote">
             <p>"Take Sulfur Plant 1, which took me three months to get done. If they could do that in a week we would do the whole plant."</p>
             <cite>— Client interview participant</cite>
           </div>
-        </div>
 
-        <div class="cs-section">
-          <h2 class="cs-section-title">Research & discovery</h2>
-          <div class="cs-body">
-            <p>I ran deep-dive interviews with field engineers, asset managers, and on-site contractors to understand the full workflow — from site survey to final asset library. The key insight: users weren't struggling with the concept of tagging, they were struggling with the tool's rigid, cube-by-cube model.</p>
-            <p>I mapped three potential solutions:</p>
-            <ul>
-              <li><strong>Click points along a line</strong> — extend bounding boxes without creating new objects. Familiar, but too finicky for long runs.</li>
-              <li><strong>Pen tool / multi-point mode</strong> — click along shapes, drop points at curves. Quick but would "float" above assets rather than wrap them precisely.</li>
-              <li><strong>AI asset detection</strong> — automatic detection via a single click. Fast and accurate in theory, but the R&D team had already found it infeasible.</li>
-            </ul>
+          <div class="cs-body" style="margin-top:24px">
+            <p><strong>How might we</strong> increase the tagging speed of linear objects so that clients can improve productivity and reduce the cost of getting set up in VEERUM?</p>
           </div>
         </div>
 
         <div class="cs-section">
-          <h2 class="cs-section-title">The solution</h2>
+          <h2 class="cs-section-title">Ideation</h2>
           <div class="cs-body">
-            <p>During research, I discovered VEERUM already had a measurement tool with nearly all the required functionality — users could create linked point chains by clicking along assets. The platform had this capability sitting unused.</p>
-            <p>The solution: combine the existing chain measurement behavior with object customization (naming, coloring, saving to the asset library). This meant:</p>
+            <p>I started by talking to the people on the team who worked directly with clients — they already knew this problem inside and out. But I also knew that having strong opinions for a long time doesn't always make those opinions right. So before committing to a direction, we went directly to clients at companies like Imperial Oil, Suncor, and Exxon to validate what we were hearing. We spoke with approximately 11 people across enterprise clients — asking whether they were outsourcing because the tool was too tedious, and whether they'd do it themselves if it was easier. The research confirmed both.</p>
+            <p>I also looked at how other tools handled similar problems — anything that required users to trace or map complex shapes. Then I brought three directions to the table:</p>
             <ul>
-              <li>No new infrastructure required</li>
-              <li>Users were already familiar with the measurement tool's interaction model</li>
-              <li>Minimal dev scope = fast time to value</li>
+              <li><strong>Option 1 — Multiple bounding box mode:</strong> Chain the existing cubes together so users could extend them without starting over. Familiar, but still slow and finicky. Not a real fix.</li>
+              <li><strong>Option 2 — Click points along a line:</strong> Drop pins along an asset and the tool connects them. Fast and intuitive, and it would actually follow the shape of a pipe or cable. The tradeoff: the pins sit on the outside of the object, so measurements wouldn't be perfectly precise.</li>
+              <li><strong>Option 3 — AI asset detection:</strong> Click a button, asset gets detected automatically. Not feasible — the R&D team had been working on it with little progress.</li>
             </ul>
+            <p>While talking through these options with the dev team, they mentioned that VEERUM already had a measurement tool that worked almost exactly like option 2. That functionality basically already existed — it just needed to be extended so objects could be named, saved, and exported like the cube tool. Option 2 wasn't perfect, but AI detection wasn't on the table, and building on something that was already there meant the effort was low. For a problem that had been around this long, getting something fast and usable out was going to be a big deal. We went with it.</p>
           </div>
         </div>
 
         <div class="cs-section">
-          <h2 class="cs-section-title">Testing & iterations</h2>
+          <h2 class="cs-section-title">Designing & testing</h2>
           <div class="cs-body">
-            <p>I ran usability testing with 7 participants. All completed assigned tasks — but surfaced three friction points that shaped the final design:</p>
+            <p>One thing that made prototyping tricky: you can't really simulate a 3D spatial tool in Figma. So instead of a standard clickable prototype, I worked closely with the dev team to build something functional directly in the dev environment. Scrappy, but real enough to test.</p>
+            <p>We ran two rounds of usability testing with seven internal participants total. Getting the actual contractors who did the tagging — mostly based in India — to participate proved too difficult given the time difference, so we tested internally instead. Three things came up consistently:</p>
           </div>
 
           <div style="margin-top:20px">
             <div class="cs-iteration">
-              <p class="cs-iteration-label">Change 01</p>
-              <h4>Extend after creation</h4>
-              <p>6 of 7 testers expected to continue extending a line after setting it down. The original design locked points after creation. We added double-click to re-enter extend mode.</p>
+              <p class="cs-iteration-label">Finding 01</p>
+              <h4>Users expected to keep going after finishing</h4>
+              <p>Six out of seven testers tried to add more pins to a completed object, which the original design didn't allow. We updated it so users could double-click to reopen an object and keep extending the line.</p>
             </div>
             <div class="cs-iteration">
-              <p class="cs-iteration-label">Change 02</p>
-              <h4>Rotation instructions</h4>
-              <p>5 of 7 testers missed the pale yellow instruction card about click-and-drag rotation, and accidentally dropped pins instead. We replaced it with a high-visibility card and added an undo button for accidental placements.</p>
+              <p class="cs-iteration-label">Finding 02</p>
+              <h4>Rotating the model while dropping pins was confusing</h4>
+              <p>In VEERUM, clicking and dragging rotates the 3D view — but in the linear object tool, clicking drops a pin. Five out of seven testers got stuck here. There wasn't a clean way around it. We added an undo button, which gave people a safety net while they got their bearings. Once they did, it stopped being an issue.</p>
             </div>
             <div class="cs-iteration">
-              <p class="cs-iteration-label">Change 03</p>
-              <h4>Undo everywhere</h4>
-              <p>Added undo functionality throughout the entire flow, not just at the accidental pin step. Reduced anxiety and allowed more confident exploration.</p>
+              <p class="cs-iteration-label">Finding 03</p>
+              <h4>Users wanted to see their work in 360° Pano mode</h4>
+              <p>VEERUM has two main views: the 3D point cloud and 360° Pano mode, which shows what the site actually looks like in real life. Three out of seven testers asked whether linear objects would show up in Pano mode — the view most people preferred day-to-day. We hadn't built that yet. We did.</p>
             </div>
           </div>
         </div>
 
         <div class="cs-section">
-          <h2 class="cs-section-title">Results</h2>
+          <h2 class="cs-section-title">Impact</h2>
           <div class="cs-metrics">
             <div class="cs-metric-card">
               <p class="cs-metric-num" style="color:var(--periwinkle)">11×</p>
-              <p class="cs-metric-desc">faster tagging vs. previous cube method</p>
+              <p class="cs-metric-desc">faster tagging — 13 min 46 sec down to 1 min 24 sec per asset</p>
             </div>
             <div class="cs-metric-card">
-              <p class="cs-metric-num">3 wks</p>
-              <p class="cs-metric-desc">to tag a full sulfur plant (down from 3 months)</p>
+              <p class="cs-metric-num">22%</p>
+              <p class="cs-metric-desc">of all objects placed, up from 2% the month of launch</p>
             </div>
-            <div class="cs-metric-card">
-              <p class="cs-metric-num">−34%</p>
-              <p class="cs-metric-desc">user support requests after research-driven improvements</p>
-            </div>
+          </div>
+          <div class="cs-body" style="margin-top:32px">
+            <p>To me, impact isn't just about moving the numbers. I made the decision to bring the lead developer into every usability testing session — because we were already building the prototype together, it was a natural extension of how we were collaborating. What it meant in practice was that findings never had to travel through me. The person building the product was in the room watching real people use it in real time. Changes got made faster, with full context. It's a practice we carried into every project after this one.</p>
+            <p>I also used this project as an opportunity to introduce research more formally across the company. As VEERUM was shifting toward a product-led approach, I shared the findings in a company-wide presentation — bringing in people who wouldn't normally be part of the process. It helped build credibility in how we were making decisions, and it brought some of the skeptics along too.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Retrospective</h2>
+          <div class="cs-body">
+            <p><strong>Data over opinions.</strong> Early on, there was a lot of internal energy around this feature — it had been on the roadmap for years, and executives called it a game-changer. What this project taught us was that having benchmarks and metrics in place before building something isn't optional — it's how you make smart decisions about what to work on next. When we looked at the data after launch, we could see that while linear objects meaningfully improved tagging, the Objects area of the app wasn't as heavily used as other parts of the platform. That data informed the decision to pause the next iteration and redirect our energy elsewhere. Instead of chasing the loudest voice in the room, we let the evidence decide.</p>
+            <p><strong>Research changes the room.</strong> Introducing user interviews and usability testing in a more structured way — and sharing those findings openly across the company — shifted how the team thought about making product decisions. When people can see the evidence behind a choice, you don't have to convince them. They're already with you.</p>
           </div>
         </div>
 
