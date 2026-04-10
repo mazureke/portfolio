@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VEERUM — Emilie Mazurek</title>
+  <meta name="description" content="How I made asset tagging 11× faster by building a design practice from scratch at VEERUM.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .cs-hero-tint { background: color-mix(in srgb, var(--periwinkle) 6%, white); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work" aria-current="page">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="cs-hero cs-hero-tint">
+      <div class="container">
+        <a href="/#work" class="cs-back">← All work</a>
+        <p class="cs-tag">B2B SaaS · Lead UX Designer · 12 Weeks · 2023–2024</p>
+        <h1 class="cs-title">VEERUM</h1>
+        <p class="cs-lead">How I built a design practice from scratch and made industrial asset tagging 11× faster — without a single line of new infrastructure.</p>
+
+        <div class="cs-overview">
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Role</p>
+            <p class="cs-overview-value">Lead UX Designer (sole designer)</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Timeline</p>
+            <p class="cs-overview-value">May 2023 – May 2024</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Industry</p>
+            <p class="cs-overview-value">B2B SaaS · Industrial</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Key outcome</p>
+            <p class="cs-overview-value">11× faster asset tagging</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:80px">
+      <div class="cs-content">
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Background</h2>
+          <div class="cs-body">
+            <p>VEERUM digitizes entire industrial facilities into navigable 3D environments — letting contractors tag and document assets from a browser, anywhere in the world. I joined as their first and only designer, tasked with building a design practice from scratch and introducing user research to the product for the first time.</p>
+            <p>The linear objects project was one of the most impactful things I shipped there.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Understanding the problem</h2>
+          <div class="cs-body">
+            <p>Imagine you work at an oil and gas facility. To document what's out there, someone has to physically go to the site. That means getting certified to even set foot there, flying out — often somewhere remote up north — driving the rest of the way, suiting up in full safety gear, and then walking around with a stack of paper documentation trying to figure out what's what. Cold weather, hazardous conditions, the works. And if you missed something or made a mistake? You're going back.</p>
+            <p>VEERUM completely changed this. They digitized entire facilities into 3D environments that anyone could navigate from a computer. Suddenly, contractors sitting in India could tag sites in the US they'd never visited in person. No flights, no PPE, no paper. Just a browser.</p>
+            <p>Yet the tool still had a major gap. The only way to tag assets was using 3D cubes — which worked fine for boxy equipment, but was a nightmare for anything linear. Think pipes, cables, conduit. Assets that stretch and wind across an entire facility. To tag a single pipe, you'd have to line up fifteen individual cubes end to end, each one a poor fit. Multiply that across every linear asset in a plant, and the hours add up fast.</p>
+          </div>
+
+          <div class="cs-quote">
+            <p>"Take Sulfur Plant 1, which took me three months to get done. If they could do that in a week we would do the whole plant."</p>
+            <cite>— Client interview participant</cite>
+          </div>
+
+          <div class="cs-body" style="margin-top:24px">
+            <p><strong>How might we</strong> increase the tagging speed of linear objects so that clients can improve productivity and reduce the cost of getting set up in VEERUM?</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Ideation</h2>
+          <div class="cs-body">
+            <p>I started by talking to the people on the team who worked directly with clients — they already knew this problem inside and out. But I also knew that having strong opinions for a long time doesn't always make those opinions right. So before committing to a direction, we went directly to clients at companies like Imperial Oil, Suncor, and Exxon to validate what we were hearing. We spoke with approximately 11 people across enterprise clients — asking whether they were outsourcing because the tool was too tedious, and whether they'd do it themselves if it was easier. The research confirmed both.</p>
+            <p>I also looked at how other tools handled similar problems — anything that required users to trace or map complex shapes. Then I brought three directions to the table:</p>
+            <ul>
+              <li><strong>Option 1 — Multiple bounding box mode:</strong> Chain the existing cubes together so users could extend them without starting over. Familiar, but still slow and finicky. Not a real fix.</li>
+              <li><strong>Option 2 — Click points along a line:</strong> Drop pins along an asset and the tool connects them. Fast and intuitive, and it would actually follow the shape of a pipe or cable. The tradeoff: the pins sit on the outside of the object, so measurements wouldn't be perfectly precise.</li>
+              <li><strong>Option 3 — AI asset detection:</strong> Click a button, asset gets detected automatically. Not feasible — the R&D team had been working on it with little progress.</li>
+            </ul>
+            <p>While talking through these options with the dev team, they mentioned that VEERUM already had a measurement tool that worked almost exactly like option 2. That functionality basically already existed — it just needed to be extended so objects could be named, saved, and exported like the cube tool. Option 2 wasn't perfect, but AI detection wasn't on the table, and building on something that was already there meant the effort was low. For a problem that had been around this long, getting something fast and usable out was going to be a big deal. We went with it.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Designing & testing</h2>
+          <div class="cs-body">
+            <p>One thing that made prototyping tricky: you can't really simulate a 3D spatial tool in Figma. So instead of a standard clickable prototype, I worked closely with the dev team to build something functional directly in the dev environment. Scrappy, but real enough to test.</p>
+            <p>We ran two rounds of usability testing with seven internal participants total. Getting the actual contractors who did the tagging — mostly based in India — to participate proved too difficult given the time difference, so we tested internally instead. Three things came up consistently:</p>
+          </div>
+
+          <div style="margin-top:20px">
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Finding 01</p>
+              <h4>Users expected to keep going after finishing</h4>
+              <p>Six out of seven testers tried to add more pins to a completed object, which the original design didn't allow. We updated it so users could double-click to reopen an object and keep extending the line.</p>
+            </div>
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Finding 02</p>
+              <h4>Rotating the model while dropping pins was confusing</h4>
+              <p>In VEERUM, clicking and dragging rotates the 3D view — but in the linear object tool, clicking drops a pin. Five out of seven testers got stuck here. There wasn't a clean way around it. We added an undo button, which gave people a safety net while they got their bearings. Once they did, it stopped being an issue.</p>
+            </div>
+            <div class="cs-iteration">
+              <p class="cs-iteration-label">Finding 03</p>
+              <h4>Users wanted to see their work in 360° Pano mode</h4>
+              <p>VEERUM has two main views: the 3D point cloud and 360° Pano mode, which shows what the site actually looks like in real life. Three out of seven testers asked whether linear objects would show up in Pano mode — the view most people preferred day-to-day. We hadn't built that yet. We did.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Impact</h2>
+          <div class="cs-metrics">
+            <div class="cs-metric-card">
+              <p class="cs-metric-num" style="color:var(--periwinkle)">11×</p>
+              <p class="cs-metric-desc">faster tagging — 13 min 46 sec down to 1 min 24 sec per asset</p>
+            </div>
+            <div class="cs-metric-card">
+              <p class="cs-metric-num">22%</p>
+              <p class="cs-metric-desc">of all objects placed, up from 2% the month of launch</p>
+            </div>
+          </div>
+          <div class="cs-body" style="margin-top:32px">
+            <p>To me, impact isn't just about moving the numbers. I made the decision to bring the lead developer into every usability testing session — because we were already building the prototype together, it was a natural extension of how we were collaborating. What it meant in practice was that findings never had to travel through me. The person building the product was in the room watching real people use it in real time. Changes got made faster, with full context. It's a practice we carried into every project after this one.</p>
+            <p>I also used this project as an opportunity to introduce research more formally across the company. As VEERUM was shifting toward a product-led approach, I shared the findings in a company-wide presentation — bringing in people who wouldn't normally be part of the process. It helped build credibility in how we were making decisions, and it brought some of the skeptics along too.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Retrospective</h2>
+          <div class="cs-body">
+            <p><strong>Data over opinions.</strong> Early on, there was a lot of internal energy around this feature — it had been on the roadmap for years, and executives called it a game-changer. What this project taught us was that having benchmarks and metrics in place before building something isn't optional — it's how you make smart decisions about what to work on next. When we looked at the data after launch, we could see that while linear objects meaningfully improved tagging, the Objects area of the app wasn't as heavily used as other parts of the platform. That data informed the decision to pause the next iteration and redirect our energy elsewhere. Instead of chasing the loudest voice in the room, we let the evidence decide.</p>
+            <p><strong>Research changes the room.</strong> Introducing user interviews and usability testing in a more structured way — and sharing those findings openly across the company — shifted how the team thought about making product decisions. When people can see the evidence behind a choice, you don't have to convince them. They're already with you.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="/barstool" class="cs-next-bar card-coral" aria-label="Next case study: Barstool Sports Store">
+        <div>
+          <p class="cs-next-label">Next case study</p>
+          <p class="cs-next-title">Barstool Sports Store</p>
+        </div>
+        <span class="cs-next-arrow" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home"><img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img"></a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+</body>
+</html>
