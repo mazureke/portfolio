@@ -17,7 +17,7 @@
       justify-content: center;
       overflow: visible;
       padding-top: 64px;
-      background: #f2ede4;
+      background: var(--bg);
     }
 
     /* Hero text */
@@ -605,9 +605,6 @@
 
     /* Work section */
     .section-work { padding: 80px 0 120px; }
-    .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; }
-    .section-title { font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive; font-weight: 400; font-size: 24px; letter-spacing: 0; color: #284283; }
-    .section-count { font-size: 13px; opacity: 0.35; }
 
     /* ── Responsive desk scaling ── */
 
@@ -745,7 +742,7 @@
       .di-sticky-yellow   { top: calc(157vh - 64px) !important; }
     }
 
-    /* ── Work card scroll reveal ── */
+    /* ── Work card scroll reveal — home-page only, intentionally overrides shared .work-card ── */
     .work-card {
       opacity: 0;
       transform: translateX(48px);

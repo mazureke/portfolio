@@ -78,6 +78,9 @@
 }
 
 /* ============ TOKENS ============ */
+/* SECTIONS: Fonts · Tokens · Reset · Base · Skip Nav · Container ·
+   Nav · Footer · Section Headers · Work Cards · Case Study ·
+   Page Hero · Community · Links · Responsive */
 :root {
   --coral:      #E8584A;
   --pink:       #F07DB5;
@@ -87,6 +90,7 @@
   --dark:       #1A1A1A;
   --white:      #FFFFFF;
   --off-white:  #F8F7F5;
+  --bg:         #f2ede4;
   --border:     rgba(26,26,26,0.09);
   --radius-sm:  12px;
   --radius-md:  16px;
@@ -107,7 +111,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 body {
   font-family: 'ITC Avant Garde', sans-serif;
   color: var(--dark);
-  background: #f2ede4;
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -222,7 +226,7 @@ body {
 }
 
 /* ============ FOOTER ============ */
-.footer { background: #f2ede4; color: var(--dark); padding: 64px 0 40px; }
+.footer { background: var(--bg); color: var(--dark); padding: 64px 0 40px; }
 .footer-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; margin-bottom: 28px; flex-wrap: wrap; }
 .footer-logo-img { height: 18px; filter: none; opacity: 1; margin-bottom: 10px; display: block; }
@@ -248,7 +252,7 @@ body {
   align-items: center;
   gap: 32px;
   padding: 28px 32px;
-  background: #f2ede4;
+  background: var(--bg);
   border: 1.5px solid #CEB897;
   border-radius: 14px;
   color: var(--dark);
@@ -353,7 +357,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 24px 28px;
-  background: #f2ede4;
+  background: var(--bg);
   border: 1.5px solid #CEB897;
   border-radius: 14px;
   color: var(--dark);
@@ -385,7 +389,7 @@ a.resource-card:hover .resource-card-arrow { transform: translate(3px,-3px); opa
   display: flex;
   flex-direction: column;
   padding: 24px 28px;
-  background: #f2ede4;
+  background: var(--bg);
   border: 1.5px solid #CEB897;
   border-radius: 14px;
   color: var(--dark);
