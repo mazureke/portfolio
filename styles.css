@@ -402,6 +402,17 @@ a.resource-card:hover .resource-card-arrow { transform: translate(3px,-3px); opa
 .service-icon { font-size: 22px; line-height: 1; margin-bottom: 12px; }
 .service-name { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: -0.02em; margin-bottom: 6px; }
 .service-desc { font-size: 12px; line-height: 1.65; opacity: 0.5; flex: 1; }
+.service-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(206,184,151,0.45); }
+.service-price { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.03em; }
+.service-card-footer-right { display: flex; align-items: center; gap: 8px; }
+.service-card--split { cursor: default; }
+.service-card--split:hover, .service-card--split:active { transform: none; box-shadow: none; }
+.service-split-options { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.service-split-btn { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--dark); color: white; border-radius: 8px; font-family: 'ITC Avant Garde', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.2s; }
+.service-split-btn:hover { transform: translateY(-1px); background: var(--purple); }
+.service-split-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; border-radius: 8px; }
+.service-split-meta { font-size: 11px; opacity: 0.65; font-weight: 500; }
+.resource-card-price { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -0.03em; }
 
 /* ============ LINKS PAGE ============ */
 .links-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
