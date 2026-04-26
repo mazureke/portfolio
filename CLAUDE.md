@@ -92,6 +92,12 @@ Desk element PNGs live in `desk_elements/`: `monstera.png`, `iced-matcha.png`, `
 - Sticky notes are `<a>` tags linking to case studies. Inner wrapper `.di-sticky-inner` handles the peel-up hover transform and `overflow: hidden` (do not flatten this structure — the matcha stain appends into `.di-sticky-inner`).
 - `data-rot` attribute on each draggable stores the base rotation in degrees for physics calculations.
 
+## Memory Files (auto-update required)
+Three live reference files in `.claude/projects/.../memory/`. After any task that touches the items below, update the relevant file before committing:
+- **`services.md`** — update when: a service is added, removed, repriced, or its booking URL changes
+- **`intake_forms.md`** — update when: any form question is added, removed, reworded, or reordered for any session type
+- **`booking_architecture.md`** — update when: an integration status changes (e.g. Stripe goes live, Zapier is set up), a new tool is added, or a pending item is completed
+
 ## Hard Rules
 - Never invent brand colors — use the hex values above
 - Never use default Tailwind palette
