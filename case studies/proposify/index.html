@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposify — Emilie Mazurek</title>
+  <meta name="description" content="How I reduced document-sharing time by 80% at Proposify by simplifying a feature-heavy experience.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .cs-hero-tint { background: color-mix(in srgb, var(--mint) 8%, white); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work" aria-current="page">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+        <li><a href="/resources">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="cs-hero cs-hero-tint">
+      <div class="container">
+        <a href="/#work" class="cs-back">← All work</a>
+        <p class="cs-tag">B2B SaaS · Product Designer · 12 Weeks · 2021–2022</p>
+        <h1 class="cs-title">Proposify</h1>
+        <p class="cs-lead">How I reduced document-sharing time by 80% — by removing features, not adding them.</p>
+
+        <div class="cs-overview">
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Role</p>
+            <p class="cs-overview-value">Product Designer (sole designer)</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Timeline</p>
+            <p class="cs-overview-value">Sept 2021 – Nov 2022 · 12 weeks</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Team</p>
+            <p class="cs-overview-value">1 PM, 2 Engineers, 1 QA</p>
+          </div>
+          <div class="cs-overview-item">
+            <p class="cs-overview-label">Key outcome</p>
+            <p class="cs-overview-value">80% faster completion time</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:80px">
+      <div class="cs-content">
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Background</h2>
+          <div class="cs-body">
+            <p>Proposify is a proposal software platform that enables sales teams to create, send, track, and e-sign proposals, contracts, and agreements. As the sole product designer, I was responsible for the entire product experience.</p>
+            <p>The Share Document page was the critical handoff moment — the step where a completed proposal gets sent to a prospect. Data showed something was badly wrong.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">The problem</h2>
+          <div class="cs-body">
+            <p>Users spent an average of 4 minutes and 22 seconds on the Share Document page. For a page whose only job is to send a document, that number signalled serious confusion. Median completion time for users who successfully sent was just 26 seconds — meaning most of the time was spent struggling, not doing.</p>
+            <p>I identified four specific issues:</p>
+            <ul>
+              <li><strong>Hidden send button:</strong> The primary action was below the fold. Users couldn't find the thing they came to do.</li>
+              <li><strong>Information overload:</strong> Too many buttons, fields, and dropdown menus created paralysis.</li>
+              <li><strong>Link-sharing buried:</strong> 55% of large accounts preferred sending via link, but that option was hard to find.</li>
+              <li><strong>Email designer dropout:</strong> 40% of users who entered the email customization designer left without saving — then had to start again.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Research & insight</h2>
+          <div class="cs-body">
+            <p>Customer interviews revealed something surprising: the email customization feature — which dominated the page's visual real estate — was almost entirely unused and largely unwanted.</p>
+            <ul>
+              <li>No customer expected branding tied to outgoing emails</li>
+              <li>Proposify's branding on email templates caused zero concern</li>
+              <li>Many customers didn't know link-sharing was even available</li>
+              <li>Customers preferred standardized email designs for consistency</li>
+              <li>Less than 1% of emails sent contained custom HTML</li>
+            </ul>
+            <p>Competitive analysis confirmed this: most competitors either didn't offer email customization at all, or embedded the send experience directly in the document editor — not on a separate page.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">The solution</h2>
+          <div class="cs-body">
+            <p>The redesign was an act of subtraction. The core decisions:</p>
+            <ul>
+              <li><strong>Remove the email designer entirely</strong> — used by &lt;1% of users, caused 40% of sessions to end in frustration</li>
+              <li><strong>Elevate link-sharing to primary option</strong> — matches how the majority of large accounts actually work</li>
+              <li><strong>Surface the send button immediately</strong> — above the fold, prominent, the first thing you see</li>
+              <li><strong>Reduce visual complexity</strong> — fewer elements, clearer hierarchy, calmer page</li>
+            </ul>
+            <p>Users at MVP preferred the new version over returning to the previous design. The redesign removed the need to think.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <h2 class="cs-section-title">Results</h2>
+          <div class="cs-metrics">
+            <div class="cs-metric-card">
+              <p class="cs-metric-num" style="color:var(--mint)">80%</p>
+              <p class="cs-metric-desc">reduction in time spent on share document flow</p>
+            </div>
+            <div class="cs-metric-card">
+              <p class="cs-metric-num">26s</p>
+              <p class="cs-metric-desc">median completion time for successful sends (vs. 4m 22s average before)</p>
+            </div>
+            <div class="cs-metric-card">
+              <p class="cs-metric-num">100%</p>
+              <p class="cs-metric-desc">of MVP users preferred new design over reverting to previous</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="/max-retail" class="cs-next-bar card-purple" aria-label="Next case study: Max Retail">
+        <div>
+          <p class="cs-next-label">Next case study</p>
+          <p class="cs-next-title">Max Retail</p>
+        </div>
+        <span class="cs-next-arrow" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home"><img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img"></a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+</body>
+</html>

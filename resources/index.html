@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources — Emilie Mazurek</title>
+  <meta name="description" content="Tools, courses, and freebies curated by Emilie Mazurek — Senior Product Designer.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* ── Page eyebrow ── */
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    /* ── Affiliate notice ── */
+    .affiliate-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      opacity: 0.45;
+      margin-top: 20px;
+      background: rgba(26,26,26,0.05);
+      border-radius: 100px;
+      padding: 6px 14px;
+    }
+
+    /* ── Section headers ── */
+    .res-section { margin-bottom: 72px; }
+    .res-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .res-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .res-dot--coral      { background: var(--coral); }
+    .res-dot--periwinkle { background: var(--periwinkle); }
+    .res-dot--mint       { background: var(--mint); }
+    .res-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+    .res-section-count {
+      font-size: 11px;
+      opacity: 0.25;
+      margin-left: auto;
+    }
+
+    /* ── Cards ── */
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .res-card {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--dark);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+    }
+    .res-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.09);
+    }
+    .res-card:active { transform: translateY(-1px); }
+    .res-card:focus-visible {
+      outline: 2px solid var(--periwinkle);
+      outline-offset: 3px;
+      border-radius: var(--radius-md);
+    }
+
+    .res-card-name {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .res-card-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      opacity: 0.5;
+      flex: 1;
+    }
+    .res-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+    .res-card-cta {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+    }
+    .res-card:hover .res-card-cta { opacity: 0.9; }
+    .res-affiliate-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      border: 1px solid currentColor;
+      border-radius: 100px;
+      padding: 2px 8px;
+    }
+
+    /* ── Placeholder / coming soon card ── */
+    .res-card--placeholder {
+      border-style: dashed;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .res-card--placeholder .res-card-name { opacity: 0.5; }
+
+    /* ── Book a session banner ── */
+    .divider-section {
+      background: var(--dark);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 48px 64px;
+      margin: 80px 0 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .divider-section h2 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .divider-section p {
+      font-size: 14px;
+      opacity: 0.5;
+      max-width: 420px;
+      line-height: 1.65;
+    }
+    .book-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--purple);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s;
+    }
+    .book-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,71,232,0.35); }
+    .book-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+    .book-btn:active { transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .res-grid { grid-template-columns: repeat(2, 1fr); }
+      .divider-section { padding: 40px 32px; }
+    }
+    @media (max-width: 520px) {
+      .res-grid { grid-template-columns: 1fr; }
+      .divider-section { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+        <li><a href="/resources" aria-current="page">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <p class="eyebrow" style="margin-bottom:16px">Resources</p>
+        <h1 class="page-title">Things worth<br>bookmarking.</h1>
+        <p class="page-lead">Tools I actually use, courses worth the money, and freebies on the way.</p>
+        <p class="affiliate-notice">✦ Some links are affiliate links — I earn a small commission at no cost to you.</p>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:100px">
+
+      <!-- TOOLS -->
+      <div class="res-section">
+        <div class="res-section-header">
+          <span class="res-dot res-dot--coral" aria-hidden="true"></span>
+          <span class="res-section-label">Tools I Use</span>
+          <span class="res-section-count">10 picks</span>
+        </div>
+        <div class="res-grid">
+
+          <a href="https://mobbin.com/?via=emilie" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Mobbin</p>
+            <p class="res-card-desc">A design reference library of 300k+ real app screenshots. When you need inspiration without the endless scrolling.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+              <span class="res-affiliate-tag">Affiliate</span>
+            </div>
+          </a>
+
+          <a href="https://go.granola.ai/emilie-mazurek" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Granola</p>
+            <p class="res-card-desc">AI meeting notetaker that listens in and turns your calls into clean, organized notes. I use this every single day.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+              <span class="res-affiliate-tag">Affiliate</span>
+            </div>
+          </a>
+
+          <a href="https://ref.wisprflow.ai/emilie-mazurek" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Wispr Flow</p>
+            <p class="res-card-desc">Dictate messages, emails, and Slack replies out loud. Way faster than typing, and it works everywhere.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+              <span class="res-affiliate-tag">Affiliate</span>
+            </div>
+          </a>
+
+          <a href="https://huntr.co/?via=emilie" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Huntr</p>
+            <p class="res-card-desc">Track every job application in one place — company, status, notes, follow-ups. A must if you're in job search mode.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+              <span class="res-affiliate-tag">Affiliate</span>
+            </div>
+          </a>
+
+          <a href="https://figma.com" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Figma</p>
+            <p class="res-card-desc">The design tool. If you're in UX, you're already here — but if you're not, start now.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://loom.com" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Loom</p>
+            <p class="res-card-desc">Screen recording for async communication. I use this constantly for developer handoffs and quick walkthroughs.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://wise.com" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Wise</p>
+            <p class="res-card-desc">Send and receive money internationally without the insane bank fees. Essential for freelance work.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://cursor.com" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Cursor</p>
+            <p class="res-card-desc">AI-powered code editor. I use this to build and maintain my portfolio site — no CS degree required.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://slack.com" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Slack</p>
+            <p class="res-card-desc">Team communication you already know. Worth mentioning because the communities are underrated — ADPList, design Twitter exiles, all of it.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://claude.ai" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Claude</p>
+            <p class="res-card-desc">My AI of choice for writing, thinking through design problems, and research. Feels more like a collaborator than a search engine.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- COURSES & LEARNING -->
+      <div class="res-section">
+        <div class="res-section-header">
+          <span class="res-dot res-dot--periwinkle" aria-hidden="true"></span>
+          <span class="res-section-label">Courses &amp; Learning</span>
+          <span class="res-section-count">3 picks</span>
+        </div>
+        <div class="res-grid">
+
+          <a href="https://www.nngroup.com/courses/" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Nielsen Norman Group</p>
+            <p class="res-card-desc">World-class UX research and design training. Pricey, but worth every penny. Honestly, I'd recommend nearly every course they offer — the bar is just that high.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Browse courses →</span>
+            </div>
+          </a>
+
+          <a href="https://www.acceleratedesign.com/courses/describing-the-roi-of-design" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Describing the ROI of Design</p>
+            <p class="res-card-desc">Ryan Scott's course on articulating the business value of design work. Essential reading if you're moving into senior or leadership roles.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+          <a href="https://femke.design/course" target="_blank" rel="noopener" class="res-card">
+            <p class="res-card-name">Strategy for Senior Product Designers</p>
+            <p class="res-card-desc">Femke's course on what it actually takes to operate at a senior level. Exactly what it sounds like — and exactly what you need.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Visit →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- FREEBIES -->
+      <div class="res-section">
+        <div class="res-section-header">
+          <span class="res-dot res-dot--mint" aria-hidden="true"></span>
+          <span class="res-section-label">Freebies</span>
+          <span class="res-section-count">Coming soon</span>
+        </div>
+        <div class="res-grid">
+
+          <div class="res-card res-card--placeholder" aria-hidden="true">
+            <p class="res-card-name">Portfolio Inspiration Library</p>
+            <p class="res-card-desc">50+ real UX portfolios curated for inspiration. Recreating this soon.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Coming soon</span>
+            </div>
+          </div>
+
+          <div class="res-card res-card--placeholder" aria-hidden="true">
+            <p class="res-card-name">More on the way</p>
+            <p class="res-card-desc">Templates, checklists, and resources in the works. Check back soon.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Coming soon</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BOOK A SESSION BANNER -->
+      <div class="divider-section">
+        <div>
+          <h2>Need 1:1 support?</h2>
+          <p>Portfolio reviews, career coaching, interview prep — let's work together.</p>
+        </div>
+        <a href="/ux-help" class="book-btn">Book a session →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home">
+            <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          </a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/resources">Resources</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+</body>
+</html>
