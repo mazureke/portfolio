@@ -55,20 +55,21 @@
       gap: 14px;
     }
 
-    /* ── Cards — dark style ── */
+    /* ── Cards ── */
     .res-card {
       display: flex;
       flex-direction: column;
       padding: 28px;
-      background: var(--dark);
+      background: var(--bg);
+      border: 1.5px solid #CEB897;
       border-radius: 16px;
       text-decoration: none;
-      color: white;
+      color: var(--dark);
       transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
     }
     .res-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.18);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
     }
     .res-card:active { transform: translateY(-2px); }
     .res-card:focus-visible {
@@ -103,6 +104,10 @@
       height: 52px;
       object-fit: cover;
     }
+    /* Transparent wrapper so baked-in corner transparency in the PNG shows the card, not white */
+    .res-card-logo-wrap--fill {
+      background: transparent;
+    }
 
     .res-card-name {
       font-family: 'ITC Avant Garde', sans-serif;
@@ -110,12 +115,11 @@
       font-size: 17px;
       letter-spacing: -0.02em;
       margin-bottom: 10px;
-      color: white;
     }
     .res-card-desc {
       font-size: 13px;
       line-height: 1.65;
-      color: rgba(255,255,255,0.52);
+      opacity: 0.5;
       flex: 1;
     }
     .res-card-footer {
@@ -124,10 +128,10 @@
     .res-card-cta {
       font-size: 12px;
       font-weight: 600;
-      color: rgba(255,255,255,0.35);
-      transition: color 0.2s;
+      opacity: 0.4;
+      transition: opacity 0.2s;
     }
-    .res-card:hover .res-card-cta { color: rgba(255,255,255,0.9); }
+    .res-card:hover .res-card-cta { opacity: 0.9; }
 
     /* ── Affiliate footnote ── */
     .affiliate-footnote {
@@ -139,12 +143,10 @@
 
     /* ── Placeholder cards ── */
     .res-card--placeholder {
-      background: rgba(26,26,26,0.06);
+      border-color: rgba(206,184,151,0.45);
+      opacity: 0.5;
       pointer-events: none;
     }
-    .res-card--placeholder .res-card-name { color: var(--dark); opacity: 0.35; }
-    .res-card--placeholder .res-card-desc { color: rgba(26,26,26,0.3); }
-    .res-card--placeholder .res-card-cta { color: rgba(26,26,26,0.2); }
 
     /* ── Book a session banner ── */
     .divider-section {
@@ -190,6 +192,35 @@
     .book-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
     .book-btn:active { transform: translateY(0); }
 
+    /* ── Tabs ── */
+    .res-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .res-tab {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1.5px solid #CEB897;
+      background: transparent;
+      color: var(--dark);
+      opacity: 0.45;
+      cursor: pointer;
+      transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .res-tab.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+      opacity: 1;
+    }
+    .res-tab:hover:not(.active) { opacity: 0.8; }
+    .res-tab:focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 3px; }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .res-grid { grid-template-columns: repeat(2, 1fr); }
@@ -198,6 +229,7 @@
     @media (max-width: 520px) {
       .res-grid { grid-template-columns: 1fr; }
       .divider-section { padding: 32px 24px; }
+      .res-tabs { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -232,13 +264,15 @@
 
     <div class="container" style="padding-bottom:100px">
 
+      <!-- TAB NAV -->
+      <div class="res-tabs" role="tablist" aria-label="Resource categories">
+        <button class="res-tab active" role="tab" aria-selected="true" aria-controls="tab-tools" data-panel="tab-tools">My Tool Stack</button>
+        <button class="res-tab" role="tab" aria-selected="false" aria-controls="tab-courses" data-panel="tab-courses">Courses &amp; Learning</button>
+        <button class="res-tab" role="tab" aria-selected="false" aria-controls="tab-freebies" data-panel="tab-freebies">Freebies</button>
+      </div>
+
       <!-- MY TOOL STACK -->
-      <div class="res-section">
-        <div class="res-section-header">
-          <span class="res-dot res-dot--coral" aria-hidden="true"></span>
-          <span class="res-section-label">My Tool Stack</span>
-          <span class="res-section-count">9 picks</span>
-        </div>
+      <div id="tab-tools" class="res-tab-panel" role="tabpanel">
         <div class="res-grid">
 
           <a href="https://mobbin.com/?via=emilie" target="_blank" rel="noopener" class="res-card">
@@ -268,7 +302,7 @@
           </a>
 
           <a href="https://ref.wisprflow.ai/emilie-mazurek" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/wisprflow.ai"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=wisprflow.ai&sz=128'"
                    alt="" class="res-card-logo res-card-logo--fill">
@@ -281,7 +315,7 @@
           </a>
 
           <a href="https://huntr.co/?via=emilie" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/huntr.co"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=huntr.co&sz=128'"
                    alt="" class="res-card-logo res-card-logo--fill">
@@ -294,10 +328,10 @@
           </a>
 
           <a href="https://figma.com" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/figma.com"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=figma.com&sz=128'"
-                   alt="" class="res-card-logo">
+                   alt="" class="res-card-logo res-card-logo--fill">
             </div>
             <p class="res-card-name">Figma</p>
             <p class="res-card-desc">The design tool. If you're in UX, you're already here — but if you're not, start now.</p>
@@ -307,10 +341,10 @@
           </a>
 
           <a href="https://loom.com" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/loom.com"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=loom.com&sz=128'"
-                   alt="" class="res-card-logo">
+                   alt="" class="res-card-logo res-card-logo--fill" style="transform:scale(1.25)">
             </div>
             <p class="res-card-name">Loom</p>
             <p class="res-card-desc">Screen recording for async communication. I use this constantly for developer handoffs and quick walkthroughs.</p>
@@ -320,10 +354,10 @@
           </a>
 
           <a href="https://perplexity.ai" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/perplexity.ai"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128'"
-                   alt="" class="res-card-logo">
+                   alt="" class="res-card-logo res-card-logo--fill" style="transform:scale(1.05)">
             </div>
             <p class="res-card-name">Perplexity</p>
             <p class="res-card-desc">AI-powered search that actually does the research. When I need to understand something fast — not just find a link — this is where I start.</p>
@@ -346,10 +380,10 @@
           </a>
 
           <a href="https://claude.ai" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/anthropic.com"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=claude.ai&sz=128'"
-                   alt="" class="res-card-logo">
+                   alt="" class="res-card-logo res-card-logo--fill">
             </div>
             <p class="res-card-name">Claude</p>
             <p class="res-card-desc">Where I build prototypes and automate workflows to speed up my process. Less chatbot, more thinking partner that can also write code.</p>
@@ -363,12 +397,7 @@
       </div>
 
       <!-- COURSES & LEARNING -->
-      <div class="res-section">
-        <div class="res-section-header">
-          <span class="res-dot res-dot--periwinkle" aria-hidden="true"></span>
-          <span class="res-section-label">Courses &amp; Learning</span>
-          <span class="res-section-count">3 picks</span>
-        </div>
+      <div id="tab-courses" class="res-tab-panel" role="tabpanel" hidden>
         <div class="res-grid">
 
           <a href="https://www.nngroup.com/courses/" target="_blank" rel="noopener" class="res-card">
@@ -398,10 +427,10 @@
           </a>
 
           <a href="https://femke.design/course" target="_blank" rel="noopener" class="res-card">
-            <div class="res-card-logo-wrap">
+            <div class="res-card-logo-wrap res-card-logo-wrap--fill">
               <img src="https://logo.clearbit.com/femke.design"
                    onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=femke.design&sz=128'"
-                   alt="" class="res-card-logo">
+                   alt="" class="res-card-logo res-card-logo--fill">
             </div>
             <p class="res-card-name">Strategy for Senior Product Designers</p>
             <p class="res-card-desc">Femke's course on what it actually takes to operate at a senior level. Exactly what it sounds like — and exactly what you need.</p>
@@ -414,12 +443,7 @@
       </div>
 
       <!-- FREEBIES -->
-      <div class="res-section">
-        <div class="res-section-header">
-          <span class="res-dot res-dot--mint" aria-hidden="true"></span>
-          <span class="res-section-label">Freebies</span>
-          <span class="res-section-count">Coming soon</span>
-        </div>
+      <div id="tab-freebies" class="res-tab-panel" role="tabpanel" hidden>
         <div class="res-grid">
 
           <div class="res-card res-card--placeholder" aria-hidden="true">
@@ -476,5 +500,18 @@
   </footer>
 
   <script src="/nav.js"></script>
+  <script>
+    const resTabs = document.querySelectorAll('.res-tab');
+    const resPanels = document.querySelectorAll('.res-tab-panel');
+    resTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        resTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        resPanels.forEach(p => { p.hidden = true; });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.panel).hidden = false;
+      });
+    });
+  </script>
 </body>
 </html>
