@@ -308,9 +308,9 @@ body {
 .cs-overview-value { font-family: 'ITC Avant Garde', sans-serif; font-weight: 700; font-size: 15px; }
 
 .cs-content { max-width: 720px; }
-.cs-body-wrap { padding: 80px 0; }
-.cs-section { margin-bottom: 56px; }
-.cs-section-title { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; margin-bottom: 18px; }
+.cs-body-wrap { padding: 112px 0 104px; }
+.cs-section { margin-bottom: 80px; }
+.cs-section-title { font-family: 'ITC Avant Garde', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; margin-bottom: 20px; }
 .cs-body { font-size: 16px; line-height: 1.8; opacity: 0.7; }
 .cs-body p + p { margin-top: 14px; }
 .cs-body ul { list-style: disc; padding-left: 20px; margin-top: 12px; }
