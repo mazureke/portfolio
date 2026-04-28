@@ -8,92 +8,87 @@
   <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
   <link rel="stylesheet" href="/styles.css">
   <style>
-    .about-bento {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 100px;
-    }
-    /* Explicit placement for clean layout */
-    .tile-photo      { grid-area: 1 / 1 / 3 / 2; }
-    .tile-bio        { grid-area: 1 / 2 / 2 / 4; }
-    .tile-champ      { grid-area: 2 / 2 / 3 / 3; }
-    .tile-biochem    { grid-area: 2 / 3 / 3 / 4; }
-    .tile-k2         { grid-area: 3 / 1 / 4 / 2; }
-    .tile-interviews { grid-area: 3 / 2 / 4 / 3; }
-    .tile-countries  { grid-area: 3 / 3 / 4 / 4; }
-    .tile-cheeto     { grid-area: 4 / 1 / 5 / 2; }
-    .tile-sax        { grid-area: 4 / 2 / 5 / 4; }
-
-    .bento-tile {
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      overflow: hidden;
+    /* Hero */
+    .about-hero {
       position: relative;
-    }
-    .tile-photo {
-      background: var(--off-white);
-      padding: 0;
-      min-height: 380px;
-    }
-    .tile-photo img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: var(--radius-lg);
+      min-height: 90vh;
+      background-image: url('/brand_assets/images/DSC03735.jpg');
+      background-size: cover;
+      background-position: center top;
+      display: flex;
+      align-items: flex-end;
     }
-    .tile-big-num {
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    .about-hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 60px;
+      width: 100%;
+    }
+    .about-hero-text h1 {
       font-family: 'ITC Avant Garde', sans-serif;
       font-weight: 800;
-      font-size: 48px;
+      font-size: clamp(52px, 8vw, 96px);
       letter-spacing: -0.03em;
       line-height: 1;
-      margin-bottom: 6px;
+      color: #fff;
+      margin: 0;
+      text-transform: lowercase;
     }
-    .tile-label {
+
+    /* Bio */
+    .about-bio {
+      padding: 80px 0 100px;
+    }
+    .about-bio-inner {
+      max-width: 720px;
+    }
+    .about-bio h2 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 6vw, 56px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--dark);
+      margin: 0 0 36px;
+      text-transform: lowercase;
+    }
+    .about-bio p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--dark);
+      opacity: 0.75;
+      margin: 0 0 20px;
+    }
+    .about-resume-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 32px;
+      background: var(--dark);
+      color: #fff;
       font-family: 'ITC Avant Garde', sans-serif;
       font-weight: 700;
       font-size: 15px;
-      line-height: 1.3;
-      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
     }
-    .tile-sub {
-      font-size: 13px;
-      line-height: 1.5;
-      opacity: 0.6;
-    }
-    .tile-emoji {
-      font-size: 32px;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-    .tile-bio-text {
-      font-size: 15px;
-      line-height: 1.75;
-      opacity: 0.7;
-    }
-    .tile-sax-inner {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
+    .about-resume-btn:hover { transform: translateY(-2px); background: var(--purple); }
+    .about-resume-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+    .about-resume-btn:active { transform: translateY(0); }
+
     @media (max-width: 768px) {
-      .about-bento {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .tile-photo, .tile-bio, .tile-champ, .tile-biochem,
-      .tile-k2, .tile-interviews, .tile-countries,
-      .tile-cheeto, .tile-sax {
-        grid-area: auto;
-      }
-      .tile-bio, .tile-sax { grid-column: span 2; }
-      .tile-photo { min-height: 260px; }
-    }
-    @media (max-width: 480px) {
-      .about-bento { grid-template-columns: 1fr; }
-      .tile-bio, .tile-sax { grid-column: span 1; }
+      .about-hero { min-height: 70vh; }
+      .about-hero-text { padding-bottom: 40px; }
+      .about-bio { padding: 56px 0 72px; }
     }
   </style>
 </head>
@@ -118,82 +113,26 @@
   </nav>
 
   <main id="main">
-    <div class="page-hero">
+
+    <section class="about-hero" aria-label="Hero photo">
+      <div class="about-hero-text container">
+        <h1>about me</h1>
+      </div>
+    </section>
+
+    <section class="about-bio">
       <div class="container">
-        <p class="eyebrow" style="margin-bottom:16px">About me</p>
-        <h1 class="page-title">The short<br>version.</h1>
-        <p class="page-lead">Scientist-turned-designer. Perpetually curious. Probably thinking about user flows right now.</p>
+        <div class="about-bio-inner">
+          <h2>howdy.</h2>
+          <p>🤝 I'm a senior UX designer with a background in biochemistry and hospitality. I solve problems with data to create intuitive experiences.</p>
+          <p>🧾 My path to design was unconventional. During my undergraduate degree I studied biochemistry. I worked in a microbiology lab. I taught music and movement with The Calgary Stampede Showband, and moved abroad to volunteer at a medical clinic in Guatemala. I even wrote the MCAT and scored competitively, planning to pursue a career in medicine.</p>
+          <p>🚀 When I discovered UX Design it was like a light bulb turned on. After graduating bootcamp I landed a full-time, remote role in less than 3 months and was promoted to senior designer in just over a year; now I'm helping others do the same.</p>
+          <p>❤️ When I'm not working you can find me mentoring junior designers, arguing with my parrot Cheeto, or finding any excuse possible to book another vacation.</p>
+          <a href="/Emilie_Mazurek_Resume.pdf" target="_blank" rel="noopener" class="about-resume-btn">see resume</a>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="container">
-      <div class="about-bento" role="list" aria-label="About Emilie">
-
-        <!-- Photo -->
-        <div class="bento-tile tile-photo" role="listitem">
-          <img src="/brand_assets/images/DSC03735.jpg" alt="Emilie Mazurek mid-swing, laughing">
-        </div>
-
-        <!-- Bio -->
-        <div class="bento-tile tile-bio card-light" role="listitem">
-          <p class="tile-bio-text">I'm a senior UX designer with a background in biochemistry — which means I'm equally comfortable reading a research paper and shipping a design system. After years in labs, I discovered UX design and never looked back. I landed my first role in under 3 months and made senior in just over a year.</p>
-          <p class="tile-bio-text" style="margin-top:12px">Now I design products that solve real problems, mentor designers who are just starting out, and occasionally beat people in trivia about obscure marching band history.</p>
-        </div>
-
-        <!-- World Champ -->
-        <div class="bento-tile tile-champ" style="background:var(--coral);color:white" role="listitem">
-          <div class="tile-emoji">🏆</div>
-          <div class="tile-label">2× World Marching Band Champion</div>
-          <div class="tile-sub">Calgary Stampede Showband</div>
-        </div>
-
-        <!-- Biochemist -->
-        <div class="bento-tile tile-biochem card-light" role="listitem">
-          <div class="tile-emoji">🧪</div>
-          <div class="tile-label">B.Sc. Biochemistry</div>
-          <div class="tile-sub">University of Calgary</div>
-        </div>
-
-        <!-- K2 -->
-        <div class="bento-tile tile-k2" style="background:var(--dark);color:white" role="listitem">
-          <div class="tile-emoji">⛰️</div>
-          <div class="tile-label">K2 Base Camp</div>
-          <div class="tile-sub">3-week expedition</div>
-        </div>
-
-        <!-- Interviews -->
-        <div class="bento-tile tile-interviews" style="background:var(--periwinkle);color:white" role="listitem">
-          <div class="tile-big-num">100+</div>
-          <div class="tile-sub">user interviews conducted</div>
-        </div>
-
-        <!-- Countries -->
-        <div class="bento-tile tile-countries" style="background:var(--mint);color:var(--dark)" role="listitem">
-          <div class="tile-big-num">23</div>
-          <div class="tile-sub">countries and counting ✈️</div>
-        </div>
-
-        <!-- Cheeto -->
-        <div class="bento-tile tile-cheeto" style="background:var(--pink);color:var(--dark)" role="listitem">
-          <div class="tile-emoji">🦜</div>
-          <div class="tile-label">Cheeto</div>
-          <div class="tile-sub">Has a parrot. Very opinionated.</div>
-        </div>
-
-        <!-- Sax -->
-        <div class="bento-tile tile-sax" style="background:var(--purple);color:white" role="listitem">
-          <div style="display:flex;align-items:center;justify-content:space-between;height:100%;gap:24px">
-            <div>
-              <div class="tile-emoji">🎷</div>
-              <div class="tile-label" style="font-size:20px;margin-bottom:8px">Saxophone player</div>
-              <div class="tile-sub" style="opacity:0.7">Played competitively at the world level. Now mostly for Cheeto.</div>
-            </div>
-            <div style="flex-shrink:0;opacity:0.15;font-family:'ITC Avant Garde',sans-serif;font-weight:800;font-size:80px;line-height:1;letter-spacing:-0.04em">♩</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </main>
 
   <footer class="footer">
