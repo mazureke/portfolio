@@ -10,25 +10,15 @@
   <style>
     /* Hero */
     .about-hero {
-      position: relative;
       width: 100%;
       min-height: 90vh;
-      background-image: url('/brand_assets/images/DSC03735.jpg');
+      background-image: url('/brand_assets/images/DSC03711.jpg');
       background-size: cover;
       background-position: center top;
       display: flex;
       align-items: flex-end;
     }
-    .about-hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%);
-      pointer-events: none;
-    }
     .about-hero-text {
-      position: relative;
-      z-index: 1;
       padding: 0 0 60px;
       width: 100%;
     }
@@ -41,14 +31,31 @@
       color: #fff;
       margin: 0;
       text-transform: lowercase;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.35);
     }
 
     /* Bio */
     .about-bio {
       padding: 80px 0 100px;
     }
+    .about-bio-layout {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
     .about-bio-inner {
-      max-width: 720px;
+      flex: 1;
+      min-width: 0;
+    }
+    .about-bio-photo {
+      flex-shrink: 0;
+      width: 300px;
+    }
+    .about-bio-photo img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+      object-fit: cover;
     }
     .about-bio h2 {
       font-family: 'ITC Avant Garde', sans-serif;
@@ -85,6 +92,10 @@
     .about-resume-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
     .about-resume-btn:active { transform: translateY(0); }
 
+    @media (max-width: 900px) {
+      .about-bio-layout { flex-direction: column-reverse; gap: 40px; }
+      .about-bio-photo { width: 100%; max-width: 340px; }
+    }
     @media (max-width: 768px) {
       .about-hero { min-height: 70vh; }
       .about-hero-text { padding-bottom: 40px; }
@@ -122,13 +133,18 @@
 
     <section class="about-bio">
       <div class="container">
-        <div class="about-bio-inner">
-          <h2>howdy.</h2>
-          <p>🤝 I'm a senior UX designer with a background in biochemistry and hospitality. I solve problems with data to create intuitive experiences.</p>
-          <p>🧾 My path to design was unconventional. During my undergraduate degree I studied biochemistry. I worked in a microbiology lab. I taught music and movement with The Calgary Stampede Showband, and moved abroad to volunteer at a medical clinic in Guatemala. I even wrote the MCAT and scored competitively, planning to pursue a career in medicine.</p>
-          <p>🚀 When I discovered UX Design it was like a light bulb turned on. After graduating bootcamp I landed a full-time, remote role in less than 3 months and was promoted to senior designer in just over a year; now I'm helping others do the same.</p>
-          <p>❤️ When I'm not working you can find me mentoring junior designers, arguing with my parrot Cheeto, or finding any excuse possible to book another vacation.</p>
-          <a href="/Emilie_Mazurek_Resume.pdf" target="_blank" rel="noopener" class="about-resume-btn">see resume</a>
+        <div class="about-bio-layout">
+          <div class="about-bio-inner">
+            <h2>howdy.</h2>
+            <p>🤝 I'm a senior UX designer with a background in biochemistry and hospitality. I solve problems with data to create intuitive experiences.</p>
+            <p>🧾 My path to design was unconventional. During my undergraduate degree I studied biochemistry. I worked in a microbiology lab. I taught music and movement with The Calgary Stampede Showband, and moved abroad to volunteer at a medical clinic in Guatemala. I even wrote the MCAT and scored competitively, planning to pursue a career in medicine.</p>
+            <p>🚀 When I discovered UX Design it was like a light bulb turned on. After graduating bootcamp I landed a full-time, remote role in less than 3 months and was promoted to senior designer in just over a year; now I'm helping others do the same.</p>
+            <p>❤️ When I'm not working you can find me mentoring junior designers, arguing with my parrot Cheeto, or finding any excuse possible to book another vacation.</p>
+            <a href="/Emilie_Mazurek_Resume.pdf" target="_blank" rel="noopener" class="about-resume-btn">see resume</a>
+          </div>
+          <div class="about-bio-photo">
+            <img src="/brand_assets/images/DSC03735.jpg" alt="Emilie Mazurek mid-swing, full body">
+          </div>
         </div>
       </div>
     </section>
