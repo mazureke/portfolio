@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're in! — Emilie Mazurek</title>
+  <meta name="description" content="Thanks for subscribing! Check your email to confirm your subscription.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .thanks-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 96px;
+    }
+
+    .thanks-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px 80px;
+      text-align: center;
+    }
+
+    .thanks-inner {
+      max-width: 520px;
+    }
+
+    .thanks-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+    }
+    .thanks-badge svg {
+      width: 28px;
+      height: 28px;
+      color: var(--dark);
+    }
+
+    .thanks-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 16px;
+    }
+
+    .thanks-h1 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 7vw, 80px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .thanks-lead {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--dark);
+      opacity: 0.6;
+      margin-bottom: 40px;
+    }
+
+    .thanks-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 360px;
+      margin: 0 auto 48px;
+      text-align: left;
+    }
+    .thanks-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--dark);
+      opacity: 0.7;
+      line-height: 1.55;
+    }
+    .thanks-step-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--periwinkle);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .thanks-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      padding: 12px 24px;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .thanks-home-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .thanks-home-btn:active {
+      transform: translateY(0);
+    }
+    .thanks-home-btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .thanks-content {
+        padding: 48px 24px 64px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+        <li><a href="/resources">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="thanks-page">
+    <div class="thanks-content">
+      <div class="thanks-inner">
+
+        <div class="thanks-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+
+        <p class="thanks-eyebrow">Subscribed</p>
+        <h1 class="thanks-h1">you're in!</h1>
+        <p class="thanks-lead">Check your email to confirm your subscription, then watch your inbox for free UX resources.</p>
+
+        <ol class="thanks-steps" aria-label="Next steps">
+          <li class="thanks-step">
+            <span class="thanks-step-num" aria-hidden="true">1</span>
+            Check your inbox for a confirmation email and click the link inside.
+          </li>
+          <li class="thanks-step">
+            <span class="thanks-step-num" aria-hidden="true">2</span>
+            Once confirmed, you'll start receiving free templates, frameworks, and tips.
+          </li>
+          <li class="thanks-step">
+            <span class="thanks-step-num" aria-hidden="true">3</span>
+            Go land that UX role. You've got this.
+          </li>
+        </ol>
+
+        <a href="/" class="thanks-home-btn">
+          ← back to home
+        </a>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home">
+            <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          </a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/resources">Resources</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+  <script>
+    document.querySelector('.nav').classList.add('nav--visible');
+  </script>
+</body>
+</html>

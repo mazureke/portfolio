@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free UX Resources — Emilie Mazurek</title>
+  <meta name="description" content="Subscribe to get free UX resources, templates, and tips from Senior Product Designer Emilie Mazurek.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .sub-page {
+      min-height: 100vh;
+      padding-top: 96px;
+    }
+
+    /* ── Hero ── */
+    .sub-hero {
+      padding: 72px 24px 64px;
+      text-align: center;
+    }
+    .sub-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 20px;
+    }
+    .sub-h1 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 6vw, 72px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+    .sub-lead {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--dark);
+      opacity: 0.6;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── What you'll get ── */
+    .sub-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 360px;
+      margin: 0 auto 48px;
+      text-align: left;
+    }
+    .sub-benefit {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--dark);
+      opacity: 0.75;
+    }
+    .sub-benefit-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mint);
+      flex-shrink: 0;
+    }
+
+    /* ── Form wrapper ── */
+    .sub-form-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 40px 36px;
+    }
+
+    /* ── Kit form overrides ── */
+    .seva-form[data-uid="a9b5005f71"] {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      font-family: 'ITC Avant Garde', sans-serif !important;
+    }
+    .seva-form .formkit-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .seva-form .formkit-field {
+      margin-bottom: 0 !important;
+    }
+    .seva-form .formkit-input {
+      font-family: 'ITC Avant Garde', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 400 !important;
+      padding: 13px 16px !important;
+      border: 1.5px solid #ddd8cc !important;
+      border-radius: var(--radius-sm) !important;
+      color: var(--dark) !important;
+      background: var(--bg) !important;
+      width: 100% !important;
+      line-height: 1.5 !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+    }
+    .seva-form .formkit-input::placeholder {
+      color: rgba(44, 26, 14, 0.38) !important;
+    }
+    .seva-form .formkit-input:focus {
+      border-color: var(--periwinkle) !important;
+    }
+    .seva-form .formkit-submit {
+      font-family: 'ITC Avant Garde', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.01em !important;
+      background-color: var(--mint) !important;
+      color: var(--dark) !important;
+      border-radius: var(--radius-sm) !important;
+      padding: 15px 32px !important;
+      width: 100% !important;
+      border: none !important;
+      cursor: pointer !important;
+      margin-top: 4px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      transition: opacity 0.2s, transform 0.15s !important;
+    }
+    .seva-form .formkit-submit:hover {
+      opacity: 0.85 !important;
+      transform: translateY(-1px) !important;
+    }
+    .seva-form .formkit-submit:active {
+      transform: translateY(0) !important;
+    }
+    .seva-form .formkit-submit:focus-visible {
+      outline: 2px solid var(--purple) !important;
+      outline-offset: 3px !important;
+    }
+    .seva-form .formkit-alert-error {
+      color: var(--coral) !important;
+      font-size: 13px !important;
+      padding: 0 0 12px !important;
+      background: none !important;
+      border: none !important;
+      list-style: disc !important;
+      padding-left: 16px !important;
+    }
+    /* Hide powered by Kit badge */
+    .formkit-powered-by-convertkit-container {
+      display: none !important;
+    }
+
+    /* ── Fine print ── */
+    .sub-fine {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.4;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 560px) {
+      .sub-form-wrap {
+        padding: 28px 20px 24px;
+      }
+      .sub-hero {
+        padding: 56px 24px 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+        <li><a href="/resources">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="sub-page">
+
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Newsletter</span>
+      <h1 class="sub-h1">get free<br>ux resources.</h1>
+      <p class="sub-lead">Templates, frameworks, and tips to help you land your next UX role — straight to your inbox.</p>
+
+      <ul class="sub-benefits" aria-label="What you'll receive">
+        <li class="sub-benefit">
+          <span class="sub-benefit-dot" aria-hidden="true"></span>
+          Portfolio &amp; resume templates
+        </li>
+        <li class="sub-benefit">
+          <span class="sub-benefit-dot" aria-hidden="true"></span>
+          Job search frameworks that actually work
+        </li>
+        <li class="sub-benefit">
+          <span class="sub-benefit-dot" aria-hidden="true"></span>
+          Interview prep guides
+        </li>
+        <li class="sub-benefit">
+          <span class="sub-benefit-dot" aria-hidden="true"></span>
+          Lessons from 80,000+ designers
+        </li>
+      </ul>
+
+      <div class="sub-form-wrap">
+        <script src="https://f.convertkit.com/ckjs/ck.6.js"></script>
+        <form action="https://app.kit.com/forms/6071877/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="6071877" data-uid="a9b5005f71" data-format="inline" data-version="6" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;redirect&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;https://www.dandydesign.ca/thanks&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:false,&quot;url&quot;:&quot;https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;6&quot;}" min-width="400 500 600 700 800"><div data-style="clean"><ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul><div data-element="fields" data-stacked="true" class="seva-fields formkit-fields"><div class="formkit-field"><input class="formkit-input" aria-label="first name" name="fields[first_name]" placeholder="first name" type="text" style="border-color: rgb(234, 234, 234); color: rgb(159, 159, 159); border-radius: 8px; font-weight: 400;"></div><div class="formkit-field"><input class="formkit-input" aria-label="last name" name="fields[last_name]" placeholder="last name" type="text" style="border-color: rgb(234, 234, 234); color: rgb(159, 159, 159); border-radius: 8px; font-weight: 400;"></div><div class="formkit-field"><input class="formkit-input" name="email_address" aria-label="email address" placeholder="email address" required="" type="email" style="border-color: rgb(234, 234, 234); color: rgb(159, 159, 159); border-radius: 8px; font-weight: 400;"></div><button data-element="submit" class="formkit-submit formkit-submit" style="background-color: rgb(125, 211, 178); color: rgb(34, 34, 34); border-radius: 4px; font-weight: 400;"><div class="formkit-spinner"><div></div><div></div><div></div></div><span class="">give me free ux resources</span></button></div></div></form>
+        <p class="sub-fine">No spam, ever. Unsubscribe any time.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home">
+            <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          </a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/resources">Resources</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+  <script>
+    document.querySelector('.nav').classList.add('nav--visible');
+  </script>
+</body>
+</html>
