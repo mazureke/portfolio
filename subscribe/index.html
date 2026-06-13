@@ -349,21 +349,49 @@
     const emailInput = document.getElementById('email_address');
     const emailError = document.getElementById('emailError');
 
-    form.addEventListener('submit', function (e) {
+    // Subscribers land on our own confirmation page after Kit accepts the signup.
+    const THANKS_URL = 'https://dandydesign.ca/thanks';
+
+    function showError(msg) {
+      emailError.textContent = msg;
+      emailError.style.display = 'block';
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
       emailError.style.display = 'none';
 
       const email = emailInput.value.trim();
       const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
       if (!email || !valid) {
-        e.preventDefault();
-        emailError.style.display = 'block';
+        showError('Please enter a valid email address.');
         emailInput.focus();
         return;
       }
 
       btn.disabled = true;
       btn.setAttribute('aria-busy', 'true');
+
+      try {
+        // Submit to Kit via AJAX (url-encoded = no CORS preflight), then redirect
+        // to /thanks ourselves rather than letting Kit render its own page.
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new URLSearchParams(new FormData(form))
+        });
+
+        if (res.ok) {
+          window.location.href = THANKS_URL;
+          return;
+        }
+        throw new Error('Subscription request failed: ' + res.status);
+      } catch (err) {
+        showError('Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+      }
     });
   </script>
 </body>
