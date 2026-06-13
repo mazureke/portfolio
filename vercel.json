@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/subscribe",
+      "has": [
+        { "type": "host", "value": "subscribe.dandydesign.ca" }
+      ]
+    }
+  ]
+}
