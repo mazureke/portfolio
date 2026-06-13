@@ -11,8 +11,7 @@
   <style>
     .sub-page {
       min-height: 100vh;
-      padding-top: 80px;
-      background: var(--off-white);
+      background: var(--bg);
       display: flex;
       align-items: center;
     }
@@ -208,22 +207,6 @@
 <body>
   <a href="#main" class="skip-nav">Skip to main content</a>
 
-  <nav class="nav" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="https://dandydesign.ca/" class="nav-logo" aria-label="Emilie Mazurek — home">
-        <img src="https://dandydesign.ca/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks" role="list">
-        <li><a href="https://dandydesign.ca/#work">Work</a></li>
-        <li><a href="https://dandydesign.ca/about">About</a></li>
-        <li><a href="https://dandydesign.ca/community">Community</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <main id="main" class="sub-page">
     <div class="sub-layout">
 
@@ -304,10 +287,7 @@
     </div>
   </footer>
 
-  <script src="https://dandydesign.ca/nav.js"></script>
   <script>
-    document.querySelector('.nav').classList.add('nav--visible');
-
     const form = document.getElementById('subscribeForm');
     const btn = document.getElementById('submitBtn');
     const emailInput = document.getElementById('email_address');
