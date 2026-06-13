@@ -73,6 +73,26 @@
       margin-bottom: 40px;
     }
 
+    /* Handwritten blue-ink subhead — matches the arrow */
+    .sub-lead--ink {
+      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
+      font-size: 21px;
+      line-height: 1.55;
+      color: #284283;
+      opacity: 1;
+      max-width: 440px;
+      margin-bottom: 8px;
+    }
+
+    /* Sketch arrow underneath the subhead, flipped horizontally + vertically */
+    .sub-arrow {
+      display: block;
+      width: 240px;
+      height: auto;
+      overflow: visible;
+      transform: scale(-1, -1);
+    }
+
     /* ── Right: compact form ── */
     .sub-form-col {
       display: flex;
@@ -201,7 +221,11 @@
       <!-- Left zone: heading -->
       <div class="sub-hero">
         <h1 class="sub-h1">subscribe for<br><em>free ux resources</em></h1>
-        <p class="sub-lead">Receive access to free ux resources, notifications about upcoming events, access live streams and more.</p>
+        <p class="sub-lead sub-lead--ink">Receive access to free ux resources, notifications about upcoming events, access live streams and more.</p>
+        <svg class="sub-arrow" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 16,72 C 150,0 320,40 312,150" stroke="#284283" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M 298,128 L 312,153 L 326,128" stroke="#284283" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
 
       <!-- Right zone: compact form -->
