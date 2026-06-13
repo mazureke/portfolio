@@ -1,11 +1,10 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/subscribe",
-      "has": [
-        { "type": "host", "value": "subscribe.dandydesign.ca" }
-      ]
-    }
+      "src": "/",
+      "has": [{ "type": "host", "value": "subscribe.dandydesign.ca" }],
+      "dest": "/subscribe/index.html"
+    },
+    { "handle": "filesystem" }
   ]
 }
