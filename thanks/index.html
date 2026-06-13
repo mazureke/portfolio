@@ -15,23 +15,18 @@
       align-items: center;
     }
 
-    /* Two-zone grid: heading left, content right */
+    /* Single left-aligned column — matches the Free UX Resources hero */
     .sub-layout {
-      position: relative;
       width: 100%;
       max-width: 1080px;
       margin: 0 auto;
       padding: 80px 24px;
-      display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 56px;
-      align-items: start;
     }
 
-    /* ── Left: hero text ── */
     .sub-hero {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
     }
 
     .sub-eyebrow {
@@ -63,63 +58,8 @@
       line-height: 1.75;
       color: var(--dark);
       opacity: 0.55;
-      max-width: 400px;
+      max-width: 460px;
       margin-bottom: 40px;
-    }
-
-    /* Handwritten annotation — big arrow sweeps from the heading across to the steps */
-    .sub-annotation {
-      position: absolute;
-      top: 110px;
-      left: 50%;
-      width: 50%;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .sub-handwrite {
-      position: absolute;
-      top: 0;
-      left: 4%;
-      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
-      font-size: 19px;
-      color: #284283;
-      transform: rotate(-3deg);
-      white-space: nowrap;
-    }
-
-    .sub-arrow {
-      position: absolute;
-      top: 18px;
-      left: 0;
-      width: 100%;
-      height: auto;
-      overflow: visible;
-    }
-
-    /* ── Right: content column — sits lower than the heading (diagonal composition) ── */
-    .sub-form-col {
-      margin-top: 230px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Success badge */
-    .thanks-badge {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--mint);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 28px;
-      flex-shrink: 0;
-    }
-    .thanks-badge svg {
-      width: 26px;
-      height: 26px;
-      color: var(--dark);
     }
 
     /* Next steps */
@@ -127,6 +67,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
+      max-width: 460px;
       margin: 0 0 36px;
     }
     .thanks-step {
@@ -157,7 +98,6 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      align-self: flex-start;
       font-family: 'ITC Avant Garde', sans-serif;
       font-size: 14px;
       font-weight: 700;
@@ -181,35 +121,9 @@
       outline-offset: 3px;
     }
 
-    /* ── Tablet/mobile: stack ── */
     @media (max-width: 860px) {
       .sub-layout {
-        grid-template-columns: 1fr;
-        gap: 28px;
         padding: 64px 24px;
-        align-items: start;
-      }
-
-      .sub-form-col {
-        margin-top: 0;
-        max-width: 460px;
-      }
-
-      /* Keep the handwritten note in normal flow above the steps; drop the big sweep */
-      .sub-annotation {
-        position: static;
-        width: auto;
-        margin-bottom: 4px;
-        order: 0;
-      }
-
-      .sub-handwrite {
-        position: static;
-        display: inline-block;
-      }
-
-      .sub-arrow {
-        display: none;
       }
     }
   </style>
@@ -219,30 +133,10 @@
 
   <main id="main" class="sub-page">
     <div class="sub-layout">
-
-      <!-- Left zone: heading -->
       <div class="sub-hero">
         <span class="sub-eyebrow">Subscribed</span>
         <h1 class="sub-h1">you're<br><em>in!</em></h1>
         <p class="sub-lead">Check your email to confirm your subscription, then watch your inbox for free UX resources.</p>
-      </div>
-
-      <!-- Handwritten arrow: sweeps from the heading across to the steps -->
-      <div class="sub-annotation" aria-hidden="true">
-        <span class="sub-handwrite">check your inbox 📬</span>
-        <svg class="sub-arrow" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 16,72 C 150,0 320,40 312,150" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-          <path d="M 298,128 L 312,153 L 326,128" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <!-- Right zone: next steps (no input fields) -->
-      <div class="sub-form-col">
-        <div class="thanks-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-        </div>
 
         <ol class="thanks-steps" aria-label="Next steps">
           <li class="thanks-step">
@@ -261,7 +155,6 @@
 
         <a href="/" class="thanks-home-btn">← back to home</a>
       </div>
-
     </div>
   </main>
 
