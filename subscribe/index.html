@@ -5,42 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free UX Resources — Emilie Mazurek</title>
   <meta name="description" content="Subscribe to get free UX resources, templates, and tips from Senior Product Designer Emilie Mazurek.">
-  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="canonical" href="https://subscribe.dandydesign.ca/">
+  <link rel="icon" href="https://dandydesign.ca/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="https://dandydesign.ca/styles.css">
   <style>
     .sub-page {
       min-height: 100vh;
-      padding-top: 96px;
+      padding-top: 80px;
       background: var(--off-white);
       display: flex;
       align-items: center;
     }
 
-    .sub-inner {
+    /* Two-zone grid: heading left, form right */
+    .sub-layout {
       width: 100%;
       max-width: 1120px;
-      padding: 80px 24px;
       margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 80px;
+      align-items: end;
+    }
+
+    /* ── Left: hero text ── */
+    .sub-hero {
+      display: flex;
+      flex-direction: column;
     }
 
     .sub-eyebrow {
-      display: inline-block;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--coral);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .sub-h1 {
       font-family: 'ITC Avant Garde', sans-serif;
       font-weight: 800;
-      font-size: clamp(48px, 8vw, 96px);
+      font-size: clamp(56px, 9.5vw, 116px);
       letter-spacing: -0.03em;
-      line-height: 1.0;
+      line-height: 0.95;
       color: var(--dark);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .sub-h1 em {
@@ -49,44 +60,45 @@
     }
 
     .sub-lead {
-      font-size: 17px;
+      font-size: 16px;
       line-height: 1.75;
       color: var(--dark);
-      opacity: 0.6;
-      max-width: 480px;
+      opacity: 0.55;
+      max-width: 400px;
       margin-bottom: 40px;
     }
 
-    /* Handwritten annotation — borrowed from notebook .nb-note style */
+    /* Handwritten annotation — notebook nb-note style */
     .sub-annotation {
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 48px;
+      align-items: center;
+      gap: 10px;
     }
 
     .sub-handwrite {
       font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
-      font-size: 15px;
+      font-size: 14px;
       color: #284283;
-      line-height: 1.4;
-      transform: rotate(-1.5deg);
+      transform: rotate(-1deg);
       display: inline-block;
     }
 
-    /* Hand-drawn arrow SVG */
     .sub-arrow {
       flex-shrink: 0;
-      margin-top: 4px;
       overflow: visible;
     }
 
-    /* Form — no card wrapper, clean fields */
+    /* ── Right: compact form ── */
+    .sub-form-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
     .sub-form {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      max-width: 420px;
+      gap: 14px;
     }
 
     .sub-field {
@@ -96,12 +108,12 @@
     }
 
     .sub-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--dark);
-      opacity: 0.45;
+      opacity: 0.4;
     }
 
     .sub-input {
@@ -112,7 +124,7 @@
       background: var(--white);
       border: 1.5px solid rgba(26, 26, 26, 0.12);
       border-radius: 10px;
-      padding: 14px 18px;
+      padding: 13px 16px;
       width: 100%;
       box-sizing: border-box;
       outline: none;
@@ -131,19 +143,17 @@
 
     .sub-btn {
       font-family: 'ITC Avant Garde', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: -0.01em;
       background: var(--dark);
       color: var(--white);
       border: none;
       border-radius: 10px;
-      padding: 16px 32px;
+      padding: 15px 24px;
       cursor: pointer;
       margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
       transition: opacity 0.2s, transform 0.15s;
     }
 
@@ -168,26 +178,29 @@
     }
 
     .sub-error {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--coral);
-      margin-top: -4px;
       display: none;
     }
 
     .sub-fine {
-      font-size: 12px;
-      opacity: 0.38;
-      margin-top: 18px;
+      font-size: 11px;
+      opacity: 0.35;
+      margin-top: 14px;
       line-height: 1.6;
     }
 
-    @media (max-width: 560px) {
-      .sub-inner {
+    /* ── Mobile: stack ── */
+    @media (max-width: 720px) {
+      .sub-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
         padding: 60px 24px;
+        align-items: start;
       }
 
-      .sub-h1 {
-        font-size: clamp(40px, 12vw, 64px);
+      .sub-annotation {
+        margin-bottom: 0;
       }
     }
   </style>
@@ -197,71 +210,77 @@
 
   <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
-        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      <a href="https://dandydesign.ca/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="https://dandydesign.ca/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
       </a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks" role="list">
-        <li><a href="/#work">Work</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/community">Community</a></li>
+        <li><a href="https://dandydesign.ca/#work">Work</a></li>
+        <li><a href="https://dandydesign.ca/about">About</a></li>
+        <li><a href="https://dandydesign.ca/community">Community</a></li>
       </ul>
     </div>
   </nav>
 
   <main id="main" class="sub-page">
-    <div class="sub-inner">
-      <span class="sub-eyebrow">Free Newsletter</span>
-      <h1 class="sub-h1">ux resources,<br><em>actually</em> useful.</h1>
-      <p class="sub-lead">Templates, frameworks, and tips to help you land your next UX role — straight to your inbox, no fluff.</p>
+    <div class="sub-layout">
 
-      <!-- Handwritten annotation borrowed from notebook nb-note style -->
-      <div class="sub-annotation" aria-hidden="true">
-        <span class="sub-handwrite">no catch. just good stuff →</span>
-        <svg class="sub-arrow" width="48" height="36" viewBox="0 0 48 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 4,4 C 18,6 36,16 42,30" stroke="#284283" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-          <path d="M 36,28 L 42,30 L 40,24" stroke="#284283" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <!-- Left zone: heading -->
+      <div class="sub-hero">
+        <span class="sub-eyebrow">Free Newsletter</span>
+        <h1 class="sub-h1">ux<br>resources,<br><em>actually</em><br>useful.</h1>
+        <p class="sub-lead">Templates, frameworks, and tips to help you land your next UX role — straight to your inbox, no fluff.</p>
+        <div class="sub-annotation" aria-hidden="true">
+          <span class="sub-handwrite">no catch. just good stuff.</span>
+          <svg class="sub-arrow" width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2,14 C 12,8 28,6 36,14" stroke="#284283" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <path d="M 30,10 L 36,14 L 31,18" stroke="#284283" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
 
-      <form
-        class="sub-form"
-        id="subscribeForm"
-        action="https://app.kit.com/forms/6071877/subscriptions"
-        method="POST"
-        novalidate
-      >
-        <div class="sub-field">
-          <label class="sub-label" for="first_name">First name</label>
-          <input
-            class="sub-input"
-            id="first_name"
-            name="fields[first_name]"
-            type="text"
-            placeholder=""
-            autocomplete="given-name"
-          >
-        </div>
-        <div class="sub-field">
-          <label class="sub-label" for="email_address">Email</label>
-          <input
-            class="sub-input"
-            id="email_address"
-            name="email_address"
-            type="email"
-            placeholder=""
-            required
-            autocomplete="email"
-          >
-          <span class="sub-error" id="emailError" role="alert">Please enter a valid email address.</span>
-        </div>
-        <button class="sub-btn" type="submit" id="submitBtn">
-          give me free ux resources
-        </button>
-      </form>
-      <p class="sub-fine">No spam, ever. Unsubscribe any time.</p>
+      <!-- Right zone: compact form -->
+      <div class="sub-form-col">
+        <form
+          class="sub-form"
+          id="subscribeForm"
+          action="https://app.kit.com/forms/6071877/subscriptions"
+          method="POST"
+          novalidate
+        >
+          <div class="sub-field">
+            <label class="sub-label" for="first_name">First name</label>
+            <input
+              class="sub-input"
+              id="first_name"
+              name="fields[first_name]"
+              type="text"
+              placeholder=""
+              autocomplete="given-name"
+            >
+          </div>
+          <div class="sub-field">
+            <label class="sub-label" for="email_address">Email</label>
+            <input
+              class="sub-input"
+              id="email_address"
+              name="email_address"
+              type="email"
+              placeholder=""
+              required
+              autocomplete="email"
+            >
+            <span class="sub-error" id="emailError" role="alert">Please enter a valid email address.</span>
+          </div>
+          <button class="sub-btn" type="submit" id="submitBtn">
+            give me free ux resources
+          </button>
+        </form>
+        <p class="sub-fine">No spam, ever. Unsubscribe any time.</p>
+      </div>
+
     </div>
   </main>
 
@@ -269,14 +288,14 @@
     <div class="footer-inner">
       <div class="footer-top">
         <div>
-          <a href="/" aria-label="emilie mazurek — home">
-            <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          <a href="https://dandydesign.ca/" aria-label="emilie mazurek — home">
+            <img src="https://dandydesign.ca/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
           </a>
         </div>
         <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="/about">About</a>
-          <a href="/community">Community</a>
-          <a href="/links">Links</a>
+          <a href="https://dandydesign.ca/about">About</a>
+          <a href="https://dandydesign.ca/community">Community</a>
+          <a href="https://dandydesign.ca/links">Links</a>
         </nav>
       </div>
       <div class="footer-bottom">
@@ -285,7 +304,7 @@
     </div>
   </footer>
 
-  <script src="/nav.js"></script>
+  <script src="https://dandydesign.ca/nav.js"></script>
   <script>
     document.querySelector('.nav').classList.add('nav--visible');
 
