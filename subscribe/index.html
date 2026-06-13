@@ -73,36 +73,6 @@
       margin-bottom: 40px;
     }
 
-    /* Handwritten annotation — big arrow sweeps from the heading across to the field */
-    .sub-annotation {
-      position: absolute;
-      top: 110px;
-      left: 50%;
-      width: 50%;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .sub-handwrite {
-      position: absolute;
-      top: 0;
-      left: 4%;
-      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
-      font-size: 19px;
-      color: #284283;
-      transform: rotate(-3deg);
-      white-space: nowrap;
-    }
-
-    .sub-arrow {
-      position: absolute;
-      top: 18px;
-      left: 0;
-      width: 100%;
-      height: auto;
-      overflow: visible;
-    }
-
     /* ── Right: compact form ── */
     .sub-form-col {
       display: flex;
@@ -219,23 +189,6 @@
         margin-top: 0;
         max-width: 460px;
       }
-
-      /* Keep the handwritten note in normal flow above the form; drop the big sweep */
-      .sub-annotation {
-        position: static;
-        width: auto;
-        margin-bottom: 4px;
-        order: 0;
-      }
-
-      .sub-handwrite {
-        position: static;
-        display: inline-block;
-      }
-
-      .sub-arrow {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -249,15 +202,6 @@
       <div class="sub-hero">
         <h1 class="sub-h1">subscribe for<br><em>free ux resources</em></h1>
         <p class="sub-lead">Receive access to free ux resources, notifications about upcoming events, access live streams and more.</p>
-      </div>
-
-      <!-- Handwritten arrow: sweeps from the heading across to the field -->
-      <div class="sub-annotation" aria-hidden="true">
-        <span class="sub-handwrite">no catch. just good stuff.</span>
-        <svg class="sub-arrow" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 16,72 C 150,0 320,40 312,150" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-          <path d="M 298,128 L 312,153 L 326,128" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
       </div>
 
       <!-- Right zone: compact form -->
@@ -277,17 +221,6 @@
               name="fields[first_name]"
               type="text"
               autocomplete="given-name"
-              required
-            >
-          </div>
-          <div class="sub-field">
-            <label class="sub-label" for="last_name">Last name</label>
-            <input
-              class="sub-input"
-              id="last_name"
-              name="fields[last_name]"
-              type="text"
-              autocomplete="family-name"
               required
             >
           </div>
@@ -335,13 +268,12 @@
     const form = document.getElementById('subscribeForm');
     const btn = document.getElementById('submitBtn');
     const firstName = document.getElementById('first_name');
-    const lastName = document.getElementById('last_name');
     const emailInput = document.getElementById('email_address');
     const emailError = document.getElementById('emailError');
 
     // Subscribers land on our own confirmation page after Kit accepts the signup.
     const THANKS_URL = 'https://dandydesign.ca/thanks';
-    const fields = [firstName, lastName, emailInput];
+    const fields = [firstName, emailInput];
 
     function showError(msg) {
       emailError.textContent = msg;
