@@ -8,76 +8,126 @@
   <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
   <link rel="stylesheet" href="/styles.css">
   <style>
-    .thanks-page {
+    .sub-page {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding-top: 96px;
-    }
-
-    .thanks-content {
-      flex: 1;
+      background: var(--bg);
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 64px 24px 80px;
-      text-align: center;
     }
 
-    .thanks-inner {
-      max-width: 520px;
+    /* Two-zone grid: heading left, content right */
+    .sub-layout {
+      position: relative;
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 56px;
+      align-items: start;
     }
 
+    /* ── Left: hero text ── */
+    .sub-hero {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sub-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 24px;
+    }
+
+    .sub-h1 {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: clamp(44px, 6.5vw, 80px);
+      letter-spacing: -0.03em;
+      line-height: 0.96;
+      color: var(--dark);
+      margin-bottom: 28px;
+    }
+
+    .sub-h1 em {
+      color: var(--periwinkle);
+      font-style: normal;
+    }
+
+    .sub-lead {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      opacity: 0.55;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+
+    /* Handwritten annotation — big arrow sweeps from the heading across to the steps */
+    .sub-annotation {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      width: 50%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .sub-handwrite {
+      position: absolute;
+      top: 0;
+      left: 4%;
+      font-family: 'Segoe Print', 'Bradley Hand', 'Apple Chancery', cursive;
+      font-size: 19px;
+      color: #284283;
+      transform: rotate(-3deg);
+      white-space: nowrap;
+    }
+
+    .sub-arrow {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    /* ── Right: content column — sits lower than the heading (diagonal composition) ── */
+    .sub-form-col {
+      margin-top: 230px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Success badge */
     .thanks-badge {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: var(--mint);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 32px;
+      margin-bottom: 28px;
+      flex-shrink: 0;
     }
     .thanks-badge svg {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       color: var(--dark);
     }
 
-    .thanks-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--coral);
-      margin-bottom: 16px;
-    }
-
-    .thanks-h1 {
-      font-family: 'ITC Avant Garde', sans-serif;
-      font-weight: 800;
-      font-size: clamp(40px, 7vw, 80px);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: var(--dark);
-      margin-bottom: 24px;
-    }
-
-    .thanks-lead {
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--dark);
-      opacity: 0.6;
-      margin-bottom: 40px;
-    }
-
+    /* Next steps */
     .thanks-steps {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      max-width: 360px;
-      margin: 0 auto 48px;
-      text-align: left;
+      gap: 14px;
+      margin: 0 0 36px;
     }
     .thanks-step {
       display: flex;
@@ -107,6 +157,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      align-self: flex-start;
       font-family: 'ITC Avant Garde', sans-serif;
       font-size: 14px;
       font-weight: 700;
@@ -130,10 +181,35 @@
       outline-offset: 3px;
     }
 
-    @media (max-width: 480px) {
-      .thanks-content {
-        padding: 48px 24px 64px;
-        align-items: flex-start;
+    /* ── Tablet/mobile: stack ── */
+    @media (max-width: 860px) {
+      .sub-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 64px 24px;
+        align-items: start;
+      }
+
+      .sub-form-col {
+        margin-top: 0;
+        max-width: 460px;
+      }
+
+      /* Keep the handwritten note in normal flow above the steps; drop the big sweep */
+      .sub-annotation {
+        position: static;
+        width: auto;
+        margin-bottom: 4px;
+        order: 0;
+      }
+
+      .sub-handwrite {
+        position: static;
+        display: inline-block;
+      }
+
+      .sub-arrow {
+        display: none;
       }
     }
   </style>
@@ -141,36 +217,32 @@
 <body>
   <a href="#main" class="skip-nav">Skip to main content</a>
 
-  <nav class="nav" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
-        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks" role="list">
-        <li><a href="/#work">Work</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/community">Community</a></li>
-        <li><a href="/resources">Resources</a></li>
-      </ul>
-    </div>
-  </nav>
+  <main id="main" class="sub-page">
+    <div class="sub-layout">
 
-  <main id="main" class="thanks-page">
-    <div class="thanks-content">
-      <div class="thanks-inner">
+      <!-- Left zone: heading -->
+      <div class="sub-hero">
+        <span class="sub-eyebrow">Subscribed</span>
+        <h1 class="sub-h1">you're<br><em>in!</em></h1>
+        <p class="sub-lead">Check your email to confirm your subscription, then watch your inbox for free UX resources.</p>
+      </div>
 
+      <!-- Handwritten arrow: sweeps from the heading across to the steps -->
+      <div class="sub-annotation" aria-hidden="true">
+        <span class="sub-handwrite">check your inbox 📬</span>
+        <svg class="sub-arrow" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 16,72 C 150,0 320,40 312,150" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M 298,128 L 312,153 L 326,128" stroke="#3a4ea3" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Right zone: next steps (no input fields) -->
+      <div class="sub-form-col">
         <div class="thanks-badge" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-
-        <p class="thanks-eyebrow">Subscribed</p>
-        <h1 class="thanks-h1">you're in!</h1>
-        <p class="thanks-lead">Check your email to confirm your subscription, then watch your inbox for free UX resources.</p>
 
         <ol class="thanks-steps" aria-label="Next steps">
           <li class="thanks-step">
@@ -187,11 +259,9 @@
           </li>
         </ol>
 
-        <a href="/" class="thanks-home-btn">
-          ← back to home
-        </a>
-
+        <a href="/" class="thanks-home-btn">← back to home</a>
       </div>
+
     </div>
   </main>
 
@@ -216,10 +286,5 @@
       </div>
     </div>
   </footer>
-
-  <script src="/nav.js"></script>
-  <script>
-    document.querySelector('.nav').classList.add('nav--visible');
-  </script>
 </body>
 </html>
