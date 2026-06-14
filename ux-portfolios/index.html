@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Soft gate: only unlocked Vault subscribers (or a valid ?key= link) may view. -->
+  <script>
+    (function () {
+      var TOKEN = 'vault-7h2k9p', KEY = 'em_vault_unlocked';
+      try {
+        if (new URLSearchParams(location.search).get('key') === TOKEN) localStorage.setItem(KEY, '1');
+        if (localStorage.getItem(KEY) !== '1') location.replace('/resources');
+      } catch (e) { location.replace('/resources'); }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>UX portfolios for inspiration — Emilie Mazurek</title>
+  <meta name="description" content="A curated gallery of 60 UX portfolios worth bookmarking — my favourite examples to draw inspiration from again and again.">
+  <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+    .pf-back {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      opacity: 0.5;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: opacity 0.2s;
+    }
+    .pf-back:hover { opacity: 0.9; }
+    .pf-back:focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 3px; }
+
+    /* ── Gallery grid ── */
+    .pf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-bottom: 100px;
+    }
+    .pf-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--dark);
+      border-radius: 16px;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .pf-card:hover { transform: translateY(-5px); }
+    .pf-card:focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 4px; border-radius: 16px; }
+
+    .pf-thumb {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1.5px solid #CEB897;
+      background: var(--off-white);
+      margin-bottom: 14px;
+      transition: box-shadow 0.25s ease;
+    }
+    .pf-card:hover .pf-thumb { box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+    .pf-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .pf-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pf-name {
+      font-family: 'ITC Avant Garde', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+    .pf-cta {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.35;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .pf-card:hover .pf-cta { opacity: 0.9; }
+    .pf-domain {
+      font-size: 12px;
+      opacity: 0.4;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 860px) {
+      .pf-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .pf-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Emilie Mazurek — home">
+        <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" width="180" height="16">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/community">Community</a></li>
+        <li><a href="/resources" aria-current="page">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <a href="/resources" class="pf-back">← Back to the Vault</a>
+        <p class="eyebrow" style="margin-bottom:16px">The Vault</p>
+        <h1 class="page-title">UX portfolios<br>for inspiration.</h1>
+        <p class="page-lead">Looking for great UX portfolios to draw inspiration? Here are my favourite examples, laid out visually so you can easily reference them again and again.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="pf-grid">
+        <a href="https://www.ralla.studio/about" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/ralla-studio.png" alt="Ralla Studio — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.ralla.studio/about'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Ralla Studio</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">ralla.studio</p>
+        </a>
+        <a href="https://www.perryw.ca/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/perry-wang.png" alt="Perry Wang — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.perryw.ca/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Perry Wang</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">perryw.ca</p>
+        </a>
+        <a href="https://www.strelioff.com/work" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/strelioff.png" alt="Strelioff — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.strelioff.com/work'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Strelioff</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">strelioff.com</p>
+        </a>
+        <a href="https://robin-noguier.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/robin-noguier.png" alt="Robin Noguier — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://robin-noguier.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Robin Noguier</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">robin-noguier.com</p>
+        </a>
+        <a href="https://www.zaidsyed.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/zaid-syed.png" alt="Zaid Syed — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.zaidsyed.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Zaid Syed</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">zaidsyed.com</p>
+        </a>
+        <a href="https://abdussalam.pk/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/abdus-salam.png" alt="Abdus Salam — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://abdussalam.pk/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Abdus Salam</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">abdussalam.pk</p>
+        </a>
+        <a href="https://jaclynchao.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/jaclyn-chao.png" alt="Jaclyn Chao — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://jaclynchao.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Jaclyn Chao</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">jaclynchao.com</p>
+        </a>
+        <a href="https://ivomynttinen.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/ivo-mynttinen.png" alt="Ivo Mynttinen — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://ivomynttinen.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Ivo Mynttinen</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">ivomynttinen.com</p>
+        </a>
+        <a href="https://buzzusborne.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/buzz-usborne.png" alt="Buzz Usborne — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://buzzusborne.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Buzz Usborne</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">buzzusborne.com</p>
+        </a>
+        <a href="https://www.huiranli.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/huiran-li.png" alt="Huiran Li — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.huiranli.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Huiran Li</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">huiranli.com</p>
+        </a>
+        <a href="https://www.faithkaufman.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/faith-kaufman.png" alt="Faith Kaufman — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.faithkaufman.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Faith Kaufman</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">faithkaufman.com</p>
+        </a>
+        <a href="https://www.itsjosie.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/josie.png" alt="Josie — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.itsjosie.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Josie</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">itsjosie.com</p>
+        </a>
+        <a href="https://michaellatwersky.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/michael-latwersky.png" alt="Michael Latwersky — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://michaellatwersky.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Michael Latwersky</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">michaellatwersky.com</p>
+        </a>
+        <a href="https://paniati.com/home" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/paniati.png" alt="Paniati — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://paniati.com/home'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Paniati</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">paniati.com</p>
+        </a>
+        <a href="https://www.kysondana.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/kyson-dana.png" alt="Kyson Dana — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.kysondana.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Kyson Dana</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">kysondana.com</p>
+        </a>
+        <a href="https://www.thatedchao.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/ed-chao.png" alt="Ed Chao — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.thatedchao.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Ed Chao</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">thatedchao.com</p>
+        </a>
+        <a href="https://joshglucas.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/josh-lucas.png" alt="Josh Lucas — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://joshglucas.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Josh Lucas</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">joshglucas.com</p>
+        </a>
+        <a href="https://www.aretoo.design/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/aretoo.png" alt="Aretoo — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.aretoo.design/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Aretoo</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">aretoo.design</p>
+        </a>
+        <a href="https://www.wenjing.io/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/wenjing.png" alt="Wenjing — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.wenjing.io/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Wenjing</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">wenjing.io</p>
+        </a>
+        <a href="https://www.pratibhajoshi.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/pratibha-joshi.png" alt="Pratibha Joshi — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.pratibhajoshi.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Pratibha Joshi</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">pratibhajoshi.com</p>
+        </a>
+        <a href="https://www.josephz.me/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/joseph-z.png" alt="Joseph Z — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.josephz.me/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Joseph Z</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">josephz.me</p>
+        </a>
+        <a href="https://lolajiang.com/index.html" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/lola-jiang.png" alt="Lola Jiang — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://lolajiang.com/index.html'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Lola Jiang</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">lolajiang.com</p>
+        </a>
+        <a href="https://www.tparkes.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/tom-parkes.png" alt="Tom Parkes — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.tparkes.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Tom Parkes</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">tparkes.com</p>
+        </a>
+        <a href="https://adrianharwood.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/adrian-harwood.png" alt="Adrian Harwood — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://adrianharwood.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Adrian Harwood</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">adrianharwood.com</p>
+        </a>
+        <a href="https://www.elizabethwang.design/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/elizabeth-wang.png" alt="Elizabeth Wang — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.elizabethwang.design/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Elizabeth Wang</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">elizabethwang.design</p>
+        </a>
+        <a href="https://heckhouse.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/heck-house.png" alt="Heck House — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://heckhouse.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Heck House</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">heckhouse.com</p>
+        </a>
+        <a href="https://aleksitappura.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/aleksi-tappura.png" alt="Aleksi Tappura — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://aleksitappura.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Aleksi Tappura</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">aleksitappura.com</p>
+        </a>
+        <a href="https://www.chengsuchen.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/chengsu-chen.png" alt="Chengsu Chen — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.chengsuchen.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Chengsu Chen</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">chengsuchen.com</p>
+        </a>
+        <a href="https://www.alexlakas.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/alex-lakas.png" alt="Alex Lakas — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.alexlakas.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Alex Lakas</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">alexlakas.com</p>
+        </a>
+        <a href="https://uxfol.io/maxberger" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/max-berger.png" alt="Max Berger — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://uxfol.io/maxberger'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Max Berger</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">uxfol.io</p>
+        </a>
+        <a href="https://www.audreychou.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/audrey-chou.png" alt="Audrey Chou — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.audreychou.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Audrey Chou</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">audreychou.com</p>
+        </a>
+        <a href="https://ginachee.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/gina-chee.png" alt="Gina Chee — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://ginachee.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Gina Chee</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">ginachee.com</p>
+        </a>
+        <a href="https://www.annadeu.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/anna-deu.png" alt="Anna Deu — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.annadeu.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Anna Deu</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">annadeu.com</p>
+        </a>
+        <a href="https://www.sirirosa.co/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/siri-rosa.png" alt="Siri Rosa — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.sirirosa.co/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Siri Rosa</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">sirirosa.co</p>
+        </a>
+        <a href="https://www.joekndy.design/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/joe-kndy.png" alt="Joe Kndy — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.joekndy.design/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Joe Kndy</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">joekndy.design</p>
+        </a>
+        <a href="https://www.jonnyczar.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/jonny-czar.png" alt="Jonny Czar — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.jonnyczar.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Jonny Czar</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">jonnyczar.com</p>
+        </a>
+        <a href="https://robyndang.github.io/Portfolio/index.html" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/robyn-dang.png" alt="Robyn Dang — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://robyndang.github.io/Portfolio/index.html'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Robyn Dang</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">robyndang.github.io</p>
+        </a>
+        <a href="https://www.leedave.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/lee-dave.png" alt="Lee Dave — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.leedave.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Lee Dave</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">leedave.com</p>
+        </a>
+        <a href="https://www.yukiasakura.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/yuki-asakura.png" alt="Yuki Asakura — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.yukiasakura.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Yuki Asakura</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">yukiasakura.com</p>
+        </a>
+        <a href="https://www.joannecho.me/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/joanne-cho.png" alt="Joanne Cho — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.joannecho.me/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Joanne Cho</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">joannecho.me</p>
+        </a>
+        <a href="https://www.yichenxie.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/yichen-xie.png" alt="Yichen Xie — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.yichenxie.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Yichen Xie</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">yichenxie.com</p>
+        </a>
+        <a href="https://www.rachelyhe.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/rachel-he.png" alt="Rachel He — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.rachelyhe.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Rachel He</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">rachelyhe.com</p>
+        </a>
+        <a href="https://www.kurtwinterdesign.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/kurt-winter.png" alt="Kurt Winter — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.kurtwinterdesign.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Kurt Winter</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">kurtwinterdesign.com</p>
+        </a>
+        <a href="https://www.byelliotowen.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/elliot-owen.png" alt="Elliot Owen — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.byelliotowen.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Elliot Owen</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">byelliotowen.com</p>
+        </a>
+        <a href="https://www.adamriddle.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/adam-riddle.png" alt="Adam Riddle — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.adamriddle.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Adam Riddle</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">adamriddle.com</p>
+        </a>
+        <a href="https://www.jeremy-stokes.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/jeremy-stokes.png" alt="Jeremy Stokes — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.jeremy-stokes.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Jeremy Stokes</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">jeremy-stokes.com</p>
+        </a>
+        <a href="https://michellegore.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/michelle-gore.png" alt="Michelle Gore — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://michellegore.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Michelle Gore</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">michellegore.com</p>
+        </a>
+        <a href="https://verlichen.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/verlichen.png" alt="Verlichen — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://verlichen.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Verlichen</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">verlichen.com</p>
+        </a>
+        <a href="https://www.leah-lee.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/leah-lee.png" alt="Leah Lee — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.leah-lee.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Leah Lee</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">leah-lee.com</p>
+        </a>
+        <a href="https://www.rajivsancheti.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/rajiv-sancheti.png" alt="Rajiv Sancheti — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.rajivsancheti.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Rajiv Sancheti</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">rajivsancheti.com</p>
+        </a>
+        <a href="https://nighot.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/nighot.png" alt="Nighot — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://nighot.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Nighot</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">nighot.com</p>
+        </a>
+        <a href="https://www.ayushwanjari.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/ayush-wanjari.png" alt="Ayush Wanjari — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.ayushwanjari.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Ayush Wanjari</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">ayushwanjari.com</p>
+        </a>
+        <a href="https://www.glorialo.design/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/gloria-lo.png" alt="Gloria Lo — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.glorialo.design/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Gloria Lo</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">glorialo.design</p>
+        </a>
+        <a href="https://arrowww.space/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/arrow.png" alt="Arrow — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://arrowww.space/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Arrow</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">arrowww.space</p>
+        </a>
+        <a href="https://www.oishee.io/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/oishee.png" alt="Oishee — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.oishee.io/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Oishee</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">oishee.io</p>
+        </a>
+        <a href="https://www.ericatsou.com/projects" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/erica-tsou.png" alt="Erica Tsou — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.ericatsou.com/projects'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Erica Tsou</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">ericatsou.com</p>
+        </a>
+        <a href="https://www.greg-wolff.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/greg-wolff.png" alt="Greg Wolff — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.greg-wolff.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Greg Wolff</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">greg-wolff.com</p>
+        </a>
+        <a href="https://www.holyokehirsch.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/holyoke-hirsch.png" alt="Holyoke Hirsch — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.holyokehirsch.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Holyoke Hirsch</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">holyokehirsch.com</p>
+        </a>
+        <a href="https://www.itssharl.ee/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/sharlee.png" alt="Sharlee — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.itssharl.ee/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Sharlee</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">itssharl.ee</p>
+        </a>
+        <a href="https://www.lifeofpai.com/" target="_blank" rel="noopener" class="pf-card">
+          <div class="pf-thumb">
+            <img src="portfolio-thumbs/life-of-pai.png" alt="Life of Pai — portfolio screenshot" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://image.thum.io/get/width/800/crop/600/noanimate/https://www.lifeofpai.com/'">
+          </div>
+          <div class="pf-meta">
+            <span class="pf-name">Life of Pai</span>
+            <span class="pf-cta">View →</span>
+          </div>
+          <p class="pf-domain">lifeofpai.com</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <a href="/" aria-label="emilie mazurek — home">
+            <img src="/brand_assets/Emilie rainbow@3x.png" alt="emilie mazurek" class="footer-logo-img">
+          </a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/about">About</a>
+          <a href="/community">Community</a>
+          <a href="/resources">Resources</a>
+          <a href="/links">Links</a>
+          <a href="/ux-help">UX Help</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Emilie Mazurek. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+</body>
+</html>
