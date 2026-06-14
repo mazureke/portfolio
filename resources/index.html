@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resources — Emilie Mazurek</title>
-  <meta name="description" content="Tools I actually use every day, courses worth the money, and freebies coming soon.">
+  <meta name="description" content="Tools I actually use every day, courses worth the money, and a subscriber-only Vault of free UX resources.">
   <link rel="icon" href="/brand_assets/Rainbow Favicon Bold.svg">
   <link rel="stylesheet" href="/styles.css">
   <style>
@@ -141,11 +141,26 @@
       line-height: 1.6;
     }
 
-    /* ── Placeholder cards ── */
-    .res-card--placeholder {
-      border-color: rgba(206,184,151,0.45);
-      opacity: 0.5;
-      pointer-events: none;
+    /* ── Vault tab: intro + tag badge ── */
+    .vault-intro {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--dark);
+      opacity: 0.6;
+      max-width: 560px;
+      margin-bottom: 32px;
+    }
+    .res-tag {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--coral);
+      background: rgba(232,88,74,0.1);
+      padding: 5px 11px;
+      border-radius: 100px;
+      margin-bottom: 18px;
     }
 
     /* ── Book a session banner ── */
@@ -610,23 +625,44 @@
 
       <!-- THE VAULT (gated) -->
       <div id="tab-vault" class="res-tab-panel" role="tabpanel" hidden>
+        <p class="vault-intro">Boom — you're in. Here are a few of my favourites to get you started. More land here as I find them.</p>
         <div class="res-grid">
 
-          <div class="res-card res-card--placeholder" aria-hidden="true">
-            <p class="res-card-name">Portfolio Inspiration Library</p>
-            <p class="res-card-desc">50+ real UX portfolios curated for inspiration. Recreating this soon.</p>
+          <a href="#" class="res-card res-card--vault">
+            <span class="res-tag">Free</span>
+            <p class="res-card-name">+50 UX portfolios for inspiration</p>
+            <p class="res-card-desc">My favourite UX portfolios, laid out visually so you can reference them again and again while building your own.</p>
             <div class="res-card-footer">
-              <span class="res-card-cta">Coming soon</span>
+              <span class="res-card-cta">View now →</span>
             </div>
-          </div>
+          </a>
 
-          <div class="res-card res-card--placeholder" aria-hidden="true">
-            <p class="res-card-name">More on the way</p>
-            <p class="res-card-desc">Templates, checklists, and resources in the works. Check back soon.</p>
+          <a href="#" class="res-card res-card--vault">
+            <span class="res-tag">Free</span>
+            <p class="res-card-name">The case study factory</p>
+            <p class="res-card-desc">My favourite article — the one I recommend again and again. It revolutionized the way I look at building a portfolio, tearing down all my preconceived notions.</p>
             <div class="res-card-footer">
-              <span class="res-card-cta">Coming soon</span>
+              <span class="res-card-cta">Read now →</span>
             </div>
-          </div>
+          </a>
+
+          <a href="#" class="res-card res-card--vault">
+            <span class="res-tag">Free</span>
+            <p class="res-card-name">Satori Graphics on YouTube</p>
+            <p class="res-card-desc">UI and visual design didn't come naturally to me. After this 10-minute video, things started clicking for the first time.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Watch now →</span>
+            </div>
+          </a>
+
+          <a href="#" class="res-card res-card--vault">
+            <span class="res-tag">Free</span>
+            <p class="res-card-name">UX storytelling guide</p>
+            <p class="res-card-desc">The secret sauce for landing jobs, getting promoted, and building a fulfilling design career. If you want to sharpen your storytelling, start here.</p>
+            <div class="res-card-footer">
+              <span class="res-card-cta">Read now →</span>
+            </div>
+          </a>
 
         </div>
       </div>
