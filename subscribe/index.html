@@ -84,12 +84,14 @@
       margin-bottom: 8px;
     }
 
-    /* Sketch arrow underneath the subhead, sweeping toward the form */
+    /* Sketch arrow underneath the subhead, flipped on the horizontal axis
+       so the tail leaves the paragraph and the tip points at the fields */
     .sub-arrow {
       display: block;
       width: 240px;
       height: auto;
       overflow: visible;
+      transform: scaleY(-1);
     }
 
     /* ── Right: compact form ── */
