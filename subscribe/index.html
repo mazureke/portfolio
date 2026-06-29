@@ -84,10 +84,13 @@
       margin-bottom: 8px;
     }
 
-    /* Sketch arrow: tail leaves the paragraph, tip points right at the fields */
+    /* Sketch arrow: tail leaves the paragraph, tip reaches right toward the
+       fields. Wider than the text column on purpose — overflow is visible so
+       the tip pushes into the gap before the form. */
     .sub-arrow {
       display: block;
-      width: 290px;
+      width: 600px;
+      max-width: 100%;
       height: auto;
       overflow: visible;
     }
@@ -221,9 +224,9 @@
       <div class="sub-hero">
         <h1 class="sub-h1">subscribe for<br><em>free ux resources</em></h1>
         <p class="sub-lead sub-lead--ink">Receive access to free ux resources, notifications about upcoming events, access live streams and more.</p>
-        <svg class="sub-arrow" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M 16,46 C 38,132 152,154 276,94" stroke="#284283" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-          <path d="M 246,74 L 282,94 L 248,114" stroke="#284283" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="sub-arrow" viewBox="0 0 600 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 20,42 C 110,150 410,150 562,84" stroke="#284283" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M 530,62 L 570,84 L 532,106" stroke="#284283" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
