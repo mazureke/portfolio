@@ -89,8 +89,8 @@
   --mint:       #7DD4B0;
   --dark:       #2C1A0E;
   --white:      #FFFFFF;
-  --off-white:  #F8F7F5;
-  --bg:         #f2ede4;
+  --off-white:  #F5F1EA;   /* warm surface — hsl(26,33%,94%) */
+  --bg:         #FCFAF7;   /* warm near-white — hsl(26,38%,98%) */
   --border:     rgba(26,26,26,0.09);
   --radius-sm:  12px;
   --radius-md:  16px;
